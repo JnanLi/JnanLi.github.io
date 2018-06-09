@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="看视频学caffe，做个简要的笔记记录一下。 Caffe简介Blob存储数据及其衍生物。 Layer传输bottom blobs到top blobs。 Net由许多Layers组成，计算正向传播和反向传播的梯度。 Solver更新权重。 Caffe Model ZooAlexNet VGG GoogleNet ResNet … 数据层详解123456789layer &amp;#123;	name: &quot;c">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-09T07:27:03.345Z">
+<meta property="og:updated_time" content="2018-06-09T07:33:05.043Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Caffe">
 <meta name="twitter:description" content="看视频学caffe，做个简要的笔记记录一下。 Caffe简介Blob存储数据及其衍生物。 Layer传输bottom blobs到top blobs。 Net由许多Layers组成，计算正向传播和反向传播的梯度。 Solver更新权重。 Caffe Model ZooAlexNet VGG GoogleNet ResNet … 数据层详解123456789layer &amp;#123;	name: &quot;c">
@@ -92,11 +92,11 @@
 <h3 id="Net"><a href="#Net" class="headerlink" title="Net"></a>Net</h3><p>由许多Layers组成，计算正向传播和反向传播的梯度。</p>
 <h3 id="Solver"><a href="#Solver" class="headerlink" title="Solver"></a>Solver</h3><p>更新权重。</p>
 <h3 id="Caffe-Model-Zoo"><a href="#Caffe-Model-Zoo" class="headerlink" title="Caffe Model Zoo"></a>Caffe Model Zoo</h3><p>AlexNet VGG GoogleNet ResNet …</p>
-<h2 id="数据层详解"><a href="#数据层详解" class="headerlink" title="数据层详解"></a>数据层详解</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">layer &#123;</span><br><span class="line">	name: <span class="string">"cifar"</span>  <span class="comment"># 这个名字是比较随意的</span></span><br><span class="line">	<span class="built_in">type</span>: <span class="string">"Data"</span>  <span class="comment"># 告诉我们的网络第一层是一个数据层</span></span><br><span class="line">	top: <span class="string">"data"</span>  <span class="comment"># 一般用bottom表示输入，top表示输出，多个top表示有多个输出</span></span><br><span class="line">	top: <span class="string">"label"</span>  <span class="comment"># Data层没有输入，只有输出</span></span><br><span class="line">	include &#123;</span><br><span class="line">		phase: TRAIN  <span class="comment"># 训练网络分为训练阶段和测试阶段，如果没写include表示该层即在测试中用到，又在训练中要用到</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="数据层详解"><a href="#数据层详解" class="headerlink" title="数据层详解"></a>数据层详解</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">layer &#123;</span><br><span class="line">	name: <span class="string">"cifar"</span>  <span class="comment"># 这个名字是比较随意的</span></span><br><span class="line">	type: <span class="string">"Data"</span>  <span class="comment"># 告诉我们的网络第一层是一个数据层</span></span><br><span class="line">	top: <span class="string">"data"</span>  <span class="comment"># 一般用bottom表示输入，top表示输出，多个top表示有多个输出</span></span><br><span class="line">	top: <span class="string">"label"</span>  <span class="comment"># Data层没有输入，只有输出</span></span><br><span class="line">	include &#123;</span><br><span class="line">		phase: TRAIN  <span class="comment"># 训练网络分为训练阶段和测试阶段，如果没写include表示该层即在测试中用到，又在训练中要用到</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/09/caffe/" data-id="cji72u5wm0001yw51c3bxri2u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/09/caffe/" data-id="cji731y1200019s51m0y7wk7m" class="article-share-link">Share</a>
       
       
     </footer>
