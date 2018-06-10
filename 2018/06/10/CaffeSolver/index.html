@@ -90,7 +90,7 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Solver"><span class="toc-number">1.</span> <span class="toc-text">Solver</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#网络配置文件位置"><span class="toc-number">1.1.</span> <span class="toc-text">网络配置文件位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代多少个测试样本"><span class="toc-number">1.2.</span> <span class="toc-text">迭代多少个测试样本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试间隔"><span class="toc-number">1.3.</span> <span class="toc-text">测试间隔</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Solver"><span class="toc-number">1.</span> <span class="toc-text">Solver</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#网络配置文件位置"><span class="toc-number">1.1.</span> <span class="toc-text">网络配置文件位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代多少个测试样本"><span class="toc-number">1.2.</span> <span class="toc-text">迭代多少个测试样本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试间隔"><span class="toc-number">1.3.</span> <span class="toc-text">测试间隔</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基础学习率"><span class="toc-number">1.4.</span> <span class="toc-text">基础学习率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#学习率调整的策略"><span class="toc-number">1.5.</span> <span class="toc-text">学习率调整的策略</span></a></li></ol></li></ol>
 		</div>
 		
 		<p>这一期介绍Caffe中的Solver，主要是超参数的配置。                                                                                                                                                                                                                                                                                                  </p>
@@ -129,6 +129,29 @@ var _hmt = _hmt || [];
 <h3 id="网络配置文件位置"><a href="#网络配置文件位置" class="headerlink" title="网络配置文件位置"></a>网络配置文件位置</h3><p>net: “examples/mnist/lenet_train_test.prototxt”<br>也可以分别设置为train_net和test_net：<br>train_net: “examples/mnist/lenet_auto_train.prototxt”<br>test_net: “examples/mnist/lenet_auto_test.prototxt”</p>
 <h3 id="迭代多少个测试样本"><a href="#迭代多少个测试样本" class="headerlink" title="迭代多少个测试样本"></a>迭代多少个测试样本</h3><p>test_iter: 100<br>假设有5000个测试样本，一次测试想跑这5000个则需要设置test_iter×batch=5000</p>
 <h3 id="测试间隔"><a href="#测试间隔" class="headerlink" title="测试间隔"></a>测试间隔</h3><p>test_interval: 1000<br>也就是每训练1000次，才进行一次测试。</p>
+<h3 id="基础学习率"><a href="#基础学习率" class="headerlink" title="基础学习率"></a>基础学习率</h3><p>base_lr： 0.01</p>
+<h3 id="学习率调整的策略"><a href="#学习率调整的策略" class="headerlink" title="学习率调整的策略"></a>学习率调整的策略</h3><p>lr_policy： “inv”</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">policy</th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">fixed</td>
+<td style="text-align:center">保持base_lr不变</td>
+</tr>
+<tr>
+<td style="text-align:center">step</td>
+<td style="text-align:center">还需要设置stepsize，base_lr * gamma ^ (floor(iter / stepsize))</td>
+</tr>
+<tr>
+<td style="text-align:center">exp</td>
+</tr>
+</tbody>
+</table>
   
 	</div>
 		<footer class="article-footer clearfix">
