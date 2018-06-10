@@ -4,10 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Code Blog</title>
+    <title>CaffeSolver | Code Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
+    
+    <meta name="description" content="##">
     
     
     
@@ -77,128 +79,58 @@ var _hmt = _hmt || [];
 </div>
     </header>
     <div id="container" class="clearfix">
-      
-
-<div id="main">
-
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2018/06/10/CaffeSolver/" title="CaffeSolver" itemprop="url">
-      
-        CaffeSolver
-      </a>
-    </h1>
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-           <p itemprop="description" >##</p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2018-06-10T09:43:43.000Z" itemprop="datePublished">2018-06-10</time>
-      
-          <a href="/2018/06/10/CaffeSolver/">阅读更多&raquo;</a>
-      
-    </p>
-
-  </article>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2018/06/09/Caffe网络配置/" title="Caffe网络配置" itemprop="url">
-      
-        Caffe网络配置
-      </a>
-    </h1>
-    
-     
-           <p itemprop="description" >看视频学caffe，做个简要的笔记记录一下。                                                                                                                      </p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2018-06-09T06:13:40.000Z" itemprop="datePublished">2018-06-09</time>
-      
-          <a href="/2018/06/09/Caffe网络配置/">阅读更多&raquo;</a>
-      
-    </p>
-
-  </article>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2018/06/09/hello-world/" title="Hello World" itemprop="url">
-      
-        Hello World
-      </a>
-    </h1>
-    
-     
-           <p itemprop="description" >Welcome to Hexo! This is your very first post.                                                                                              </p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2018-06-09T04:32:08.538Z" itemprop="datePublished">2018-06-09</time>
-      
-          <a href="/2018/06/09/hello-world/">阅读更多&raquo;</a>
-      
-    </p>
-
-  </article>
-</section>
-
-
-</div>
-      <div id="asidepart">
-<div id="authorInfo">
-	
-		<div class="author-logo"></div>		
-	
-	
-	<section class="author-info">
-		
-			<p> 佳男</p>
+      <a href="/2018/06/10/CaffeSolver/" title="CaffeSolver" itemprop="url">CaffeSolver</a>
+  </h1>
+  <p class="article-time">
+    <time datetime="2018-06-10T09:43:43.000Z" itemprop="datePublished">2018-06-10</time>
+  </p>
+</header>
+	<div class="article-content">
 		
 		
-			<p>	水深则流缓，语迟则人贵</p>
+		<div id="toc" class="toc-article">
+			<strong class="toc-title"></strong>
 		
-	</section>
-	 
-	<div class="social-font" class="clearfix">
+		</div>
 		
-		
-		
-		<a href="https://github.com/JnanLi" target="_blank" title="github"></a>
-		
-		
-		<a href="https://www.facebook.com/profile.php?id=100024168943247" target="_blank" title="facebook"></a>
-		
+		<p>##</p>
+  
 	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2018/06/10/CaffeSolver/" data-title="CaffeSolver | Code Blog" data-tsina="" class="share clearfix">
+  </div>
+
 </div>
-<aside class="clearfix">
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
 
-
-  
-
-  
-<div class="tagslist">
-	<p class="asidetitle">Tags</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/Caffe/" title="Caffe">Caffe<sup>1</sup></a></li>
-		
-		</ul>
+<div class="next">
+<a href="/2018/06/09/Caffe网络配置/"  title="Caffe网络配置">
+ <strong>Old:</strong><br/> 
+ <span>Caffe网络配置
+</span>
+</a>
 </div>
 
+</nav>
 
-</aside>
-</div>
+	
+
+</div>  
     </div>
     <footer><div id="footer" >
 	<div class="copyright">
@@ -281,9 +213,85 @@ $(document).ready(function(){
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
 
 
 
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
 
 <script type="text/javascript">
   function footerPosition() {
@@ -301,4 +309,4 @@ $(document).ready(function(){
 
 
   </body>
- </html>
+</html>
