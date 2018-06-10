@@ -135,7 +135,6 @@ var _hmt = _hmt || [];
 <thead>
 <tr>
 <th style="text-align:center">policy</th>
-<th style="text-align:center"></th>
 </tr>
 </thead>
 <tbody>
@@ -149,6 +148,23 @@ var _hmt = _hmt || [];
 </tr>
 <tr>
 <td style="text-align:center">exp</td>
+<td style="text-align:center">base_lr * gamma ^ iter</td>
+</tr>
+<tr>
+<td style="text-align:center">inv</td>
+<td style="text-align:center">还需要设置power，base_lr <em> (1 + gamma </em> iter) ^ (-power) 常用</td>
+</tr>
+<tr>
+<td style="text-align:center">multistep</td>
+<td style="text-align:center">还需要设置stepvalue。</td>
+</tr>
+<tr>
+<td style="text-align:center">poly</td>
+<td style="text-align:center">略</td>
+</tr>
+<tr>
+<td style="text-align:center">sigmoid</td>
+<td style="text-align:center">略</td>
 </tr>
 </tbody>
 </table>
