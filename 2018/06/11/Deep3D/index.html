@@ -2,7 +2,7 @@
  <!DOCTYPE HTML>
 <html >
 <head>
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
     <title>Deep3D CVPR2016 | Code Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
@@ -43,11 +43,11 @@ var _hmt = _hmt || [];
   })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
 
   _st('install','.............Add your swiftype userID...............');
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
   <body>
-    <header>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
       <div>
 		
 			<div id="textlogo">
@@ -95,7 +95,7 @@ var _hmt = _hmt || [];
 		
 		<p>Deep3D is trained directly on stereo pairs from a dataset of 3D movies to minimize the pixel-wise reconstruction error of the right view when given the left view.<br>We should first notice that inferring depth (or disparity) from a single image is a highly under-constrained problem. In additionto <strong>depth ambiguities</strong>, some pixels in the novel view correspond to geometry that’s <strong>not visible</strong> in the available view, which causes missing data that must be hallucinated with an in-painting algorithm.</p>
 <p>In spite of these difficulties, our intuition is that given the vast number of stereo-frame pairs that exist in already-produced 3D movies it should be possible to train a machine learning model to predict the novel view from the given view. To that end, we design a deep neural network that takes as input the left eye’s view, <em>internally estimates a soft (probabilistic) disparity map</em>, and then <em>renders a novel image for the right eye</em>.</p>
-<h1 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h1><p><img src="/2018/06/11/Deep3D/ModelArchitecture.jpg" alt="Model Architecture"></p>
+<h1 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h1><p><img src="Deep3D/ModelArchitecture.jpg" alt="Model Architecture"></p>
 <p>Our network has a branch after each pooling layer that unsamples the incoming feature maps using so-called “deconvolution” <strong>反卷积</strong> layers (i.e., a learned unsampling filter). <em>The upsampled feature maps</em> from each level are <em>summed together</em> to give a feature representation that <em>has the same size as the input image</em>.</p>
 <p>We perform one more convolution on the summed feature representation and apply a softmax transform. The output of this softmax layer is interpreted as a probabilistic disparity map. And then feed this disparity map and the left view to the selection layer, which outputs the right view.</p>
 <h1 id="Selection-Layer"><a href="#Selection-Layer" class="headerlink" title="Selection Layer"></a>Selection Layer</h1><p>Our network predicts a probability distribution across possible <strong>disparity</strong> values <strong>d</strong> at each pixel location: $$D_{i,j}^d$$, where $$\sum_d D_{i,j}^d = 1$$ for all i, j.</p>
@@ -289,7 +289,7 @@ $(document).ready(function(){
   }
   footerPosition();
   $(window).resize(footerPosition);
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
   </body>
