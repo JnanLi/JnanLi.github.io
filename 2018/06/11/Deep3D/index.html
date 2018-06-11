@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Caffe制作LMDB数据源训练分类网络 | Code Blog</title>
+    <title>Deep3D CVPR2016 | Code Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
     
-    <meta name="description" content="这一期介绍一下在Caffe中制作LMDB数据源的过程。                                                                                                                           ">
+    <meta name="description" content="Deep3D is trained directly on stereo pairs from a dataset of 3D movies to minimize the pixel-wise reconstruction error of the right view when given th">
     
     
     
@@ -79,10 +79,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/11/CaffeLMDB/" title="Caffe制作LMDB数据源训练分类网络" itemprop="url">Caffe制作LMDB数据源训练分类网络</a>
+      <a href="/2018/06/11/Deep3D/" title="Deep3D CVPR2016" itemprop="url">Deep3D CVPR2016</a>
   </h1>
   <p class="article-time">
-    <time datetime="2018-06-11T01:39:23.000Z" itemprop="datePublished">2018-06-11</time>
+    <time datetime="2018-06-11T04:42:37.000Z" itemprop="datePublished">2018-06-11</time>
   </p>
 </header>
 	<div class="article-content">
@@ -90,24 +90,22 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Caffe-sh"><span class="toc-number">1.</span> <span class="toc-text">Caffe .sh</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Model-Architecture"><span class="toc-number">1.</span> <span class="toc-text">Model Architecture</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Selection-Layer"><span class="toc-number">2.</span> <span class="toc-text">Selection Layer</span></a></li></ol>
 		</div>
 		
-		<p>这一期介绍一下在Caffe中制作LMDB数据源的过程。                                                                                                                                                                                                                                                                                                    </p>
-<h2 id="Caffe-sh"><a href="#Caffe-sh" class="headerlink" title="Caffe .sh"></a>Caffe .sh</h2><p>假设你有一个文件夹face_detect。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Example=/home/path/to/face_detect</span><br><span class="line"></span><br><span class="line">Data=/home/path/to/face_detect</span><br><span class="line">Tools=/home/path/to/caffe/build/tools</span><br><span class="line"></span><br><span class="line">TRAIN_DATA_ROOT=/home/path/to/face_detect/train/</span><br><span class="line">VAL_DATA_ROOT=/home/path/to/face_detect/val/</span><br></pre></td></tr></table></figure>
-<p>如果RESIZE=true，修改RESIZE_HEIGHT和RESIZE_WIDTH。<br>运行sh文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh face-lmdb.sh</span><br></pre></td></tr></table></figure>
-<p>还有一个要修改的地方：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"Creating train lmdb..."</span></span><br><span class="line"></span><br><span class="line">GLOG_logtostderr=1 <span class="variable">$TOOLS</span>/convert_image \</span><br><span class="line">    --resize_height=<span class="variable">$RESIZE_HEIGHT</span> \</span><br><span class="line">    --resize_width=<span class="variable">$RESIZE_WIDTH</span> \</span><br><span class="line">    --shuffle \</span><br><span class="line">    <span class="variable">$TRAIN_DATA_ROOT</span> \</span><br><span class="line">    <span class="variable">$DATA</span>/train.txt \</span><br><span class="line">    <span class="variable">$EXAMPLE</span>/face_train_lmdb</span><br></pre></td></tr></table></figure>
-<p>上面的train.txt可以自己跑个python程序来制作，face_train_lmdb是存放lmdb的文件夹。</p>
+		<p>Deep3D is trained directly on stereo pairs from a dataset of 3D movies to minimize the pixel-wise reconstruction error of the right view when given the left view.<br>We should first notice that inferring depth (or disparity) from a single image is a highly under-constrained problem. In additionto <strong>depth ambiguities</strong>, some pixels in the novel view correspond to geometry that’s <strong>not visible</strong> in the available view, which causes missing data that must be hallucinated with an in-painting algorithm.</p>
+<p>In spite of these difficulties, our intuition is that given the vast number of stereo-frame pairs that exist in already-produced 3D movies it should be possible to train a machine learning model to predict the novel view from the given view. To that end, we design a deep neural network that takes as input the left eye’s view, <em>internally estimates a soft (probabilistic) disparity map</em>, and then <em>renders a novel image for the right eye</em>.</p>
+<h1 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h1><p><img src="/2018/06/11/Deep3D/ModelArchitecture.jpg" alt="Model Architecture"></p>
+<p>Our network has a branch after each pooling layer that unsamples the incoming feature maps using so-called “deconvolution” <strong>反卷积</strong> layers (i.e., a learned unsampling filter). <em>The upsampled feature maps</em> from each level are <em>summed together</em> to give a feature representation that <em>has the same size as the input image</em>.</p>
+<p>We perform one more convolution on the summed feature representation and apply a softmax transform. The output of this softmax layer is interpreted as a probabilistic disparity map. And then feed this disparity map and the left view to the selection layer, which outputs the right view.</p>
+<h1 id="Selection-Layer"><a href="#Selection-Layer" class="headerlink" title="Selection Layer"></a>Selection Layer</h1><p>Our network predicts a probability distribution across possible <strong>disparity</strong> values <strong>d</strong> at each pixel location: D<sup>d</sup><sub>i,j</sub>, where \sum<sub>d</sub> D<sup>d</sup><sub>i,j</sub> = 1 for all i, j.</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Caffe/">Caffe</a><a href="/tags/LMDB/">LMDB</a>
+  <span></span> <a href="/tags/Depth-Estimation/">Depth Estimation</a>
   </div>
 
 
@@ -115,7 +113,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/06/11/CaffeLMDB/" data-title="Caffe制作LMDB数据源训练分类网络 | Code Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/06/11/Deep3D/" data-title="Deep3D CVPR2016 | Code Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -124,19 +122,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/06/11/Deep3D/" title="Deep3D CVPR2016">
-  <strong>Previous:</strong><br/>
-  <span>
-  Deep3D CVPR2016</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/06/10/CaffeSolver/"  title="CaffeSolver">
+<a href="/2018/06/11/CaffeLMDB/"  title="Caffe制作LMDB数据源训练分类网络">
  <strong>Next:</strong><br/> 
- <span>CaffeSolver
+ <span>Caffe制作LMDB数据源训练分类网络
 </span>
 </a>
 </div>
