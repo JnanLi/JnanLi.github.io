@@ -4,12 +4,10 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>DisparityDataset CVPR2016 | Code Blog</title>
+    <title>读 人类简史 | Code Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
-    
-    <meta name="description" content="这期记录一篇CVPR2016年的文章，介绍了一个用于scene flow estimation的数据集，希望之后我能把这个数据集用到自己的论文里。                                                                             ">
     
     
     
@@ -79,10 +77,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/12/DisparityDataset/" title="DisparityDataset CVPR2016" itemprop="url">DisparityDataset CVPR2016</a>
+      <a href="/2018/06/12/人类简史/" title="读 人类简史" itemprop="url">读 人类简史</a>
   </h1>
   <p class="article-time">
-    <time datetime="2018-06-12T00:30:37.000Z" itemprop="datePublished">2018-06-12</time>
+    <time datetime="2018-06-12T06:41:29.000Z" itemprop="datePublished">2018-06-12</time>
   </p>
 </header>
 	<div class="article-content">
@@ -90,33 +88,19 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Main-contributions"><span class="toc-number">1.</span> <span class="toc-text">Main contributions:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scene-flow的定义"><span class="toc-number">2.</span> <span class="toc-text">scene flow的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#论文提出了三个数据子集"><span class="toc-number">3.</span> <span class="toc-text">论文提出了三个数据子集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DispNet"><span class="toc-number">4.</span> <span class="toc-text">DispNet</span></a></li></ol>
+		
 		</div>
 		
-		<p>这期记录一篇CVPR2016年的文章，介绍了一个用于scene flow estimation的数据集，希望之后我能把这个数据集用到自己的论文里。                                                                                                                                                                                                                                             </p>
-<h1 id="Main-contributions"><a href="#Main-contributions" class="headerlink" title="Main contributions:"></a>Main contributions:</h1><p><strong>Our datasets are the first large-scale datasets to enable training and evaluation of scene flow methods.</strong><br><strong>Present a convolutional network for real-time disparity estimation that provides state-of-the-art results.</strong></p>
-<p>By combining a flow and disparity estimation network and training it jointly, we demonstrate the first scene flow estimation with a convolutional network.</p>
-<h1 id="scene-flow的定义"><a href="#scene-flow的定义" class="headerlink" title="scene flow的定义"></a>scene flow的定义</h1><p>Optimal flow是3D运动在2D平面上的投影。Scene flow被认为是可以从立体视频或者RGBD视频中计算出的潜在3D运动场。假定有t和t+1时间的立体图像对，即有(I<sup>t</sup><sub>L</sub>, I<sup>t</sup><sub>R</sub>, I<sup>t+1</sup><sub>L</sub>, I<sup>t+1</sup><sub>R</sub>)。Scene flow在已知相机内外部参数的情况下，为四张图像中每一个可见点提供其3D位置和3D运动向量。</p>
-<p><img src="/2018/06/12/DisparityDataset/Scene.gif" alt="Scene Flow"></p>
-<p>红色箭头表示就是来估计scene flow的。</p>
-<h1 id="论文提出了三个数据子集"><a href="#论文提出了三个数据子集" class="headerlink" title="论文提出了三个数据子集"></a>论文提出了三个数据子集</h1><p>这部分没仔细看。</p>
-<h1 id="DispNet"><a href="#DispNet" class="headerlink" title="DispNet"></a>DispNet</h1><p>For disparity estimation we propose the basic architecture DispNet described in below:</p>
-<p><img src="/2018/06/12/DisparityDataset/DispNet.JPG" alt="DispNet"></p>
-  
+		  
 	</div>
 		<footer class="article-footer clearfix">
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Disparity/">Disparity</a><a href="/tags/Dataset/">Dataset</a>
-  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/06/12/DisparityDataset/" data-title="DisparityDataset CVPR2016 | Code Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/06/12/人类简史/" data-title="读 人类简史 | Code Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -125,19 +109,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/06/12/人类简史/" title="读 人类简史">
-  <strong>Previous:</strong><br/>
-  <span>
-  读 人类简史</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/06/11/Deep3D/"  title="Deep3D ECCV2016">
+<a href="/2018/06/12/DisparityDataset/"  title="DisparityDataset CVPR2016">
  <strong>Next:</strong><br/> 
- <span>Deep3D ECCV2016
+ <span>DisparityDataset CVPR2016
 </span>
 </a>
 </div>
