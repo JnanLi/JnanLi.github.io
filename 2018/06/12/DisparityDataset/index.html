@@ -9,6 +9,8 @@
     
     <meta name="author" content="LI jianan">
     
+    <meta name="description" content="这期记录一篇CVPR2016年的文章，介绍了一个用于scene flow estimation的数据集，希望之后我能把这个数据集用到自己的论文里。                                                                             ">
+    
     
     
     
@@ -88,12 +90,22 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Main-contributions"><span class="toc-number">1.</span> <span class="toc-text">Main contributions:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scene-flow的定义"><span class="toc-number">2.</span> <span class="toc-text">scene flow的定义</span></a></li></ol>
 		</div>
 		
-		  
+		<p>这期记录一篇CVPR2016年的文章，介绍了一个用于scene flow estimation的数据集，希望之后我能把这个数据集用到自己的论文里。                                                                                                                                                                                                                                             </p>
+<h1 id="Main-contributions"><a href="#Main-contributions" class="headerlink" title="Main contributions:"></a>Main contributions:</h1><p><strong>Our datasets are the first large-scale datasets to enable training and evaluation of scene flow methods.</strong><br><strong>Present a convolutional network for real-time disparity estimation that provides state-of-the-art results.</strong></p>
+<p>By combining a flow and disparity estimation network and training it jointly, we demonstrate the first scene flow estimation with a convolutional network.</p>
+<h1 id="scene-flow的定义"><a href="#scene-flow的定义" class="headerlink" title="scene flow的定义"></a>scene flow的定义</h1><p>Optimal flow是3D运动在2D平面上的投影。Scene flow被认为是可以从立体视频或者RGBD视频中计算出的潜在3D运动场。假定有t和t+1时间的立体图像对，即有(I_L^t, I_R^t, I_L^{t+1}, I_R^{t+1})。Scene flow在已知相机内外部参数的情况下，为四张图像中每一个可见点提供其3D位置和3D运动向量。</p>
+<p><img src="/2018/06/12/DisparityDataset/Scene.gif" alt="Scene Flow"></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Disparity/">Disparity</a><a href="/tags/Dataset/">Dataset</a>
+  </div>
 
 
 

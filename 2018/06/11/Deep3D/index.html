@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
 <h1 id="Selection-Layer"><a href="#Selection-Layer" class="headerlink" title="Selection Layer"></a>Selection Layer</h1><p>Our network predicts a probability distribution across possible <strong>disparity</strong> values <strong>d</strong> at each pixel location: D_{i, j}^d, where /sum D_{i, j}^d = 1 for all i, j. We define a shifted stack of the left view as I_{i, j}^d = I_{i, j-d}, then the selection layer reconstructs the right view with:</p>
 <p><img src="/2018/06/11/Deep3D/reconstruct.jpg" alt="Reconstruct"></p>
 <p>Compute an L1 loss between the output and ground-truth right view Y as the training objective.</p>
-<p>L = |O - Y|</p>
+<p><strong>L = |O - Y|</strong></p>
   
 	</div>
 		<footer class="article-footer clearfix">
