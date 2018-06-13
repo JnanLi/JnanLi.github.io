@@ -90,13 +90,20 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深度与视差的关系"><span class="toc-number">2.</span> <span class="toc-text">深度与视差的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络结构"><span class="toc-number">3.</span> <span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CNN模块"><span class="toc-number">4.</span> <span class="toc-text">CNN模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#损失函数"><span class="toc-number">5.</span> <span class="toc-text">损失函数</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深度与视差的关系"><span class="toc-number">2.</span> <span class="toc-text">深度与视差的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方法"><span class="toc-number">3.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#损失函数"><span class="toc-number">3.1.</span> <span class="toc-text">损失函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络结构"><span class="toc-number">4.</span> <span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CNN模块"><span class="toc-number">5.</span> <span class="toc-text">CNN模块</span></a></li></ol>
 		</div>
 		
 		<p>这一期的内容是无监督CNN网络在单目深度估计上的应用，也是我研究的主要方向。                                                                                                                                                                                                                                                                           </p>
 <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>使用大量人工标定的数据进行训练是大多数现有卷积神经网络的重要的弊端。本文提出一种无监督的深层卷积神经网络框架用于预测单目图像的深度，它不需要经过预训练或带标签的真实深度数据。我们通过一个类似自动编码器（autoencoder）的方式训练网络来实现这一点。在训练阶段，我们考虑使用已知相机运动信息的图像对，如双目立体图像对。我们训练卷积编码器以完成对源图像预测深度图的任务。为此，我们利用预测的深度和已知的试图间的位移，通过逆变形（inverse warp）生成目标图像，也即重建源图像。重建的光度学误差即为编码器的重建损失。这种训练数据的获取要比其它相同系统简单得多，它无需人工标定，也不需要对摄像机进行的深度传感器进行校准。结果显示，我们的网络在使用不到一半的KITTI数据集，提供了与目前最先进的基于监督学习的单视图深度估计方法相同的性能。</p>
 <h1 id="深度与视差的关系"><a href="#深度与视差的关系" class="headerlink" title="深度与视差的关系"></a>深度与视差的关系</h1><p>在无监督的单目图像深度估计中，主要利用双目图像间的视差和图像深度之间的线性关系，将训练过程看作一个图像重建的问题。</p>
 <p><img src="/2018/06/13/Unsupervised/dd.png" alt="dd"></p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>This approach can be interpreted in the context of convolutional autoen-coders. The task in a standard autoencoder is to encode the input with a seriesof non-linear operations to a compressed code that captures suﬃcient core infor-mation so that a decoder can reconstruct the input with minimal reconstructionerror. In our case we replace the decoder with a standard geometric image warp,based on the predicted depth map and the relative camera positions. This has two advantages: ﬁrst, the decoder in our case does not need to be learnt, sinceit is already a well-understood geometric operation; second, our reconstructionloss naturally encourages the code to be the correct depth image. </p>
+<p>这种方法可以在卷积自动编码器的背景下解释。标准编码器的任务是用一系列非线性运算对输入进行编码以捕获足够的核心信息。目的是解码器能够以最小的重建误差重建输入。在我们的例子中，我们根据预测的深度图和相机位置参数用一个标准的几何图像变换来代替编码器。这有两个好处：1.我们的解码器不需要学习，因为它已经是一个很好理解的几何操作；2.重建误差能够支持我们得到正确的深度图。</p>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>损失函数是一个可微（便于反向传播）并且和预测误差具有高度相关性。</p>
+<p><img src="/2018/06/13/Unsupervised/loss.png" alt="globalloss"></p>
+<p>其中，E<sub>recons</sub>为图像重建损失函数，E<sub>smooth</sub>为对视差图的平滑损失函数。</p>
+<p><img src="/2018/06/13/Unsupervised/loss1.png" alt="reconsloss"><br><img src="/2018/06/13/Unsupervised/loss2.png" alt="smoothloss"></p>
+<p>上式中，I<sup>i</sup>表示第i个图像对，其中i为在[1,N]范围内的整数，f为相机的焦距，B为水平放置的两个相机间的距离，d<sub>i</sub>(x)为I<sub>1</sub>对应的深度图，I<sub>w</sub>=I<sub>2</sub>(x+fB/d(x))为重建图像，γ是对深度图施加平滑的权重。</p>
 <h1 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h1><p>根据上述深度与视差的关系，视差图可以看作是按比例缩小的深度的逆，这个比例即为fB。</p>
 <p><img src="/2018/06/13/Unsupervised/network.png" alt="network"></p>
 <p><strong>part 1. 编码器，是一个传统的卷积网络，将输入的左视图(I1)映射为深度图；</strong><br><strong>part 2. 解码器，明确地将编码器的输出转换为视差图，通过扫描线(scan-line)上移动右视图(I<sub>2</sub>)的像素来获得反向变形(backward warp)图像(I<sub>w</sub>)；</strong><br><strong>part 3. 通过简单的损失函数来匹配重建的输出图像Iw和编码器输入的图像I<sub>1</sub>;</strong><br><strong>训练时，我们最小化包含视差图平滑（用以解决缝隙问题）的重建损失函数；</strong><br><strong>测试时，基于训练时给定的由fB构成的场景尺度，预测单视图的视差。</strong></p>
@@ -108,11 +115,6 @@ var _hmt = _hmt || [];
 <h1 id="CNN模块"><a href="#CNN模块" class="headerlink" title="CNN模块"></a>CNN模块</h1><p>本文的CNN采用了全卷积网络(FCN)以达到粗糙到精细的预测。</p>
 <p><img src="/2018/06/13/Unsupervised/CNN.png" alt="CNN"></p>
 <p>图中：C（红色）- 卷积、P（黄）- pooling、N（紫）- 归一化、F（绿）- FCN、D（蓝）- 上采样</p>
-<h1 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h1><p>损失函数是一个可微（便于反向传播）并且和预测误差具有高度相关性。</p>
-<p><img src="/2018/06/13/Unsupervised/loss.png" alt="globalloss"></p>
-<p>其中，E<sub>recons</sub>为图像重建损失函数，E<sub>smooth</sub>为对视差图的平滑损失函数。</p>
-<p><img src="/2018/06/13/Unsupervised/loss1.png" alt="reconsloss"><br><img src="/2018/06/13/Unsupervised/loss2.png" alt="smoothloss"></p>
-<p>上式中，I<sup>i</sup>表示第i个图像对，其中i为在[1,N]范围内的整数，f为相机的焦距，B为水平放置的两个相机间的距离，d<sub>i</sub>(x)为I<sub>1</sub>对应的深度图，I<sub>w</sub>=I<sub>2</sub>(x+fB/d(x))为重建图像，γ是对深度图施加平滑的权重 。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
