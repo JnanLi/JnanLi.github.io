@@ -99,7 +99,7 @@ var _hmt = _hmt || [];
 <p><img src="/2018/06/13/Unsupervised/dd.png" alt="dd"></p>
 <h1 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h1><p>根据上述深度与视差的关系，视差图可以看作是按比例缩小的深度的逆，这个比例即为fB。</p>
 <p><img src="/2018/06/13/Unsupervised/network.png" alt="network"></p>
-<p><strong>part 1. 编码器，是一个传统的卷积网络，将输入的左视图(I1)映射为深度图；</strong><br><strong>part 2. 解码器，明确地将编码器的输出转换为视差图，通过扫描线（scan-line)上移动右视图（I<sub>2</sub>)的像素来获得反向变形（backward warp）图像（I<sub>w</sub>)；</strong><br><strong>part 3. 通过简单的损失函数来匹配重建的输出图像Iw和编码器输入的图像I<sub>1</sub>;</strong><br><strong>训练时，我们最小化包含视差图平滑（用以解决缝隙问题）的重建损失函数；</strong><br><strong>测试时，基于训练时给定的由fB构成的场景尺度，预测单视图的视差。</strong></p>
+<p><strong>part 1. 编码器，是一个传统的卷积网络，将输入的左视图(I1)映射为深度图；</strong><br><strong>part 2. 解码器，明确地将编码器的输出转换为视差图，通过扫描线(scan-line)上移动右视图(I<sub>2</sub>)的像素来获得反向变形(backward warp)图像(I<sub>w</sub>)；</strong><br><strong>part 3. 通过简单的损失函数来匹配重建的输出图像Iw和编码器输入的图像I<sub>1</sub>;</strong><br><strong>训练时，我们最小化包含视差图平滑（用以解决缝隙问题）的重建损失函数；</strong><br><strong>测试时，基于训练时给定的由fB构成的场景尺度，预测单视图的视差。</strong></p>
 <p>文中提到一个backward (inverse) warp的概念，这是一个细节，下面介绍一下关于Forward warp和Backward warp的概念，如下图所示：</p>
 <p><img src="/2018/06/13/Unsupervised/backward.png" alt="backward"></p>
 <p>假设经过CNN网络得到的图像深度Dl=F(Il)，那么</p>
