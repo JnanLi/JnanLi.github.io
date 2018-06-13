@@ -4,12 +4,12 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>DisparityDataset CVPR2016 | LI jianan&#39;s Blog</title>
+    <title>Deep3D Fully Automatic 2D-to-3D Video Conversion CVPR2016 | LI jianan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
     
-    <meta name="description" content="这期记录一篇CVPR2016年的文章，介绍了一个用于scene flow estimation的数据集，希望之后我能把这个数据集用到自己的论文里。                                                                             ">
+    <meta name="description" content="Deep3D is trained directly on stereo pairs from a dataset of 3D movies to minimize the pixel-wise reconstruction error of the right view              ">
     
     
     
@@ -79,10 +79,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/12/DisparityDataset/" title="DisparityDataset CVPR2016" itemprop="url">DisparityDataset CVPR2016</a>
+      <a href="/2018/06/11/Deep3D/" title="Deep3D Fully Automatic 2D-to-3D Video Conversion CVPR2016" itemprop="url">Deep3D Fully Automatic 2D-to-3D Video Conversion CVPR2016</a>
   </h1>
   <p class="article-time">
-    <time datetime="2018-06-12T00:30:37.000Z" itemprop="datePublished">2018-06-12</time>
+    <time datetime="2018-06-11T04:42:37.000Z" itemprop="datePublished">2018-06-11</time>
   </p>
 </header>
 	<div class="article-content">
@@ -90,27 +90,27 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Main-contributions"><span class="toc-number">1.</span> <span class="toc-text">Main contributions:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scene-flow的定义"><span class="toc-number">2.</span> <span class="toc-text">scene flow的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#论文提出了三个数据子集"><span class="toc-number">3.</span> <span class="toc-text">论文提出了三个数据子集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DispNet"><span class="toc-number">4.</span> <span class="toc-text">DispNet</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Model-Architecture"><span class="toc-number">1.</span> <span class="toc-text">Model Architecture</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Selection-Layer"><span class="toc-number">2.</span> <span class="toc-text">Selection Layer</span></a></li></ol>
 		</div>
 		
-		<p>这期记录一篇CVPR2016年的文章，介绍了一个用于scene flow estimation的数据集，希望之后我能把这个数据集用到自己的论文里。                                                                                                                                                                                                                                             </p>
-<h1 id="Main-contributions"><a href="#Main-contributions" class="headerlink" title="Main contributions:"></a>Main contributions:</h1><p><strong>Our datasets are the first large-scale datasets to enable training and evaluation of scene flow methods.</strong><br><strong>Present a convolutional network for real-time disparity estimation that provides state-of-the-art results.</strong></p>
-<p>By combining a flow and disparity estimation network and training it jointly, we demonstrate the first scene flow estimation with a convolutional network.</p>
-<h1 id="scene-flow的定义"><a href="#scene-flow的定义" class="headerlink" title="scene flow的定义"></a>scene flow的定义</h1><p>Optimal flow是3D运动在2D平面上的投影。Scene flow被认为是可以从立体视频或者RGBD视频中计算出的潜在3D运动场。假定有t和t+1时间的立体图像对，即有(I<sup>t</sup><sub>L</sub>, I<sup>t</sup><sub>R</sub>, I<sup>t+1</sup><sub>L</sub>, I<sup>t+1</sup><sub>R</sub>)。Scene flow在已知相机内外部参数的情况下，为四张图像中每一个可见点提供其3D位置和3D运动向量。</p>
-<p><img src="/2018/06/12/DisparityDataset/Scene.gif" alt="Scene Flow"></p>
-<p>红色箭头表示就是来估计scene flow的。</p>
-<h1 id="论文提出了三个数据子集"><a href="#论文提出了三个数据子集" class="headerlink" title="论文提出了三个数据子集"></a>论文提出了三个数据子集</h1><p>The datasets are freely available online：<br><a href="https://lmb.informatik.uni-freiburg.de/resources/datasets/" target="_blank" rel="noopener">传送门</a></p>
-<h1 id="DispNet"><a href="#DispNet" class="headerlink" title="DispNet"></a>DispNet</h1><p>For disparity estimation we propose the basic architecture DispNet described in below:</p>
-<p><img src="/2018/06/12/DisparityDataset/DispNet.JPG" alt="DispNet"></p>
-<p>感觉不是很想细看这个网络结构了，先这样。</p>
-<p><a href="https://ieeexplore.ieee.org/document/7780807/" target="_blank" rel="noopener">A Large Dataset to Train Convolutional Networks for Disparity, Optical Flow, and Scene Flow Estimation</a></p>
+		<p>Deep3D is trained directly on stereo pairs from a dataset of 3D movies to minimize the pixel-wise reconstruction error of the right view                                                                                                                                                                                                                               when given the left view.</p>
+<p>We should first notice that inferring depth (or disparity) from a single image is a highly under-constrained problem. In addition to <strong>depth ambiguities</strong>, some pixels in the novel view correspond to geometry that’s <strong>not visible</strong> in the available view, which causes missing data that must be hallucinated with an in-painting algorithm.</p>
+<p>In spite of these difficulties, our intuition is that given the vast number of stereo-frame pairs that exist in already-produced 3D movies it should be possible to train a machine learning model to predict the novel view from the given view. To that end, we design a deep neural network that takes as input the left eye’s view, <em>internally estimates a soft (probabilistic) disparity map</em>, and then <em>renders a novel image for the right eye</em>.</p>
+<h1 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h1><p><img src="/2018/06/11/Deep3D/ModelArchitecture.jpg" alt="Model Architecture"></p>
+<p>Our network has a branch after each pooling layer that unsamples the incoming feature maps using so-called “deconvolution” <strong>反卷积</strong> layers (i.e., a learned unsampling filter). <em>The upsampled feature maps</em> from each level are <em>summed together</em> to give a feature representation that <em>has the same size as the input image</em>.</p>
+<p>We perform one more convolution on the summed feature representation and apply a softmax transform. The output of this softmax layer is interpreted as a probabilistic disparity map. And then feed this disparity map and the left view to the selection layer, which outputs the right view.</p>
+<h1 id="Selection-Layer"><a href="#Selection-Layer" class="headerlink" title="Selection Layer"></a>Selection Layer</h1><p>Our network predicts a probability distribution across possible <strong>disparity</strong> values <strong>d</strong> at each pixel location: D_{i, j}^d, where /sum D_{i, j}^d = 1 for all i, j. We define a shifted stack of the left view as I_{i, j}^d = I_{i, j-d}, then the selection layer reconstructs the right view with:</p>
+<p><img src="/2018/06/11/Deep3D/reconstruct.jpg" alt="Reconstruct"></p>
+<p>Compute an L1 loss between the output and ground-truth right view Y as the training objective.</p>
+<p><strong>L = |O - Y|</strong></p>
+<p><a href="https://arxiv.org/abs/1604.03650" target="_blank" rel="noopener">Deep3D: Fully Automatic 2D-to-3D Video Conversion with Deep Convolutional Neural Networks</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Disparity/">Disparity</a><a href="/tags/Dataset/">Dataset</a>
+  <span></span> <a href="/tags/Depth-Estimation/">Depth Estimation</a>
   </div>
 
 
@@ -118,7 +118,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/06/12/DisparityDataset/" data-title="DisparityDataset CVPR2016 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/06/11/Deep3D/" data-title="Deep3D Fully Automatic 2D-to-3D Video Conversion CVPR2016 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -128,18 +128,18 @@ var _hmt = _hmt || [];
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2018/06/12/人类简史/" title="读 人类简史——从动物到上帝">
+ <a href="/2018/06/12/DisparityDataset/" title="DisparityDataset CVPR2016">
   <strong>Previous:</strong><br/>
   <span>
-  读 人类简史——从动物到上帝</span>
+  DisparityDataset CVPR2016</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2018/06/11/Deep3D/"  title="Deep3D Fully Automatic 2D-to-3D Video Conversion CVPR2016">
+<a href="/2018/06/11/CaffeLMDB/"  title="Caffe制作LMDB数据源训练分类网络">
  <strong>Next:</strong><br/> 
- <span>Deep3D Fully Automatic 2D-to-3D Video Conversion CVPR2016
+ <span>Caffe制作LMDB数据源训练分类网络
 </span>
 </a>
 </div>
