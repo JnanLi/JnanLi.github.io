@@ -4,13 +4,12 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>Deep Stereo Learning to Predict New Views CVPR2016 | LI jianan&#39;s Blog</title>
+    <title>Unsupervised CNN for Single View Depth Estimation ECCV2016 | LI jianan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
     
-    <meta name="description" content="这一期介绍一篇CVPR2016年的论文，他们的工作是第一个将深度学习应用于从现实世界中的自然图像集中合成新视角的。
-这项工作的成果可以用于电影摄像，虚拟现实，电话会议，图像稳定性改善或者三维单目电影连续镜头中。                                             ">
+    <meta name="description" content="这一期的内容是无监督CNN网络在单目深度估计上的应用，也是我研究的主要方向。                                                                                                                ">
     
     
     
@@ -80,10 +79,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/13/DeepStereo/" title="Deep Stereo Learning to Predict New Views CVPR2016" itemprop="url">Deep Stereo Learning to Predict New Views CVPR2016</a>
+      <a href="/2018/06/13/Unsupervised/" title="Unsupervised CNN for Single View Depth Estimation ECCV2016" itemprop="url">Unsupervised CNN for Single View Depth Estimation ECCV2016</a>
   </h1>
   <p class="article-time">
-    <time datetime="2018-06-13T03:16:29.000Z" itemprop="datePublished">2018-06-13</time>
+    <time datetime="2018-06-13T05:54:53.000Z" itemprop="datePublished">2018-06-13</time>
   </p>
 </header>
 	<div class="article-content">
@@ -91,31 +90,23 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Approach"><span class="toc-number">1.</span> <span class="toc-text">Approach</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深度与视差的关系"><span class="toc-number">2.</span> <span class="toc-text">深度与视差的关系</span></a></li></ol>
 		</div>
 		
-		<p>这一期介绍一篇CVPR2016年的论文，他们的工作是第一个将深度学习应用于从现实世界中的自然图像集中合成新视角的。</p>
-<p>这项工作的成果可以用于电影摄像，虚拟现实，电话会议，图像稳定性改善或者三维单目电影连续镜头中。                                                                                                              </p>
-<h1 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h1><p><strong>Given a set of N posed input images I<sub>1</sub>, I<sub>2</sub>, …, I<sub>N</sub>, with poses V<sub>1</sub>, V<sub>2</sub>, …, V<sub>N</sub>, the view synthesis problem is to render a new image from the viewpoint of a new target camera C.</strong>其中<em>V 表示视野</em>.Dispite the representative power of deep networks, naively training a deep network to synthesize new views by supplying the input images I<sub>k</sub> as inputs directly is unlikely to work well, for two key reason.</p>
-<p><strong>Fisrt, the pose parameters of C and of the views V<sub>1</sub>, V<sub>2</sub>, …, V<sub>N</sub> would need to be supplied as inputs to the network in order to produce the desired view.</strong> The relationship between the pose parameters, the input pixels and the output pixels is complex and non-linear—the network would effectively need to learn how to interpret rotation angles and perform image reprojection. Forcing the network to learn projection is inefficient—it is a straightforward operation <em>that we can represent outside of the network.</em></p>
-<p><strong>Second, in order to synthesize a new view, the network would need to compare and combine potentially distant pixels in the original source images, necessitating very dense, long-range connections. Such a network would have many parameters and would be slow to train, prone to overfitting, and slow to run inference on.</strong></p>
-<p>接下来的内容没看懂，先看下一篇。</p>
-<p><a href="https://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=7780964&amp;tag=1" target="_blank" rel="noopener">Deep Stereo: Learning to Predict New Views from the World’s Imagery</a></p>
+		<p>这一期的内容是无监督CNN网络在单目深度估计上的应用，也是我研究的主要方向。                                                                                                                                                                                                                                                                           </p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>使用大量人工标定的数据进行训练是大多数现有卷积神经网络的重要的弊端。本文提出一种无监督的深层卷积神经网络框架用于预测单目图像的深度，它不需要经过预训练或带标签的真实深度数据。我们通过一个类似自动编码器（autoencoder）的方式训练网络来实现这一点。在训练阶段，我们考虑使用已知相机运动信息的图像对，如双目立体图像对。我们训练卷积编码器以完成对源图像预测深度图的任务。为此，我们利用预测的深度和已知的试图间的位移，通过逆变形（inverse warp）生成目标图像，也即重建源图像。重建的光度学误差即为编码器的重建损失。这种训练数据的获取要比其它相同系统简单得多，它无需人工标定，也不需要对摄像机进行的深度传感器进行校准。结果显示，我们的网络在使用不到一半的KITTI数据集，提供了与目前最先进的基于监督学习的单视图深度估计方法相同的性能。</p>
+<h1 id="深度与视差的关系"><a href="#深度与视差的关系" class="headerlink" title="深度与视差的关系"></a>深度与视差的关系</h1><p>在无监督的单目图像深度估计中，主要利用双目图像间的视差和图像深度之间的线性关系，将训练过程看作一个图像重建的问题。</p>
+<p><img src="/2018/06/13/Unsupervised/dd.png" alt="dd"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/New-View-Synthesis/">New View Synthesis</a>
-  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/06/13/DeepStereo/" data-title="Deep Stereo Learning to Predict New Views CVPR2016 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/06/13/Unsupervised/" data-title="Unsupervised CNN for Single View Depth Estimation ECCV2016 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -124,19 +115,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/06/13/Unsupervised/" title="Unsupervised CNN for Single View Depth Estimation ECCV2016">
-  <strong>Previous:</strong><br/>
-  <span>
-  Unsupervised CNN for Single View Depth Estimation ECCV2016</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/06/12/人类简史/"  title="读 人类简史——从动物到上帝">
+<a href="/2018/06/13/DeepStereo/"  title="Deep Stereo Learning to Predict New Views CVPR2016">
  <strong>Next:</strong><br/> 
- <span>读 人类简史——从动物到上帝
+ <span>Deep Stereo Learning to Predict New Views CVPR2016
 </span>
 </a>
 </div>
