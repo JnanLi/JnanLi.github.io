@@ -90,7 +90,7 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深度与视差的关系"><span class="toc-number">2.</span> <span class="toc-text">深度与视差的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方法"><span class="toc-number">3.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#损失函数"><span class="toc-number">3.1.</span> <span class="toc-text">损失函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络结构"><span class="toc-number">4.</span> <span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CNN模块"><span class="toc-number">5.</span> <span class="toc-text">CNN模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Coarse-to-fine-training-with-skip-architecture"><span class="toc-number">5.1.</span> <span class="toc-text">Coarse-to-fine training with skip architecture</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深度与视差的关系"><span class="toc-number">2.</span> <span class="toc-text">深度与视差的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方法"><span class="toc-number">3.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#损失函数"><span class="toc-number">3.1.</span> <span class="toc-text">损失函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络结构"><span class="toc-number">4.</span> <span class="toc-text">网络结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Coarse-to-fine-training-with-skip-architecture"><span class="toc-number">4.1.</span> <span class="toc-text">Coarse-to-fine training with skip architecture</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CNN模块"><span class="toc-number">5.</span> <span class="toc-text">CNN模块</span></a></li></ol>
 		</div>
 		
 		<p>这一期的内容是无监督CNN网络在单目深度估计上的应用，也是我研究的主要方向。                                                                                                                                                                                                                                                                           </p>
@@ -112,14 +112,14 @@ var _hmt = _hmt || [];
 <p>假设经过CNN网络得到的图像深度Dl=F(Il)，那么</p>
 <p><strong>Forward warp 是利用D<sub>l</sub>将I<sub>l</sub>中的像素点映射到I<sub>r</sub>中，即表示为I′<sub>r</sub>=Mapping(I<sub>l</sub>,D<sub>l</sub>)；</strong><br><strong>Backward warp 是利用D<sub>l</sub>将I<sub>r</sub>中的像素映射到I<sub>l</sub>中，即表示为I′<sub>l</sub>=Mapping(I<sub>r</sub>,D<sub>l</sub>)。</strong></p>
 <p>上两者的区别在于：在Forward mapping中，我们得到I’中的点可能会落在不是整数像素点的位置，这时只能通过最近原则将原图I中的像素点对应到I’中去，而在Inverse mapping中，我们从I’出发(也就是x<sub>r</sub> - D<sub>l</sub>)，去寻找相对应的原图中的点，这样能够确保I’中的每一个点都有赋值不会出现空洞，并且如果x<sub>r</sub> - D<sub>l</sub>得到的原图中的点不属于（整数）像素点，这时可以通过插值的方法求得所对应非像素点的位置。一般在这里采用双线性插值的方法，而且它在sub-pixel level是可导的。<strong>不理解为什么x<sub>r</sub>=x<sub>l1</sub>+D<sub>l1</sub>这里是加号。</strong></p>
-<h1 id="CNN模块"><a href="#CNN模块" class="headerlink" title="CNN模块"></a>CNN模块</h1><p>本文的CNN采用了全卷积网络(FCN)以达到粗糙到精细的预测。</p>
-<p><img src="/2018/06/13/Unsupervised/CNN.png" alt="CNN"></p>
-<p>图中：C（红色）- 卷积、P（黄）- pooling、N（紫）- 归一化、F（绿）- FCN、D（蓝）- 上采样</p>
 <h2 id="Coarse-to-fine-training-with-skip-architecture"><a href="#Coarse-to-fine-training-with-skip-architecture" class="headerlink" title="Coarse-to-fine training with skip architecture"></a>Coarse-to-fine training with skip architecture</h2><p>为了计算上文设计的损失函数的梯度，我们需要用泰勒表达式对I<sub>2</sub>线性化：</p>
 <p><img src="/2018/06/13/Unsupervised/taylor.png" alt="taylor"></p>
 <p>I<sub>2h</sub>表示第n次迭代在当前视差D<sup>n-1</sup>的水平方向上的梯度。</p>
 <p>Thankfully recent fully convolutional architecture withupsampling proposed in [18] is appropriate choice simulate coarse to ﬁne warpingfor our system. As depicted in Figure 2, given a networks which predict M×N depth map we can use a simple bilinear upsampling ﬁlter, to initialize upscaleddepths (to get 2M×2N depth maps) keeping the other network parametersﬁxed. It has been shown that the ﬁner details of the images are captured in theprevious layers of CNN and fusing back such information is helpful for reﬁning acoarse CNN prediction. We use a simple 1×1 convolution with the ﬁlter and bias both initialized to zero and simply use the convolved image output to upscaledcoarse depth.</p>
 <p><img src="/2018/06/13/Unsupervised/ctf.png" alt="Coarse to fine"></p>
+<h1 id="CNN模块"><a href="#CNN模块" class="headerlink" title="CNN模块"></a>CNN模块</h1><p>本文的CNN采用了全卷积网络(FCN)以达到coarse to fine的预测。</p>
+<p><img src="/2018/06/13/Unsupervised/CNN.png" alt="CNN"></p>
+<p>图中：C（红色）- 卷积、P（黄）- pooling、N（紫）- 归一化、F（绿）- FCN、D（蓝）- 上采样</p>
   
 	</div>
 		<footer class="article-footer clearfix">
