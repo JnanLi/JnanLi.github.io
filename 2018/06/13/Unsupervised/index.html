@@ -112,6 +112,7 @@ var _hmt = _hmt || [];
 <p><img src="/2018/06/13/Unsupervised/loss.png" alt="globalloss"></p>
 <p>其中，E<sub>recons</sub>为图像重建损失函数，E<sub>smooth</sub>为对视差图的平滑损失函数。</p>
 <p><img src="/2018/06/13/Unsupervised/loss1.png" alt="reconsloss"><br><img src="/2018/06/13/Unsupervised/loss2.png" alt="smoothloss"></p>
+<p>上式中，I<sup>i</sup>表示第i个图像对，其中i为在[1,N]范围内的整数，f为相机的焦距，B为水平放置的两个相机间的距离，d<sub>i</sub>(x)为I<sub>1</sub>对应的深度图，I<sub>w</sub>=I<sub>i</sub>(x+fB/d(x))为重建图像，γ是对深度图施加平滑的权重 。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
