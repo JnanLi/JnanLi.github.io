@@ -4,12 +4,14 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>读 人类简史——从动物到上帝 | Code Blog</title>
+    <title>Deep Stereo CVPR2016 | Code Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
     
-    <meta name="description" content="一边读《人类简史》，一边做一些摘录，或者可能还有些想法。                                                                                                                          ">
+    <meta name="description" content="这一期介绍一篇CVPR2016年的论文，他们的工作是第一个将深度学习应用于从现实世界中的自然图像集中合成新视角的。
+这项工作的成果可以用于电影摄像，虚拟现实，电话会议，图像稳定性改善或者三维单目电影连续镜头中。
+ApproachGiven a set of N posed input images ">
     
     
     
@@ -79,10 +81,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/12/人类简史/" title="读 人类简史——从动物到上帝" itemprop="url">读 人类简史——从动物到上帝</a>
+      <a href="/2018/06/13/DeepStereo/" title="Deep Stereo CVPR2016" itemprop="url">Deep Stereo CVPR2016</a>
   </h1>
   <p class="article-time">
-    <time datetime="2018-06-12T06:41:29.000Z" itemprop="datePublished">2018-06-12</time>
+    <time datetime="2018-06-13T03:16:29.000Z" itemprop="datePublished">2018-06-13</time>
   </p>
 </header>
 	<div class="article-content">
@@ -90,46 +92,29 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第一部分-认知革命"><span class="toc-number">1.</span> <span class="toc-text">第一部分 认知革命</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章-人类：一种也没什么特别的动物"><span class="toc-number">1.1.</span> <span class="toc-text">第一章 人类：一种也没什么特别的动物</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-知善恶树"><span class="toc-number">1.2.</span> <span class="toc-text">第二章 知善恶树</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Approach"><span class="toc-number">1.</span> <span class="toc-text">Approach</span></a></li></ol>
 		</div>
 		
-		<p>一边读《人类简史》，一边做一些摘录，或者可能还有些想法。                                                                                                                                                                                                                                                                                            </p>
-<h1 id="第一部分-认知革命"><a href="#第一部分-认知革命" class="headerlink" title="第一部分 认知革命"></a>第一部分 认知革命</h1><h2 id="第一章-人类：一种也没什么特别的动物"><a href="#第一章-人类：一种也没什么特别的动物" class="headerlink" title="第一章 人类：一种也没什么特别的动物"></a>第一章 人类：一种也没什么特别的动物</h2><p>在历史的路上，有三大重要革命：大约7万年前，“认知革命”让历史正式启动。大约12000年前，“农业革命”让历史加速发展。<strong>而到了大约不过是500年前，“科学革命”可以说是让历史画下句点而另创新局。</strong></p>
-<p>说到史前人类最重要的一件事，就是他们在当时根本无足挂齿，对环境的影响也不见得比大猩猩、萤火虫或是水母来得多。</p>
-<table>
-<thead>
-<tr>
-<th>物种</th>
-<th>彼此会交配，能够产出下一代</th>
-<th>斗牛犬和西班牙猎犬</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>属</strong></td>
-<td>从同一个祖先演化而来的不同物种</td>
-<td>狮子、老虎、豹和美洲豹</td>
-</tr>
-<tr>
-<td><strong>科</strong></td>
-<td>许多属可以归为同一科</td>
-<td>猫科、犬科、象科</td>
-</tr>
-</tbody>
-</table>
-<p>大多数哺乳动物脱离子宫的时候，就像是已经上釉的陶器出了窑，如果还想再做什么调整，不是刮伤，就是碎裂。然而，人类脱离子宫的时候，却像是从炉里拿出了一团刚融化的玻璃，可以旋转、拉长，可塑性高到令人叹为观止。正因如此，才会有人是基督徒或佛教徒，有人是资本主义者或社会主义者，又或有人好战，有人爱好和平。</p>
-<p>如果替代理论正确，也就是说所有现代人类的基因库大致相同，现在我们看到的各种种族差异就小到无足挂齿。<strong>然而，如果混种繁衍理论正确，那么困难在数百万年前，就已经种下了现代非洲人、欧洲人和亚洲人之间的基因差异。这点可以说是政治上一触即发的火药，困难发展出爆炸性的种族理论。最近数十年来，替代理论一直是这个领域的大致共识，这项理论不止背后的考古证据更可靠，政治上也更为正确。</strong></p>
-<p>究竟智人胜出的秘诀是什么？<strong>目前最可能的解答，正是让人得以辩论的原因：智人之所以能征服世界，是因为有独特的语言。</strong></p>
-<h2 id="第二章-知善恶树"><a href="#第二章-知善恶树" class="headerlink" title="第二章 知善恶树"></a>第二章 知善恶树</h2>  
+		<p>这一期介绍一篇CVPR2016年的论文，他们的工作是第一个将深度学习应用于从现实世界中的自然图像集中合成新视角的。</p>
+<p>这项工作的成果可以用于电影摄像，虚拟现实，电话会议，图像稳定性改善或者三维单目电影连续镜头中。</p>
+<h1 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h1><p><strong>Given a set of N posed input images I<sub>1</sub>, I<sub>2</sub>, …, I<sub>N</sub>, with poses V<sub>1</sub>, V<sub>2</sub>, …, V<sub>N</sub>, the view synthesis problem is to render a new image from the viewpoint of a new target camera C.*</strong>V 表示视野*.Dispite the representative power of deep networks, naively training a deep network to synthesize new views by supplying the input images I<sub>k</sub> as inputs directly is unlikely to work well, for two key reason.</p>
+<p><strong>Fisrt, the pose parameters of C and of the views V<sub>1</sub>, V<sub>2</sub>, …, V<sub>N</sub> would need to be supplied as inputs to the network in order to produce the desired view.</strong> The relationship between the pose parameters, the input pixels and the output pixels is complex and non-linear—the network would effectively need to learn how to interpret rotation angles and perform image reprojection. Forcing the network to learn projection is inefficient—it is a straightforward operation <em>that we can represent outside of the network.</em></p>
+<p><a href="https://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=7780964&amp;tag=1" target="_blank" rel="noopener">Deep Stereo: Learning to Predict New Views from the World’s Imagery</a></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/New-View-Synthesis/">New View Synthesis</a>
+  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/06/12/人类简史/" data-title="读 人类简史——从动物到上帝 | Code Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/06/13/DeepStereo/" data-title="Deep Stereo CVPR2016 | Code Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -138,19 +123,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/06/13/DeepStereo/" title="Deep Stereo CVPR2016">
-  <strong>Previous:</strong><br/>
-  <span>
-  Deep Stereo CVPR2016</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/06/12/DisparityDataset/"  title="DisparityDataset CVPR2016">
+<a href="/2018/06/12/人类简史/"  title="读 人类简史——从动物到上帝">
  <strong>Next:</strong><br/> 
- <span>DisparityDataset CVPR2016
+ <span>读 人类简史——从动物到上帝
 </span>
 </a>
 </div>
