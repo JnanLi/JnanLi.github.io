@@ -90,7 +90,7 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深度与视差的关系"><span class="toc-number">2.</span> <span class="toc-text">深度与视差的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络结构"><span class="toc-number">3.</span> <span class="toc-text">网络结构</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深度与视差的关系"><span class="toc-number">2.</span> <span class="toc-text">深度与视差的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络结构"><span class="toc-number">3.</span> <span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CNN模块"><span class="toc-number">4.</span> <span class="toc-text">CNN模块</span></a></li></ol>
 		</div>
 		
 		<p>这一期的内容是无监督CNN网络在单目深度估计上的应用，也是我研究的主要方向。                                                                                                                                                                                                                                                                           </p>
@@ -104,7 +104,10 @@ var _hmt = _hmt || [];
 <p><img src="/2018/06/13/Unsupervised/backward.png" alt="backward"></p>
 <p>假设经过CNN网络得到的图像深度Dl=F(Il)，那么</p>
 <p><strong>Forward warp 是利用D<sub>l</sub>将I<sub>l</sub>中的像素点映射到I<sub>r</sub>中，即表示为I′<sub>r</sub>=Mapping(I<sub>l</sub>,D<sub>l</sub>)；</strong><br><strong>Backward warp 是利用D<sub>l</sub>将I<sub>r</sub>中的像素映射到I<sub>l</sub>中，即表示为I′<sub>l</sub>=Mapping(I<sub>r</sub>,D<sub>l</sub>)。</strong></p>
-<p>上两者的区别在于：假设x<sub>l</sub>​、x<sub>r</sub>​为左右视图中对用的像素点，如果采用Forward warp，即使用x<sub>l</sub>+D<sub>l</sub>​进行映射，由于不同视角的遮挡关系，I<sub>l</sub>​中的像素有可能在I<sub>r</sub>​中并不存在，或是I<sub>l</sub>​中多个像素映射到I<sub>r</sub>​中的同一位置，即x<sub>r</sub>=x<sub>l1</sub>+D<sub>l1</sub>=x<sub>l2</sub>+D<sub>l2</sub>=…​，这样就会丢失掉很多的D<sub>l</sub>​中的信息。而采用Backward warp，从I<sub>r</sub>​出发，即根据x<sub>r</sub>−D<sub>l</sub>​，去寻找原图中的点，可以确保I<sub>r</sub>​中每个点都有赋值而不会出现空洞。</p>
+<p>上两者的区别在于：假设x<sub>l</sub>​、x<sub>r</sub>​为左右视图中对用的像素点，如果采用Forward warp，即使用x<sub>l</sub>+D<sub>l</sub>​进行映射，由于不同视角的遮挡关系，I<sub>l</sub>​中的像素有可能在I<sub>r</sub>​中并不存在，或是I<sub>l</sub>​中多个像素映射到I<sub>r</sub>​中的同一位置，即x<sub>r</sub>=x<sub>l1</sub>+D<sub>l1</sub>=x<sub>l2</sub>+D<sub>l2</sub>=…​，这样就会丢失掉很多的D<sub>l</sub>​中的信息。而采用Backward warp，从I<sub>r</sub>​出发，即根据x<sub>r</sub>−D<sub>l</sub>​，去寻找原图中的点，可以确保I<sub>r</sub>​中每个点都有赋值而不会出现空洞。<strong>不理解这段话，不理解为什么x<sub>r</sub>=x<sub>l1</sub>+D<sub>l1</sub>这里是加号。</strong></p>
+<h1 id="CNN模块"><a href="#CNN模块" class="headerlink" title="CNN模块"></a>CNN模块</h1><p>本文的CNN采用了全卷积网络(FCN)以达到粗糙到精细的预测。</p>
+<p><img src="/2018/06/13/Unsupervised/CNN.png" alt="CNN"></p>
+<p>图中：C（红色）- 卷积、P（黄）- pooling、N（紫）- 归一化、F（绿）- FCN、D（蓝）- 上采样</p>
   
 	</div>
 		<footer class="article-footer clearfix">
