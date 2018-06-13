@@ -90,7 +90,7 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深度与视差的关系"><span class="toc-number">2.</span> <span class="toc-text">深度与视差的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络结构"><span class="toc-number">3.</span> <span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CNN模块"><span class="toc-number">4.</span> <span class="toc-text">CNN模块</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深度与视差的关系"><span class="toc-number">2.</span> <span class="toc-text">深度与视差的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络结构"><span class="toc-number">3.</span> <span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CNN模块"><span class="toc-number">4.</span> <span class="toc-text">CNN模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#损失函数"><span class="toc-number">5.</span> <span class="toc-text">损失函数</span></a></li></ol>
 		</div>
 		
 		<p>这一期的内容是无监督CNN网络在单目深度估计上的应用，也是我研究的主要方向。                                                                                                                                                                                                                                                                           </p>
@@ -108,6 +108,10 @@ var _hmt = _hmt || [];
 <h1 id="CNN模块"><a href="#CNN模块" class="headerlink" title="CNN模块"></a>CNN模块</h1><p>本文的CNN采用了全卷积网络(FCN)以达到粗糙到精细的预测。</p>
 <p><img src="/2018/06/13/Unsupervised/CNN.png" alt="CNN"></p>
 <p>图中：C（红色）- 卷积、P（黄）- pooling、N（紫）- 归一化、F（绿）- FCN、D（蓝）- 上采样</p>
+<h1 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h1><p>损失函数是一个可微（便于反向传播）并且和预测误差具有高度相关性。</p>
+<p><img src="/2018/06/13/Unsupervised/loss.png" alt="globalloss"></p>
+<p>其中，E<sub>recons</sub>为图像重建损失函数，E<sub>smooth</sub>为对视差图的平滑损失函数。</p>
+<p><img src="/2018/06/13/Unsupervised/loss1.png" alt="reconsloss"><br><img src="/2018/06/13/Unsupervised/loss2.png" alt="smoothloss"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
