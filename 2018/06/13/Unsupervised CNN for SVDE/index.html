@@ -4,12 +4,12 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>读 人类简史——从动物到上帝 | LI jianan&#39;s Blog</title>
+    <title>Unsupervised CNN for SVDE ECCV2016 | LI jianan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
     
-    <meta name="description" content="一边读《人类简史》，一边做一些摘录，或者可能还有些想法。                                                                                                                          ">
+    <meta name="description" content="这一期的内容是无监督CNN网络在单目深度估计上的应用，也是我研究的主要方向。                                                                                                                ">
     
     
     
@@ -79,10 +79,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/12/人类简史/" title="读 人类简史——从动物到上帝" itemprop="url">读 人类简史——从动物到上帝</a>
+      <a href="/2018/06/13/Unsupervised CNN for SVDE/" title="Unsupervised CNN for SVDE ECCV2016" itemprop="url">Unsupervised CNN for SVDE ECCV2016</a>
   </h1>
   <p class="article-time">
-    <time datetime="2018-06-12T06:41:29.000Z" itemprop="datePublished">2018-06-12</time>
+    <time datetime="2018-06-13T05:54:53.000Z" itemprop="datePublished">2018-06-13</time>
   </p>
 </header>
 	<div class="article-content">
@@ -90,37 +90,12 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第一部分-认知革命"><span class="toc-number">1.</span> <span class="toc-text">第一部分 认知革命</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章-人类：一种也没什么特别的动物"><span class="toc-number">1.1.</span> <span class="toc-text">第一章 人类：一种也没什么特别的动物</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-知善恶树"><span class="toc-number">1.2.</span> <span class="toc-text">第二章 知善恶树</span></a></li></ol></li></ol>
+		
 		</div>
 		
-		<p>一边读《人类简史》，一边做一些摘录，或者可能还有些想法。                                                                                                                                                                                                                                                                                            </p>
-<h1 id="第一部分-认知革命"><a href="#第一部分-认知革命" class="headerlink" title="第一部分 认知革命"></a>第一部分 认知革命</h1><h2 id="第一章-人类：一种也没什么特别的动物"><a href="#第一章-人类：一种也没什么特别的动物" class="headerlink" title="第一章 人类：一种也没什么特别的动物"></a>第一章 人类：一种也没什么特别的动物</h2><p>在历史的路上，有三大重要革命：大约7万年前，“认知革命”让历史正式启动。大约12000年前，“农业革命”让历史加速发展。<strong>而到了大约不过是500年前，“科学革命”可以说是让历史画下句点而另创新局。</strong></p>
-<p>说到史前人类最重要的一件事，就是他们在当时根本无足挂齿，对环境的影响也不见得比大猩猩、萤火虫或是水母来得多。</p>
-<table>
-<thead>
-<tr>
-<th>物种</th>
-<th>彼此会交配，能够产出下一代</th>
-<th>斗牛犬和西班牙猎犬</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>属</strong></td>
-<td>从同一个祖先演化而来的不同物种</td>
-<td>狮子、老虎、豹和美洲豹</td>
-</tr>
-<tr>
-<td><strong>科</strong></td>
-<td>许多属可以归为同一科</td>
-<td>猫科、犬科、象科</td>
-</tr>
-</tbody>
-</table>
-<p>大多数哺乳动物脱离子宫的时候，就像是已经上釉的陶器出了窑，如果还想再做什么调整，不是刮伤，就是碎裂。然而，人类脱离子宫的时候，却像是从炉里拿出了一团刚融化的玻璃，可以旋转、拉长，可塑性高到令人叹为观止。正因如此，才会有人是基督徒或佛教徒，有人是资本主义者或社会主义者，又或有人好战，有人爱好和平。</p>
-<p>如果替代理论正确，也就是说所有现代人类的基因库大致相同，现在我们看到的各种种族差异就小到无足挂齿。<strong>然而，如果混种繁衍理论正确，那么困难在数百万年前，就已经种下了现代非洲人、欧洲人和亚洲人之间的基因差异。这点可以说是政治上一触即发的火药，困难发展出爆炸性的种族理论。最近数十年来，替代理论一直是这个领域的大致共识，这项理论不止背后的考古证据更可靠，政治上也更为正确。</strong></p>
-<p>究竟智人胜出的秘诀是什么？<strong>目前最可能的解答，正是让人得以辩论的原因：智人之所以能征服世界，是因为有独特的语言。</strong></p>
-<h2 id="第二章-知善恶树"><a href="#第二章-知善恶树" class="headerlink" title="第二章 知善恶树"></a>第二章 知善恶树</h2>  
+		<p>这一期的内容是无监督CNN网络在单目深度估计上的应用，也是我研究的主要方向。                                                                                                                                                                                                                                                                           </p>
+<p># </p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
@@ -129,7 +104,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/06/12/人类简史/" data-title="读 人类简史——从动物到上帝 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/06/13/Unsupervised CNN for SVDE/" data-title="Unsupervised CNN for SVDE ECCV2016 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -138,19 +113,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/06/13/DeepStereo/" title="Deep Stereo CVPR2016">
-  <strong>Previous:</strong><br/>
-  <span>
-  Deep Stereo CVPR2016</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/06/12/DisparityDataset/"  title="DisparityDataset CVPR2016">
+<a href="/2018/06/13/DeepStereo/"  title="Deep Stereo CVPR2016">
  <strong>Next:</strong><br/> 
- <span>DisparityDataset CVPR2016
+ <span>Deep Stereo CVPR2016
 </span>
 </a>
 </div>

@@ -4,7 +4,7 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>Deep Stereo CVPR2016 | Code Blog</title>
+    <title>Deep Stereo CVPR2016 | LI jianan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
@@ -52,7 +52,7 @@ var _hmt = _hmt || [];
       <div>
 		
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="Code Blog">Code Blog</a></h1>
+				<h1 class="site-name"><a href="/" title="LI jianan&#39;s Blog">LI jianan&#39;s Blog</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
@@ -99,6 +99,7 @@ var _hmt = _hmt || [];
 <h1 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h1><p><strong>Given a set of N posed input images I<sub>1</sub>, I<sub>2</sub>, …, I<sub>N</sub>, with poses V<sub>1</sub>, V<sub>2</sub>, …, V<sub>N</sub>, the view synthesis problem is to render a new image from the viewpoint of a new target camera C.</strong>其中<em>V 表示视野</em>.Dispite the representative power of deep networks, naively training a deep network to synthesize new views by supplying the input images I<sub>k</sub> as inputs directly is unlikely to work well, for two key reason.</p>
 <p><strong>Fisrt, the pose parameters of C and of the views V<sub>1</sub>, V<sub>2</sub>, …, V<sub>N</sub> would need to be supplied as inputs to the network in order to produce the desired view.</strong> The relationship between the pose parameters, the input pixels and the output pixels is complex and non-linear—the network would effectively need to learn how to interpret rotation angles and perform image reprojection. Forcing the network to learn projection is inefficient—it is a straightforward operation <em>that we can represent outside of the network.</em></p>
 <p><strong>Second, in order to synthesize a new view, the network would need to compare and combine potentially distant pixels in the original source images, necessitating very dense, long-range connections. Such a network would have many parameters and would be slow to train, prone to overfitting, and slow to run inference on.</strong></p>
+<p>接下来的内容没看懂，先看下一篇。</p>
 <p><a href="https://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=7780964&amp;tag=1" target="_blank" rel="noopener">Deep Stereo: Learning to Predict New Views from the World’s Imagery</a></p>
   
 	</div>
@@ -114,7 +115,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/06/13/DeepStereo/" data-title="Deep Stereo CVPR2016 | Code Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/06/13/DeepStereo/" data-title="Deep Stereo CVPR2016 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -123,6 +124,14 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2018/06/13/Unsupervised CNN for SVDE/" title="Unsupervised CNN for SVDE ECCV2016">
+  <strong>Previous:</strong><br/>
+  <span>
+  Unsupervised CNN for SVDE ECCV2016</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2018/06/12/人类简史/"  title="读 人类简史——从动物到上帝">
