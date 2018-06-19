@@ -90,11 +90,21 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Training-Loss"><span class="toc-number">2.</span> <span class="toc-text">Training Loss</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#左右视图的灰度匹配部分"><span class="toc-number">2.1.</span> <span class="toc-text">左右视图的灰度匹配部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#视差平滑部分"><span class="toc-number">2.2.</span> <span class="toc-text">视差平滑部分</span></a></li></ol></li></ol>
 		</div>
 		
 		<p>本文采用无监督学习（没有ground truth）的方法来估计深度，基本思路是匹配好左右视图的像素，得到disparity map。根据得到的视差disparity，由d = bf/disparity，算出depth map。本文能实现在35ms内恢复一张图512×256的图只需要25ms（GPU）。                                                                                                                                                                                                                                                                                   </p>
-<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1>  
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>我们提出了一种新的训练目标，使得我们的卷积神经网络能够学习执行单个图像深度估计，尽管缺乏ground truth。Exploiting epipolar geometry constraints，我们通过训练我们的网络以产生图像重构损失来生成视差图像。我们表明，单独解决图像重建会导致质量较差的深度图像。为了克服这个问题，我们提出了一种新的训练损失，它强化了相对于左侧和右侧图像产生的差异之间的一致性，与现有方法相比改进了性能和鲁棒性。</p>
+<h1 id="Training-Loss"><a href="#Training-Loss" class="headerlink" title="Training Loss"></a>Training Loss</h1><p>We define a loss C<sub>s</sub> at each output scale s, forming the total loss as the sum C = C<sub>1</sub> + … + C<sub>4</sub>. Our loss module (below) computes C<sub>s</sub> as combination of three main terms.</p>
+<p><img src="/2018/06/19/monodepth/lossmodule.png" alt="lossmodule"></p>
+<p><img src="/2018/06/19/monodepth/lossall.png" alt="lossall"></p>
+<p>分别是：<br><strong>左右视图的灰度匹配部分</strong><br><strong>视差平滑部分（让disparity的分布更加平滑）</strong><br><strong>左右视图的一致性部分(促使左视图中的disparity分布和右视图的disparity图严格相同)</strong></p>
+<h2 id="左右视图的灰度匹配部分"><a href="#左右视图的灰度匹配部分" class="headerlink" title="左右视图的灰度匹配部分"></a>左右视图的灰度匹配部分</h2><p><img src="/2018/06/19/monodepth/ap.png" alt="ap"></p>
+<p>本文采用和Loss Functions for Neural Networks for Image Processing一文相同的形式，将SSIM和L1结合起来作为代价函数，其中α设置为0.85。<br>此式包含了L1和SSIM项两部分。</p>
+<h2 id="视差平滑部分"><a href="#视差平滑部分" class="headerlink" title="视差平滑部分"></a>视差平滑部分</h2><p><img src="/2018/06/19/monodepth/ds.png" alt="ds"></p>
+<p>数字图像中，更多的使用差分来近似导数，最简单的梯度近似表达式如下：</p>
+<p><img src="/2018/06/19/monodepth/tidu.png" alt="tidu"></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
