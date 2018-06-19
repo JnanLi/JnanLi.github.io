@@ -4,13 +4,14 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>Single-View and Multi-View Depth Fusion IEEE_Robotics_and_Automation_Letters_2017 | LI jianan&#39;s Blog</title>
+    <title>虚拟机网络配置详解(NAT、桥接、Hostonly) | LI jianan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
     
-    <meta name="description" content="摘要：本文利用了最新的基于单视角卷积网络（CNN）的深度估计结果，并将其与多视角深度估计融合在一起。两种方法具有互补性，多视角深度非常准确，但只适用于高纹理和高视差的情况。单视角深度捕捉的是中层区域局部特征，包括无纹理特征，但估计的深度缺乏全局一致性。本文提出的单视角和多视角的融合非常有挑战性，
-S">
+    <meta name="description" content="Bridged 桥接模式特点虚拟机和主机是处于同等地位的机器，所以网络功能也无异于主机。并且和主机处于同一网段。
+Host-only模式特点只能和主机相互通信，不能上网，也不能访问其他主机，用于建立与外部隔离的网络环境
+NAT特点主机ping不通虚拟机(包括宿主)同一宿主的虚拟机可以相互ping通宿">
     
     
     
@@ -80,10 +81,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/19/depthfusion/" title="Single-View and Multi-View Depth Fusion IEEE_Robotics_and_Automation_Letters_2017" itemprop="url">Single-View and Multi-View Depth Fusion IEEE_Robotics_and_Automation_Letters_2017</a>
+      <a href="/2018/06/19/network-configuration/" title="虚拟机网络配置详解(NAT、桥接、Hostonly)" itemprop="url">虚拟机网络配置详解(NAT、桥接、Hostonly)</a>
   </h1>
   <p class="article-time">
-    <time datetime="2018-06-19T09:38:34.000Z" itemprop="datePublished">2018-06-19</time>
+    <time datetime="2018-06-19T11:27:58.000Z" itemprop="datePublished">2018-06-19</time>
   </p>
 </header>
 	<div class="article-content">
@@ -91,26 +92,22 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Bridged-桥接模式"><span class="toc-number">1.</span> <span class="toc-text">Bridged 桥接模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点"><span class="toc-number">1.1.</span> <span class="toc-text">特点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Host-only模式"><span class="toc-number">2.</span> <span class="toc-text">Host-only模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点-1"><span class="toc-number">2.1.</span> <span class="toc-text">特点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NAT"><span class="toc-number">3.</span> <span class="toc-text">NAT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点-2"><span class="toc-number">3.1.</span> <span class="toc-text">特点</span></a></li></ol></li></ol>
 		</div>
 		
-		<p>摘要：本文利用了最新的基于单视角卷积网络（CNN）的深度估计结果，并将其与多视角深度估计融合在一起。两种方法具有互补性，多视角深度非常准确，但只适用于高纹理和高视差的情况。单视角深度捕捉的是中层区域局部特征，包括无纹理特征，但估计的深度缺乏全局一致性。本文提出的单视角和多视角的融合非常有挑战性，</p>
-<p><a href="https://ieeexplore.ieee.org/document/7949041/" target="_blank" rel="noopener">Single-View and Multi-View Depth Fusion</a></p>
+		<h1 id="Bridged-桥接模式"><a href="#Bridged-桥接模式" class="headerlink" title="Bridged 桥接模式"></a>Bridged 桥接模式</h1><h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>虚拟机和主机是处于同等地位的机器，所以网络功能也无异于主机。并且和主机处于同一网段。</p>
+<h1 id="Host-only模式"><a href="#Host-only模式" class="headerlink" title="Host-only模式"></a>Host-only模式</h1><h2 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h2><p>只能和主机相互通信，不能上网，也不能访问其他主机，用于建立与外部隔离的网络环境</p>
+<h1 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h1><h2 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a>特点</h2><p><strong>主机ping不通虚拟机(包括宿主)</strong><br><strong>同一宿主的虚拟机可以相互ping通</strong><br><strong>宿主能够联网，虚拟机也能联网(其他主机)。宿主没有联网，虚拟机也不能联网</strong><br><strong>虚拟机能够ping通主机</strong><br><strong>其他主机不能访问虚拟机</strong></p>
   
 	</div>
 		<footer class="article-footer clearfix">
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Depth-Estimation/">Depth Estimation</a>
-  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/06/19/depthfusion/" data-title="Single-View and Multi-View Depth Fusion IEEE_Robotics_and_Automation_Letters_2017 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/06/19/network-configuration/" data-title="虚拟机网络配置详解(NAT、桥接、Hostonly) | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -119,19 +116,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/06/19/network-configuration/" title="虚拟机网络配置详解(NAT、桥接、Hostonly)">
-  <strong>Previous:</strong><br/>
-  <span>
-  虚拟机网络配置详解(NAT、桥接、Hostonly)</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/06/19/monodepth/"  title="Unsupervised Monocular Depth Estimation with Left-Right Consistency CVPR_2017_oral">
+<a href="/2018/06/19/depthfusion/"  title="Single-View and Multi-View Depth Fusion IEEE_Robotics_and_Automation_Letters_2017">
  <strong>Next:</strong><br/> 
- <span>Unsupervised Monocular Depth Estimation with Left-Right Consistency CVPR_2017_oral
+ <span>Single-View and Multi-View Depth Fusion IEEE_Robotics_and_Automation_Letters_2017
 </span>
 </a>
 </div>
