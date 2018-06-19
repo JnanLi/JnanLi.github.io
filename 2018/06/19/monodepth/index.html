@@ -90,7 +90,7 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Training-Loss"><span class="toc-number">2.</span> <span class="toc-text">Training Loss</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#左右视图的灰度匹配部分"><span class="toc-number">2.1.</span> <span class="toc-text">左右视图的灰度匹配部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#视差平滑部分"><span class="toc-number">2.2.</span> <span class="toc-text">视差平滑部分</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Training-Loss"><span class="toc-number">2.</span> <span class="toc-text">Training Loss</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#左右视图的灰度匹配部分"><span class="toc-number">2.1.</span> <span class="toc-text">左右视图的灰度匹配部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#视差平滑部分"><span class="toc-number">2.2.</span> <span class="toc-text">视差平滑部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#左右视图的一致性部分"><span class="toc-number">2.3.</span> <span class="toc-text">左右视图的一致性部分</span></a></li></ol></li></ol>
 		</div>
 		
 		<p>本文采用无监督学习的方法来估计深度，基本思路是匹配好左右视图的像素，得到disparity map。根据得到的视差disparity，由d = bf/disparity，算出depth map。本文能实现在35ms内恢复一张图512×256的图只需要25ms（GPU）。                                                                                                                                                                                                                                                                                   </p>
@@ -104,6 +104,7 @@ var _hmt = _hmt || [];
 <h2 id="视差平滑部分"><a href="#视差平滑部分" class="headerlink" title="视差平滑部分"></a>视差平滑部分</h2><p><img src="/2018/06/19/monodepth/ds.png" alt="ds"></p>
 <p>数字图像中，更多的使用差分来近似导数，最简单的梯度近似表达式如下：</p>
 <p><img src="/2018/06/19/monodepth/tidu.png" alt="tidu"></p>
+<h2 id="左右视图的一致性部分"><a href="#左右视图的一致性部分" class="headerlink" title="左右视图的一致性部分"></a>左右视图的一致性部分</h2><p><img src="/2018/06/19/monodepth/lr.png" alt="lr"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
