@@ -89,10 +89,10 @@ var _hmt = _hmt || [];
 		
 		
 		<p>这一期介绍2018年关于无监督深度估计的第一篇论文。                                                                                                                                                                                                                                                                                                  </p>
-<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>尽管基于学习的方法在单视图深度估计和视觉测程法上显示出有希望的结果，但大多数现有方法都以有监督的方式来处理任务。最近的单视图深度估计方法通过<strong>最小化光度学误差</strong>来学习而非全监督方式。在本文中，我们探索使用立体序列对来学习深度和视觉量距。立体序列对的使用使得能够使用空间（左右）和时间（前后）光度学误差，并将场景深度和相机运动限制在常见的真实世界中。测试时，我们的框架能从单目序列估计场景单视图深度和双视图测距。我们还展示了如何通过考虑深度特征的变形来改进标准光度学误差。我们通过广泛的实验表明：（i）联合训练单视图深度和视觉测距提高了深度预测精度，因为附加的深度限制，并为视觉测距取得了良好的结果。（ii）深度特征的warping loss改善了单视图深度估计和视觉测距的光度学warp loss。</p>
-<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p><img src="/2018/06/19/unsupervised2018-1/train.jpg" alt="train"></p>
+<h1 id="1-摘要"><a href="#1-摘要" class="headerlink" title="1. 摘要"></a>1. 摘要</h1><p>尽管基于学习的方法在单视图深度估计和视觉测程法上显示出有希望的结果，但大多数现有方法都以有监督的方式来处理任务。最近的单视图深度估计方法通过<strong>最小化光度学误差</strong>来学习而非全监督方式。在本文中，我们探索使用立体序列对来学习深度和视觉量距。立体序列对的使用使得能够使用空间（左右）和时间（前后）光度学误差，并将场景深度和相机运动限制在常见的真实世界中。测试时，我们的框架能从单目序列估计场景单视图深度和双视图测距。我们还展示了如何通过考虑深度特征的变形来改进标准光度学误差。我们通过广泛的实验表明：（i）联合训练单视图深度和视觉测距提高了深度预测精度，因为附加的深度限制，并为视觉测距取得了良好的结果。（ii）深度特征的warping loss改善了单视图深度估计和视觉测距的光度学warp loss。</p>
+<h1 id="2-介绍"><a href="#2-介绍" class="headerlink" title="2. 介绍"></a>2. 介绍</h1><p><img src="/2018/06/19/unsupervised2018-1/train.jpg" alt="train"></p>
 <p>训练实例示例。已知立体相机对之间的运动限制了深度CNN网络和测距CNN网络。</p>
-<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p><img src="/2018/06/19/unsupervised2018-1/framework.png" alt="framework"></p>
+<h1 id="3-方法"><a href="#3-方法" class="headerlink" title="3. 方法"></a>3. 方法</h1><p><img src="/2018/06/19/unsupervised2018-1/framework.png" alt="framework"></p>
 <p>jointly learning a single view depth ConvNet (CNN<sub>D</sub>) and a visual odometry ConvNet (CNN<sub>V O</sub>) from stereo sequences. </p>
 <p>双目视频流克服了单目视频流的尺度模糊问题，并且使得系统能够利用左右（空间上）和前后（时间上）的一致性。</p>
 <p>图像重建过程：<br><img src="/2018/06/19/unsupervised2018-1/imagerecons.png" alt="imagerecons"></p>
@@ -103,9 +103,9 @@ var _hmt = _hmt || [];
 <p>其中p<sub>R,t2</sub>和p<sub>L,t1</sub>分别是I<sub>R,t2</sub>和I<sub>L,t1</sub>上的投影坐标。D<sub>L,t2(pL,t2)</sub>是在位置p<sub>L,t2</sub>处的深度; T ∈ SE3是由6个参数定义的4x4变换矩阵，6个参数中3个表示角度变换3个表示平移变换。K表示已知的相机内部参数矩阵。</p>
 <p>为了提高整体框架的稳健性，提出一种特征重建损失：dense features。</p>
 <p>F<sub>L,t2</sub>，F<sub>L,t1</sub>和F<sub>R,t2</sub>分别表示I<sub>L,t2</sub>，I<sub>L,t1</sub>和I<sub>R,t2</sub>的dense features。与image systhesis过程类似，特征重建过程和损失函数表示为<br><img src="/2018/06/19/unsupervised2018-1/featurerecons.png" alt="featurerecons"><br><img src="/2018/06/19/unsupervised2018-1/featureloss.png" alt="featureloss"></p>
-<h2 id="训练误差"><a href="#训练误差" class="headerlink" title="训练误差"></a>训练误差</h2><p><img src="/2018/06/19/unsupervised2018-1/totalloss.png" alt="totalloss"><br>其中L<sub>ds</sub>是为了深度图D更加平滑<br><img src="/2018/06/19/unsupervised2018-1/lds.png" alt="lds"></p>
-<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p>深度估计 深度估计卷积网络由两部分组成，encoder and decoder。<br>encoder: ResNet50-1by2（参数大约是ResNet50的1/4）<br>decoder network: the decoder firstly converts the encoder output (1024-channel feature maps) into a single channel feature map using a 1x1 kernel, followed by conventional bilinear upsampling kernels with skip-connections. We use ReLU activation after the last prediction layer to ensure positive prediction comes from the depth ConvNet.<br>视觉测距 视觉测距卷积网络中two concatenated views along the color channels作为输入，输出a 6D vector [u, v]∈se3，接下来转换成a 4x4 transformation matrix。该网络由2次卷积和3次全连接层组成。<br>最后一个全连接层输出6D vector，用来实现reference view到live view的转换。</p>
-<h1 id="深度估计结果"><a href="#深度估计结果" class="headerlink" title="深度估计结果"></a>深度估计结果</h1><p><img src="/2018/06/19/unsupervised2018-1/result.png" alt="result"><br>Full-NYUv2: Stereo + Temporal + NYUv2数据集</p>
+<h2 id="3-1-训练误差"><a href="#3-1-训练误差" class="headerlink" title="3.1 训练误差"></a>3.1 训练误差</h2><p><img src="/2018/06/19/unsupervised2018-1/totalloss.png" alt="totalloss"><br>其中L<sub>ds</sub>是为了深度图D更加平滑<br><img src="/2018/06/19/unsupervised2018-1/lds.png" alt="lds"></p>
+<h2 id="3-2-网络结构"><a href="#3-2-网络结构" class="headerlink" title="3.2 网络结构"></a>3.2 网络结构</h2><p>深度估计 深度估计卷积网络由两部分组成，encoder and decoder。<br>encoder: ResNet50-1by2（参数大约是ResNet50的1/4）<br>decoder network: the decoder firstly converts the encoder output (1024-channel feature maps) into a single channel feature map using a 1x1 kernel, followed by conventional bilinear upsampling kernels with skip-connections. We use ReLU activation after the last prediction layer to ensure positive prediction comes from the depth ConvNet.<br>视觉测距 视觉测距卷积网络中two concatenated views along the color channels作为输入，输出a 6D vector [u, v]∈se3，接下来转换成a 4x4 transformation matrix。该网络由2次卷积和3次全连接层组成。<br>最后一个全连接层输出6D vector，用来实现reference view到live view的转换。</p>
+<h1 id="4-深度估计结果"><a href="#4-深度估计结果" class="headerlink" title="4. 深度估计结果"></a>4. 深度估计结果</h1><p><img src="/2018/06/19/unsupervised2018-1/result.png" alt="result"><br>Full-NYUv2: Stereo + Temporal + NYUv2数据集</p>
   
 	</div>
 		<footer class="article-footer clearfix">
