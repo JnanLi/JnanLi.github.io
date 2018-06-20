@@ -89,11 +89,6 @@ var _hmt = _hmt || [];
 	<div class="article-content">
 		
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Approach"><span class="toc-number">1.</span> <span class="toc-text">Approach</span></a></li></ol>
-		</div>
-		
 		<p>这一期介绍一篇CVPR2016年的论文，他们的工作是第一个将深度学习应用于从现实世界中的自然图像集中合成新视角的。</p>
 <p>这项工作的成果可以用于电影摄像，虚拟现实，电话会议，图像稳定性改善或者三维单目电影连续镜头中。                                                                                                              </p>
 <h1 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h1><p><strong>Given a set of N posed input images I<sub>1</sub>, I<sub>2</sub>, …, I<sub>N</sub>, with poses V<sub>1</sub>, V<sub>2</sub>, …, V<sub>N</sub>, the view synthesis problem is to render a new image from the viewpoint of a new target camera C.</strong>其中<em>V 表示视野</em>.Dispite the representative power of deep networks, naively training a deep network to synthesize new views by supplying the input images I<sub>k</sub> as inputs directly is unlikely to work well, for two key reason.</p>

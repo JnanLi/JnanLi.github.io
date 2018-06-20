@@ -88,11 +88,6 @@ var _hmt = _hmt || [];
 	<div class="article-content">
 		
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Model-Architecture"><span class="toc-number">1.</span> <span class="toc-text">Model Architecture</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Selection-Layer"><span class="toc-number">2.</span> <span class="toc-text">Selection Layer</span></a></li></ol>
-		</div>
-		
 		<p>Deep3D is trained directly on stereo pairs from a dataset of 3D movies to minimize the pixel-wise reconstruction error of the right view                                                                                                                                                                                                                               when given the left view.</p>
 <p>We should first notice that inferring depth (or disparity) from a single image is a highly under-constrained problem. In addition to <strong>depth ambiguities</strong>, some pixels in the novel view correspond to geometry that’s <strong>not visible</strong> in the available view, which causes missing data that must be hallucinated with an in-painting algorithm.</p>
 <p>In spite of these difficulties, our intuition is that given the vast number of stereo-frame pairs that exist in already-produced 3D movies it should be possible to train a machine learning model to predict the novel view from the given view. To that end, we design a deep neural network that takes as input the left eye’s view, <em>internally estimates a soft (probabilistic) disparity map</em>, and then <em>renders a novel image for the right eye</em>.</p>
