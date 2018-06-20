@@ -9,11 +9,7 @@
     
     <meta name="author" content="LI jianan">
     
-    <meta name="description" content="In a mathematical context, bilinear interpolation is the problem of finding a function f(x,y) of the form
-
-satisfying
-
-The usual, and usually computat">
+    <meta name="description" content="本期主要介绍一下双线性插值的实现方法。                                                                                                                                   ">
     
     
     
@@ -92,11 +88,19 @@ var _hmt = _hmt || [];
 	<div class="article-content">
 		
 		
-		<p>In a mathematical context, bilinear interpolation is the problem of finding a function f(x,y) of the form</p>
-<p><img src="/2018/06/20/bilinear/1.svg" alt="bilinear interpolation"></p>
-<p>satisfying</p>
-<p><img src="/2018/06/20/bilinear/2.svg" alt=""></p>
-<p>The usual, and usually computationally least expensive way to compute {\displaystyle f} f is through linear interpolation used twice, for example to compute two functions {\displaystyle f_{1}} f_{1} and {\displaystyle f_{2}} f_{2} satisfying</p>
+		<p>本期主要介绍一下双线性插值的实现方法。                                                                                                                                                                                                                                                                                                           </p>
+<h1 id="1-线性插值"><a href="#1-线性插值" class="headerlink" title="1. 线性插值"></a>1. 线性插值</h1><p>已知坐标 (x<sub>0</sub>, y<sub>0</sub>) 与 (x<sub>1</sub>, y<sub>1</sub>)，要得到 [x<sub>0</sub>, x<sub>1</sub>] 区间内某一位置 x 在直线上的值。</p>
+<p><img src="/2018/06/20/bilinear/1.png" alt=""></p>
+<p>由于 x 值已知，所以可以从公式得到 y 的值</p>
+<p><img src="/2018/06/20/bilinear/2.png" alt=""></p>
+<h1 id="2-双线性插值（Bilinear-Interpolation）"><a href="#2-双线性插值（Bilinear-Interpolation）" class="headerlink" title="2. 双线性插值（Bilinear Interpolation）"></a>2. 双线性插值（Bilinear Interpolation）</h1><p>在数学上，双线性插值是线性插值在两个变量情况下的扩展，其核心思想是在两个方向分别进行一次线性插值。</p>
+<p><img src="/2018/06/20/bilinear/3.png" alt=""><br>红色是数据点，绿色是插值得到的点。</p>
+<p>首先在 x 方向进行线性插值，简单推导得到</p>
+<p><img src="/2018/06/20/bilinear/4.png" alt=""><br><img src="/2018/06/20/bilinear/5.png" alt=""></p>
+<p>然后在 y 方向进行线性插值，得到</p>
+<p><img src="/2018/06/20/bilinear/6.png" alt=""></p>
+<p>展开来就是</p>
+<p><img src="/2018/06/20/bilinear/7.png" alt=""></p>
   
 	</div>
 		<footer class="article-footer clearfix">
