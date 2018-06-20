@@ -90,10 +90,12 @@ var _hmt = _hmt || [];
 		
 		<p>这篇Paper提出了一种叫做空间变换网络,该网络不需要关键点的标定，能够根据分类或者其它任务自适应地将数据进行空间变换和对齐（包括平移、缩放、旋转以及其它几何变换等）。                                                                                                                                                                                                                                                                                                           </p>
 <h1 id="1-摘要"><a href="#1-摘要" class="headerlink" title="1. 摘要"></a>1. 摘要</h1><p>卷积神经网络（CNN）已经被证明能够训练一个能力强大的分类模型，但与传统的模式识别方法类似，它也会受到数据在空间上多样性的影响。这篇Paper提出了一种叫做空间变换网络（Spatial Transform Networks， STN）,该网络不需要关键点的标定，能够根据分类或者其它任务自适应地将数据进行空间变换和对齐（包括平移、缩放、旋转以及其它几何变换等）。在输入数据在空间差异较大的情况下，这个网络可以加在现有的卷积网络中，提高分类的准确性。</p>
-<h1 id="2-空间变换"><a href="#2-空间变换" class="headerlink" title="2. 空间变换"></a>2. 空间变换</h1><p>STN主要可以分为三个部分：1）Localisation network. 2) Grid generator. 3) Sampler. Localisation network用来计算空间变换的参数 θ，Grid generator则是得到input map U∈R<sup>H×W×C</sup>到 output map 各位置的V∈R<sup>H′×W′×C</sup>对应关系 T<sub>θ</sub>， sampler根据input map U 和 对应关系 T<sub>θ</sub>，生成最终的output map. </p>
-<h2 id="Localisation-network"><a href="#Localisation-network" class="headerlink" title="Localisation network"></a>Localisation network</h2><p>First a localisation network takes the input feature map, and through a number of hidden layers outputs the parameters of the spatial transformation that should be applied to the feature map.</p>
+<h1 id="2-空间变换"><a href="#2-空间变换" class="headerlink" title="2. 空间变换"></a>2. 空间变换</h1><p><img src="/2018/06/20/STN/architecture.JPG" alt="architecture"></p>
+<p>STN主要可以分为三个部分：1）Localisation network. 2) Grid generator. 3) Sampler. Localisation network用来计算空间变换的参数 θ，Grid generator则是得到input map U∈R<sup>H×W×C</sup>到 output map 各位置的V∈R<sup>H′×W′×C</sup>对应关系 T<sub>θ</sub>， sampler根据input map U 和 对应关系 T<sub>θ</sub>，生成最终的output map. </p>
+<h2 id="2-1-Localisation-network"><a href="#2-1-Localisation-network" class="headerlink" title="2.1 Localisation network"></a>2.1 Localisation network</h2><p>First a localisation network takes the input feature map, and through a number of hidden layers outputs the parameters of the spatial transformation that should be applied to the feature map.</p>
 <p>它的作用就是通过一个子网络（全连接或者卷积网，最后都要加一个回归层来输出变换参数θ），生成空间变换的参数θ。θ 的形式可以多样，如需实现2D仿射变换，θ 就是一个6维（2x3）向量的输出。</p>
 <p><img src="/2018/06/20/STN/affine.JPG" alt="affine"></p>
+<h2 id="2-2-Parameterised-sampling-grid"><a href="#2-2-Parameterised-sampling-grid" class="headerlink" title="2.2 Parameterised sampling grid"></a>2.2 Parameterised sampling grid</h2><p>Then, the predicted transformation parameters are used to create a sampling grid, which is a set of points where the input map should be sampled to produce the transformed output. </p>
   
 	</div>
 		<footer class="article-footer clearfix">
