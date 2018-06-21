@@ -4,12 +4,13 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>Bilinear Interpolation | LI jianan&#39;s Blog</title>
+    <title>Learning Deeply Supervised Visual Descriptors for Dense Monocular Reconstruction CVPR_2017 | LI jianan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
     
-    <meta name="description" content="本期主要介绍一下双线性插值的实现方法。                                                                                                                                   ">
+    <meta name="description" content="孔径问题 Aperture Problem何谓孔径问题呢？我们可以先看下面这个动画：我们可以看到，中间有一个圆圈，我们透过这个圆圈，会看到有斜线，沿着【右下】的方向移动。然而如果要造成这种视觉效果，却又三种可能。分别是【往下】，【往右】，【往右下】移动。
+透过孔径来观察的时候，会有错觉。这就是【区域">
     
     
     
@@ -79,38 +80,24 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/20/bilinear/" title="Bilinear Interpolation" itemprop="url">Bilinear Interpolation</a>
+      <a href="/2018/06/21/densefeat/" title="Learning Deeply Supervised Visual Descriptors for Dense Monocular Reconstruction CVPR_2017" itemprop="url">Learning Deeply Supervised Visual Descriptors for Dense Monocular Reconstruction CVPR_2017</a>
   </h1>
   <p class="article-time">
-    <time datetime="2018-06-20T11:50:00.000Z" itemprop="datePublished">2018-06-20</time>
+    <time datetime="2018-06-21T13:21:27.000Z" itemprop="datePublished">2018-06-21</time>
   </p>
 </header>
 	<div class="article-content">
 		
 		
-		<p>本期主要介绍一下双线性插值的实现方法。                                                                                                                                                                                                                                                                                                           </p>
-<h1 id="1-线性插值"><a href="#1-线性插值" class="headerlink" title="1. 线性插值"></a>1. 线性插值</h1><p>已知坐标 (x<sub>0</sub>, y<sub>0</sub>) 与 (x<sub>1</sub>, y<sub>1</sub>)，要得到 [x<sub>0</sub>, x<sub>1</sub>] 区间内某一位置 x 在直线上的值。</p>
-<p><img src="/2018/06/20/bilinear/1.png" alt=""></p>
-<p>由于 x 值已知，所以可以从公式得到 y 的值</p>
-<p><img src="/2018/06/20/bilinear/2.png" alt=""></p>
-<h1 id="2-双线性插值（Bilinear-Interpolation）"><a href="#2-双线性插值（Bilinear-Interpolation）" class="headerlink" title="2. 双线性插值（Bilinear Interpolation）"></a>2. 双线性插值（Bilinear Interpolation）</h1><p>在数学上，双线性插值是线性插值在两个变量情况下的扩展，其核心思想是在两个方向分别进行一次线性插值。</p>
-<p><img src="/2018/06/20/bilinear/3.png" alt=""><br>                                         红色是数据点，绿色是插值得到的点。</p>
-<p>首先在 x 方向进行线性插值，简单推导得到</p>
-<p><img src="/2018/06/20/bilinear/4.png" alt=""><br><img src="/2018/06/20/bilinear/5.png" alt=""></p>
-<p>然后在 y 方向进行线性插值，得到</p>
-<p><img src="/2018/06/20/bilinear/6.png" alt=""></p>
-<p>展开来就是</p>
-<p><img src="/2018/06/20/bilinear/7.png" alt=""><br><img src="/2018/06/20/bilinear/8.png" alt=""></p>
-<h2 id="2-1-如何得到维基百科上的表达式"><a href="#2-1-如何得到维基百科上的表达式" class="headerlink" title="2.1 如何得到维基百科上的表达式"></a>2.1 如何得到维基百科上的表达式</h2><p>The largest integer not larger than x shall be called [x], and the fractional part of x shall be {x}. Then, x = [x] + {x}, and {x}&lt;1. We have x<sub>1</sub>=[x], x<sub>2</sub>=[x] + 1, y<sub>1</sub>=[y], y<sub>2</sub> = [y] + 1. </p>
-<p>令f(Q<sub>11</sub>) = z<sub>11</sub>, …, f(Q<sub>22</sub>) = z<sub>22</sub>，代入上面的双线性插值展开式，得到：</p>
-<p><img src="/2018/06/20/bilinear/9.svg" alt="Bilinear Interpolation"></p>
+		<h2 id="孔径问题-Aperture-Problem"><a href="#孔径问题-Aperture-Problem" class="headerlink" title="孔径问题 Aperture Problem"></a>孔径问题 Aperture Problem</h2><p>何谓孔径问题呢？我们可以先看下面这个动画：<br><img src="/2018/06/21/densefeat/densefeat.gif" alt=""><br>我们可以看到，中间有一个圆圈，我们透过这个圆圈，会看到有斜线，沿着【右下】的方向移动。然而如果要造成这种视觉效果，却又三种可能。分别是【往下】，【往右】，【往右下】移动。</p>
+<p>透过孔径来观察的时候，会有错觉。这就是【区域(local)】和【全域(global)】视觉处理的差别。 </p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Bilinear-Interpolation/">Bilinear Interpolation</a>
+  <span></span> <a href="/tags/Dense-Feature/">Dense Feature</a>
   </div>
 
 
@@ -118,7 +105,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/06/20/bilinear/" data-title="Bilinear Interpolation | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/06/21/densefeat/" data-title="Learning Deeply Supervised Visual Descriptors for Dense Monocular Reconstruction CVPR_2017 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -127,19 +114,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/06/21/densefeat/" title="Learning Deeply Supervised Visual Descriptors for Dense Monocular Reconstruction CVPR_2017">
-  <strong>Previous:</strong><br/>
-  <span>
-  Learning Deeply Supervised Visual Descriptors for Dense Monocular Reconstruction CVPR_2017</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/06/20/STN/"  title="Spatial Transform Networks CVPR_2016">
+<a href="/2018/06/20/bilinear/"  title="Bilinear Interpolation">
  <strong>Next:</strong><br/> 
- <span>Spatial Transform Networks CVPR_2016
+ <span>Bilinear Interpolation
 </span>
 </a>
 </div>
