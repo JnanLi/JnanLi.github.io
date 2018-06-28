@@ -107,7 +107,7 @@ var _hmt = _hmt || [];
 <p>假设经过CNN网络得到的图像深度Dl=F(Il)，那么</p>
 <p><strong>Forward warp 是利用D<sub>l</sub>将I<sub>l</sub>中的像素点映射到I<sub>r</sub>中，即表示为I′<sub>r</sub>=Mapping(I<sub>l</sub>,D<sub>l</sub>)；</strong><br><strong>Backward warp 是利用D<sub>l</sub>将I<sub>r</sub>中的像素映射到I<sub>l</sub>中，即表示为I′<sub>l</sub>=Mapping(I<sub>r</sub>,D<sub>l</sub>)。</strong></p>
 <p>上两者的区别在于：在Forward mapping中，我们得到I’中的点可能会落在不是整数像素点的位置，这时只能通过最近原则将原图I中的像素点对应到I’中去，而在Inverse mapping中，我们从I’出发(也就是x<sub>r</sub> - D<sub>l</sub>)，去寻找相对应的原图中的点，这样能够确保I’中的每一个点都有赋值不会出现空洞，并且如果x<sub>r</sub> - D<sub>l</sub>得到的原图中的点不属于（整数）像素点，这时可以通过插值的方法求得所对应非像素点的位置。一般在这里采用双线性插值的方法，而且它在sub-pixel level是可导的。<strong>不理解为什么x<sub>r</sub>=x<sub>l1</sub>+D<sub>l1</sub>这里是加号。</strong><br><strong>解释</strong><br>这是一张左图<br><img src="/2018/06/13/Unsupervised/left.png" alt=""><br>这是一张右图<br><img src="/2018/06/13/Unsupervised/right.png" alt=""><br>这是一张简略图<br><img src="/2018/06/13/Unsupervised/lr.png" alt=""></p>
-<p>d<sup>l</sup> = x<sup>l</sup> - x<sup>r</sup><br>d<sub>lx<sup>r</sup></sub></p>
+<p>d<sup>l</sup> = x<sup>l</sup> - x<sup>r</sup><br>d<sub>l, x<sup>r</sup></sub> = x<sup>l</sup> - x<sup>r</sup><br>= d<sub>r, x<sup>l</sup></sub> = d<sub>r, x<sup>r</sup> + d<sub>l, x<sup>r</sup></sub></sub></p>
 <h2 id="4-1-Coarse-to-fine-training-with-skip-architecture"><a href="#4-1-Coarse-to-fine-training-with-skip-architecture" class="headerlink" title="4.1 Coarse-to-fine training with skip architecture"></a>4.1 Coarse-to-fine training with skip architecture</h2><p>为了计算上文设计的损失函数的梯度，我们需要用泰勒表达式对I<sub>2</sub>线性化：</p>
 <p><img src="/2018/06/13/Unsupervised/taylor.png" alt="taylor"></p>
 <p>I<sub>2h</sub>表示第n次迭代在当前视差D<sup>n-1</sup>的水平方向上的梯度。</p>
