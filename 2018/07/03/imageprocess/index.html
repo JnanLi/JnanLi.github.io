@@ -117,7 +117,17 @@ var _hmt = _hmt || [];
 <h1 id="4-图像增强"><a href="#4-图像增强" class="headerlink" title="4. 图像增强"></a>4. 图像增强</h1><p>图像增强的目的有二，一是改善图像的视觉效果，提高图像的清晰度；二是将图像转换成一种更适合于人类或机器进行分析处理的形式，以便图像中获取更多有用的信息。</p>
 <p>图像增强算法的应用是有针对性的，并不存在通用的增强算法。</p>
 <p>说一下彩色增强，对于灰度图像，人眼能分辨的灰度级只有十几到二十几，而对不同亮度和色调的彩色图像则能达到几百甚至上千。利用这一特性，将颜色信息用于图像增强之中能提高图像的可分辨性。<br>伪彩色增强是针对灰度图像提出的，其目的是吧离散灰度图像f(x,y)的不同灰度级按照线性或者非线性关系映射成不同的彩色。<br>真彩色增强所处理的对象不是一副灰度图像，而是一副自然彩色图像或是同一景物的多光谱图像，它是一种彩色到彩色的变换。其目的一是变换图像的彩色，引起人们的特别注意，而是根据人眼对不同颜色的灵敏度不同，使景物呈现出与人眼视觉相匹配的颜色。</p>
-  
+<h1 id="4-1-灰度变换函数"><a href="#4-1-灰度变换函数" class="headerlink" title="4.1 灰度变换函数"></a>4.1 灰度变换函数</h1><h2 id="4-1-1-imadjust函数和stretchlim函数"><a href="#4-1-1-imadjust函数和stretchlim函数" class="headerlink" title="4.1.1 imadjust函数和stretchlim函数"></a>4.1.1 imadjust函数和stretchlim函数</h2><p>g = imadjust(f, [low_in, high_in], [low_out, high_out], gamma)</p>
+<p>low_in以下的值映射为low_out，high_in以上的值映射为high_out，如果high_out小于low_out，输出灰度将反转。</p>
+<p>gamma的值小于1，映射被加权至较亮的输出值；大于1，映射加权至较暗的输出值。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">g1 = imadjust(f, [<span class="number">0</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">0</span>]);</span><br><span class="line">g = imcomplement(f);</span><br><span class="line">g2 = imadjust(f, [<span class="number">0.5</span>, <span class="number">0.75</span>], [<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">g3 = imadjust(f, [], [], <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>第一种语法和第二种等价。第三种语法对于强调图像中感兴趣的灰度区非常有用。第四种语法压缩灰度图像的低端和扩展高端。</p>
+<p>stretchlim函数能有用imadjust函数自动地不必关心参数的处理。</p>
+<p>Low_High = stretchlim(f)</p>
+<p>默认情况下，Low_High的值指定灰度图像f中所有元素值底部和顶部饱和度的1%。也可以指定饱和度：</p>
+<p>Low_High = stretchlim(f， tol)</p>
+<p>其中tol是两元素向量[low_frac, high_frac]，如果给了一个标量，那么low_frac = tol, high_frac = 1 - tol。<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = imadjust(f, stretchlim(f), [])</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-1-2"><a href="#4-1-2" class="headerlink" title="4.1.2"></a>4.1.2</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 
