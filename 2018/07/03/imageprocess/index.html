@@ -146,40 +146,7 @@ var _hmt = _hmt || [];
 <p>f为输入图像，hspec为特定的直方图(某个特定值的行向量)。histeq的特性是当length(hspec)比图像f中的灰度级小很多时，图像g的直方图通常会较好地匹配hspec。</p>
 <h3 id="4-4-4-函数adapthisteq"><a href="#4-4-4-函数adapthisteq" class="headerlink" title="4.4.4 函数adapthisteq"></a>4.4.4 函数adapthisteq</h3><p>执行所谓的对比度受限的自适应直方图均衡。用直方图规定化方法处理图像的小区域组成(称为小片)。然后用双线性内插将相邻小片组合起来以消除人工引入的边界效应。<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = adapthisteq(f, param1, val1, param2, val2, ...)</span><br></pre></td></tr></table></figure></p>
 <p>param/val是下表所列的内容。</p>
-<table>
-<thead>
-<tr>
-<th>parameter</th>
-<th>value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>‘NumTiles’</td>
-<td>根据行和列[r c]指定下片数的正整数的两元素向量。r和c至少是2，小片总数是r*c，默认值是[8 8]</td>
-</tr>
-<tr>
-<td>‘ClipLimit’</td>
-<td>范围[0 1]内的标量，指定了对比度增强限制。<strong>值越高，对比度也越高</strong>。默认值是0.01。</td>
-</tr>
-<tr>
-<td>‘NBins’</td>
-<td>正整数标量，为简历对比度增强变换而使用的直方图指定堆栈数目，默认值是256。</td>
-</tr>
-<tr>
-<td>‘Range’</td>
-<td>指定输出图像数据范围的字符串：’original’指定[min(f(:)) max(f(:))]；’full’使用输出图像类的整个范围，uint8数据范围就是[0 255]，这是默认值。</td>
-</tr>
-<tr>
-<td>‘Distribution’</td>
-<td>字符串，用于指定图像小片所需的直方图形状：’uniform’平坦的直方图；’rayleigh’钟形直方图；’exponential’曲线直方图。</td>
-</tr>
-<tr>
-<td>‘Alpha’</td>
-<td>用于瑞利分布和指数分布的非负标量，默认值是0.4。</td>
-</tr>
-</tbody>
-</table>
+<p>|parameter     |value                                                                                   |<br>|————–|：————————————————————————————-：|<br>|’NumTiles’    |根据行和列[r c]指定下片数的正整数的两元素向量。r和c至少是2，小片总数是r*c，默认值是[8 8]       |<br>|’ClipLimit’   |范围[0 1]内的标量，指定了对比度增强限制。<strong>值越高，对比度也越高</strong>。默认值是0.01。               |<br>|’NBins’       |正整数标量，为简历对比度增强变换而使用的直方图指定堆栈数目，默认值是256。                      |<br>|’Range’       |指定输出图像数据范围的字符串：’original’指定[min(f(:)) max(f(:))]；’full’使用输出图像类的整个范围，uint8数据范围就是[0 255]，这是默认值。                                |<br>|’Distribution’|字符串，用于指定图像小片所需的直方图形状：’uniform’平坦的直方图；’rayleigh’钟形直方图；’exponential’曲线直方图。|<br>|’Alpha’       |用于瑞利分布和指数分布的非负标量，默认值是0.4。                                              |</p>
   
 	</div>
 		<footer class="article-footer clearfix">
