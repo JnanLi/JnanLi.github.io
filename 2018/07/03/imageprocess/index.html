@@ -124,14 +124,62 @@ var _hmt = _hmt || [];
 <h1 id="4-图像增强"><a href="#4-图像增强" class="headerlink" title="4. 图像增强"></a>4. 图像增强</h1><p>图像增强的目的有二，一是改善图像的视觉效果，提高图像的清晰度；二是将图像转换成一种更适合于人类或机器进行分析处理的形式，以便图像中获取更多有用的信息。</p>
 <p>图像增强算法的应用是有针对性的，并不存在通用的增强算法。</p>
 <p>说一下彩色增强，对于灰度图像，人眼能分辨的灰度级只有十几到二十几，而对不同亮度和色调的彩色图像则能达到几百甚至上千。利用这一特性，将颜色信息用于图像增强之中能提高图像的可分辨性。<br>伪彩色增强是针对灰度图像提出的，其目的是吧离散灰度图像f(x,y)的不同灰度级按照线性或者非线性关系映射成不同的彩色。<br>真彩色增强所处理的对象不是一副灰度图像，而是一副自然彩色图像或是同一景物的多光谱图像，它是一种彩色到彩色的变换。其目的一是变换图像的彩色，引起人们的特别注意，而是根据人眼对不同颜色的灵敏度不同，使景物呈现出与人眼视觉相匹配的颜色。</p>
-<h1 id="4-1-灰度变换函数"><a href="#4-1-灰度变换函数" class="headerlink" title="4.1 灰度变换函数"></a>4.1 灰度变换函数</h1><h2 id="4-1-1-imadjust函数和stretchlim函数"><a href="#4-1-1-imadjust函数和stretchlim函数" class="headerlink" title="4.1.1 imadjust函数和stretchlim函数"></a>4.1.1 imadjust函数和stretchlim函数</h2><p>g = imadjust(f, [low_in, high_in], [low_out, high_out], gamma)<br>low_in以下的值映射为low_out，high_in以上的值映射为high_out，如果high_out小于low_out，输出灰度将反转。<br>gamma的值小于1，映射被加权至较亮的输出值；大于1，映射加权至较暗的输出值。</p>
+<h2 id="4-1-灰度变换函数"><a href="#4-1-灰度变换函数" class="headerlink" title="4.1 灰度变换函数"></a>4.1 灰度变换函数</h2><h3 id="4-1-1-imadjust函数和stretchlim函数"><a href="#4-1-1-imadjust函数和stretchlim函数" class="headerlink" title="4.1.1 imadjust函数和stretchlim函数"></a>4.1.1 imadjust函数和stretchlim函数</h3><p>g = imadjust(f, [low_in, high_in], [low_out, high_out], gamma)<br>low_in以下的值映射为low_out，high_in以上的值映射为high_out，如果high_out小于low_out，输出灰度将反转。<br>gamma的值小于1，映射被加权至较亮的输出值；大于1，映射加权至较暗的输出值。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">g1 = imadjust(f, [<span class="number">0</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">0</span>]);</span><br><span class="line">g = imcomplement(f);</span><br><span class="line">g2 = imadjust(f, [<span class="number">0.5</span>, <span class="number">0.75</span>], [<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">g3 = imadjust(f, [], [], <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 <p>第一种语法和第二种等价。第三种语法对于强调图像中感兴趣的灰度区非常有用。第四种语法压缩灰度图像的低端和扩展高端。</p>
 <p>stretchlim函数能够自动用imadjust函数，不必关心参数的处理。<br>Low_High = stretchlim(f)<br>默认情况下，Low_High的值指定灰度图像f中所有元素值底部和顶部饱和度的1%。也可以指定饱和度：<br>Low_High = stretchlim(f， tol)<br>其中tol是两元素向量[low_frac, high_frac]，如果给了一个标量，那么low_frac = tol, high_frac = 1 - tol。<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = imadjust(f, stretchlim(f), [])</span><br></pre></td></tr></table></figure></p>
-<h2 id="4-1-2-指定任意灰度变换"><a href="#4-1-2-指定任意灰度变换" class="headerlink" title="4.1.2 指定任意灰度变换"></a>4.1.2 指定任意灰度变换</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = interpl(z, T, f)</span><br></pre></td></tr></table></figure>
+<h3 id="4-1-2-指定任意灰度变换"><a href="#4-1-2-指定任意灰度变换" class="headerlink" title="4.1.2 指定任意灰度变换"></a>4.1.2 指定任意灰度变换</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = interpl(z, T, f)</span><br></pre></td></tr></table></figure>
 <p>其中，f是输入图像，g是输出图像，z和T是等长的列向量，interpl首先查找横坐标(z)的值，然后查找相应的T中的值，并在相应的像素位置输出g的内插值。<br>例如，假定T是负变换，T=[1 0]’。然后，因为T仅有两个元素，z=[0 1]’。假定f中某个像素的值是0.75,，将为g中相应的像素赋予值0.25。<br>内插是有必要的，因为对于T，我们仅有给定数量的离散点，而g在[0 1]范围内可以有任意值。</p>
-<h1 id="4-2-直方图处理与函数绘图"><a href="#4-2-直方图处理与函数绘图" class="headerlink" title="4.2 直方图处理与函数绘图"></a>4.2 直方图处理与函数绘图</h1><h2 id="4-2-1-生成并绘制图形的直方图"><a href="#4-2-1-生成并绘制图形的直方图" class="headerlink" title="4.2.1 生成并绘制图形的直方图"></a>4.2.1 生成并绘制图形的直方图</h2><p>工具箱中用于处理图像直方图的核心函数是imhist，基本语法如下：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h = imhist(f, b)</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-2-直方图处理与函数绘图"><a href="#4-2-直方图处理与函数绘图" class="headerlink" title="4.2 直方图处理与函数绘图"></a>4.2 直方图处理与函数绘图</h2><h3 id="4-2-1-生成并绘制图形的直方图"><a href="#4-2-1-生成并绘制图形的直方图" class="headerlink" title="4.2.1 生成并绘制图形的直方图"></a>4.2.1 生成并绘制图形的直方图</h3><p>工具箱中用于处理图像直方图的核心函数是imhist，基本语法如下：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h = imhist(f, b)</span><br></pre></td></tr></table></figure></p>
 <p>b用来形成直方图的“统计堆栈”的数目，若缺失，默认值为256。“统计堆栈”仅仅是灰度的一小部分。例如，如果我们处理一副uint8类的图像且设b=2.然后灰度范围被分成两部分：0至127和128至255。所以我们得到的直方图有两个值：h(1)等于图像在[0,127]间隔内的像素数，h(2)等于图像在[128,255]间隔内的像素数。<br>我们通过下面表达式就可以得到归一化的直方图，numel(f)函数可以给出数组f中元素的个数（也就是图像中的像素数）：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p = imhist(f, b) / <span class="built_in">numel</span>(f)</span><br></pre></td></tr></table></figure></p>
+<p>直方图还可以利用条形图来绘制，为达到此目的，我们利用下列函数：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bar(horz, z, width)</span><br></pre></td></tr></table></figure></p>
+<p>horz的值给出了水平增量，z的值对应垂直量。若horz被省略，水平轴会从0至length(z)等分为若干个单位。当width的值为1时，竖条较明显；当width的值为0，竖条是垂直线，默认值为0.8。<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">h = imhist(f, <span class="number">25</span>)</span><br><span class="line">horz = <span class="built_in">linspace</span>(<span class="number">0</span>, <span class="number">255</span>, <span class="number">25</span>)</span><br><span class="line">bar(horz, h)</span><br><span class="line">axis([<span class="number">0</span> <span class="number">255</span> <span class="number">0</span> <span class="number">60000</span>])</span><br><span class="line">set(gca, <span class="string">'xtick'</span>, <span class="number">0</span>:<span class="number">50</span>:<span class="number">255</span>)</span><br><span class="line">set(gca, <span class="string">'ytick'</span>, <span class="number">0</span>:<span class="number">20000</span>:<span class="number">60000</span>)</span><br></pre></td></tr></table></figure></p>
+<p>axis函数设置了水平轴和垂直轴的最大值及最小值：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axis([horzmin horzmax vertmin vertmax])</span><br></pre></td></tr></table></figure></p>
+<p>在最后两条语句中，gca的意思是“获得当前轴”(也就是最终显示图形的轴)，xtick和ytick设置显示水平轴和垂直轴标尺。<br>杆状图与条形图类似，语法如下：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stem(horz, z, <span class="string">'LineSpec'</span>, <span class="string">'fill'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>参数LineSpec是一个三元组，这里就不打印了。如果使用了fill，那么标记点用三元组中第一个元素指定的颜色填充。默认颜色为蓝色，默认线条为实线，默认标记点为圆圈。<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">h = imhist(f, <span class="number">25</span>)</span><br><span class="line">horz = <span class="built_in">linspace</span>(<span class="number">0</span>, <span class="number">255</span>, <span class="number">25</span>)</span><br><span class="line">stem(horz, h, <span class="string">'fill'</span>)</span><br><span class="line">axis([<span class="number">0</span> <span class="number">255</span> <span class="number">0</span> <span class="number">60000</span>])</span><br><span class="line">set(gca, <span class="string">'xtick'</span>, [<span class="number">0</span>:<span class="number">50</span>:<span class="number">255</span>])</span><br><span class="line">set(gca, <span class="string">'ytick'</span>, [<span class="number">0</span>:<span class="number">20000</span>:<span class="number">60000</span>])</span><br></pre></td></tr></table></figure></p>
+<p>下面考虑plot函数，该函数将一组点用直线连接起来：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot(horz, z, <span class="string">'LineSpec'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>在前面的讨论中，坐标轴的取值范围和刻度线都是人工设定的。利用ylim和xlim函数可以自动设定取值范围及刻度。<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ylim(<span class="string">'auto'</span>)</span><br><span class="line">xlim(<span class="string">'auto'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>它们还有手工选项：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ylim([ymin ymax])</span><br><span class="line">xlim([xmin xmax])</span><br></pre></td></tr></table></figure></p>
+<p>如果其中一个设定好了，那么另一个轴的限制默认为auto形式。<br>在提示符处键入hold on保留现有图形及某些轴的属性，从而使后续绘图命令在已有图形的基础上执行。</p>
+<h3 id="4-4-2-直方图均衡化"><a href="#4-4-2-直方图均衡化" class="headerlink" title="4.4.2 直方图均衡化"></a>4.4.2 直方图均衡化</h3><p>直方图均衡化由工具箱中的histeq函数实现，若nlev与L(输入图像可能灰度级的总数)相等，则histeq直接执行变换。若nlev小于L，则histeq试图分配灰度级，从而能够得到近似平坦的直方图。nlev默认=64.在很大程度上，我们将nlev赋值为灰度级的最大可能数量(通常为256)：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q = histeq(f, nlev)</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-4-3-直方图匹配法"><a href="#4-4-3-直方图匹配法" class="headerlink" title="4.4.3 直方图匹配法"></a>4.4.3 直方图匹配法</h3><p>仍然使用histeq实现直方图匹配：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = histeq(f, hspec)</span><br></pre></td></tr></table></figure></p>
+<p>f为输入图像，hspec为特定的直方图(某个特定值的行向量)。histeq的特性是当length(hspec)比图像f中的灰度级小很多时，图像g的直方图通常会较好地匹配hspec。</p>
+<h3 id="4-4-4-函数adapthisteq"><a href="#4-4-4-函数adapthisteq" class="headerlink" title="4.4.4 函数adapthisteq"></a>4.4.4 函数adapthisteq</h3><p>执行所谓的对比度受限的自适应直方图均衡。用直方图规定化方法处理图像的小区域组成(称为小片)。然后用双线性内插将相邻小片组合起来以消除人工引入的边界效应。<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = adapthisteq(f, param1, val1, param2, val2, ...)</span><br></pre></td></tr></table></figure></p>
+<p>param/val是下表所列的内容。</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘NumTiles’</td>
+<td>根据行和列[r c]指定下片数的正整数的两元素向量。r和c至少是2，小片总数是r*c，默认值是[8 8]</td>
+</tr>
+<tr>
+<td>‘ClipLimit’</td>
+<td>范围[0 1]内的标量，指定了对比度增强限制。<strong>值越高，对比度也越高</strong>。默认值是0.01。</td>
+</tr>
+<tr>
+<td>‘NBins’</td>
+<td>正整数标量，为简历对比度增强变换而使用的直方图指定堆栈数目，默认值是256。</td>
+</tr>
+<tr>
+<td>‘Range’</td>
+<td>指定输出图像数据范围的字符串：’original’指定[min(f(:)) max(f(:))]；’full’使用输出图像类的整个范围，uint8数据范围就是[0 255]，这是默认值。</td>
+</tr>
+<tr>
+<td>‘Distribution’</td>
+<td>字符串，用于指定图像小片所需的直方图形状：’uniform’平坦的直方图；’rayleigh’钟形直方图；’exponential’曲线直方图。</td>
+</tr>
+<tr>
+<td>‘Alpha’</td>
+<td>用于瑞利分布和指数分布的非负标量，默认值是0.4。</td>
+</tr>
+</tbody>
+</table>
   
 	</div>
 		<footer class="article-footer clearfix">
