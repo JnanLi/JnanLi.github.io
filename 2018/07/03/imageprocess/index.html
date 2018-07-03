@@ -182,7 +182,25 @@ var _hmt = _hmt || [];
 </table>
 <h2 id="4-5-空间滤波"><a href="#4-5-空间滤波" class="headerlink" title="4.5 空间滤波"></a>4.5 空间滤波</h2><p>(1) 选择中心点(x, y)；<br>(2) 仅对预定义的围绕点(x, y)的领域内的像素执行运算；<br>(3) 令运算结果为该点处领域处理的响应；<br>(4) 对图像上的每一点重复上述处理。<br>若对领域中像素的计算为线性的，则运算称为线性空间滤波；否则称此运算为非线性空间滤波。</p>
 <h3 id="4-5-1-线性空间滤波"><a href="#4-5-1-线性空间滤波" class="headerlink" title="4.5.1 线性空间滤波"></a>4.5.1 线性空间滤波</h3><p>处理奇数大小的模板会更加直观，因为它们都有明确的中心点。<br>我们必须清晰地理解两个意义相近的概念。一个是相关；另一个是卷积。相关是图像中的领域与模板一一对应相乘，卷积只不过是在模板通过f之前先将它旋转180°。<br>工具箱使用函数imfilter来实现线性空间滤波：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = imfilter(f, w, filtering_mode, boundary_options, size_options)</span><br></pre></td></tr></table></figure></p>
-<p>imfilter函数的选型如下<br>| 选项 | 说明 |<br>|——|——|<br>| 滤波模式 |     |<br>| ‘corr’ | 相关 |</p>
+<p>imfilter函数的选型如下</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>滤波模式</td>
+<td></td>
+</tr>
+<tr>
+<td>‘corr’</td>
+<td>相关</td>
+</tr>
+</tbody>
+</table>
   
 	</div>
 		<footer class="article-footer clearfix">
