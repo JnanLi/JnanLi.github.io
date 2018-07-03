@@ -237,6 +237,22 @@ var _hmt = _hmt || [];
 </tr>
 </tbody>
 </table>
+<h3 id="4-5-2-非线性空间滤波"><a href="#4-5-2-非线性空间滤波" class="headerlink" title="4.5.2 非线性空间滤波"></a>4.5.2 非线性空间滤波</h3><p>模板的概念在非线性滤波中不是那么普遍。为了执行通常的非线性滤波操作，工具箱提供了两个函数：nlfilter和colfilt。colfilt快得多，因此更多采用的是colfilt。<br>介绍colfilt之前先介绍一个对输入图像清楚填充的函数padarray，对于二维函数，语法为<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fp = padarray(f, [r c], method, direction)</span><br></pre></td></tr></table></figure></p>
+<p>当f = [1 2;3 4]时，<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fp = padarray(f, [<span class="number">3</span> <span class="number">2</span>], <span class="string">'replicate'</span>, <span class="string">'post'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>得到fp =<br> 1 2 2 2<br> 3 4 4 4<br> 3 4 4 4<br> 3 4 4 4<br> 3 4 4 4<br> 如果不包含method，将默认用0来填充。<br> 函数padarray的选项</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>method</td>
+</tr>
+</tbody>
+</table>
   
 	</div>
 		<footer class="article-footer clearfix">
