@@ -150,33 +150,33 @@ var _hmt = _hmt || [];
 <thead>
 <tr>
 <th>parameter</th>
-<th style="text-align:center">value</th>
+<th>value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>‘NumTiles’</td>
-<td style="text-align:center">根据行和列[r c]指定下片数的正整数的两元素向量。r和c至少是2，小片总数是r*c，默认值是[8 8]</td>
+<td>根据行和列[r c]指定下片数的正整数的两元素向量。r和c至少是2，小片总数是r*c，默认值是[8 8]</td>
 </tr>
 <tr>
 <td>‘ClipLimit’</td>
-<td style="text-align:center">范围[0 1]内的标量，指定了对比度增强限制。<strong>值越高，对比度也越高</strong>。默认值是0.01。</td>
+<td>范围[0 1]内的标量，指定了对比度增强限制。<strong>值越高，对比度也越高</strong>。默认值是0.01。</td>
 </tr>
 <tr>
 <td>‘NBins’</td>
-<td style="text-align:center">正整数标量，为简历对比度增强变换而使用的直方图指定堆栈数目，默认值是256。</td>
+<td>正整数标量，为简历对比度增强变换而使用的直方图指定堆栈数目，默认值是256。</td>
 </tr>
 <tr>
 <td>‘Range’</td>
-<td style="text-align:center">指定输出图像数据范围的字符串：’original’指定[min(f(:)) max(f(:))]；’full’使用输出图像类的整个范围，uint8数据范围就是[0 255]，这是默认值。</td>
+<td>指定输出图像数据范围的字符串：’original’指定[min(f(:)) max(f(:))]；’full’使用输出图像类的整个范围，uint8数据范围就是[0 255]，这是默认值。</td>
 </tr>
 <tr>
 <td>‘Distribution’</td>
-<td style="text-align:center">字符串，用于指定图像小片所需的直方图形状：’uniform’平坦的直方图；’rayleigh’钟形直方图；’exponential’曲线直方图。</td>
+<td>字符串，用于指定图像小片所需的直方图形状：’uniform’平坦的直方图；’rayleigh’钟形直方图；’exponential’曲线直方图。</td>
 </tr>
 <tr>
 <td>‘Alpha’</td>
-<td style="text-align:center">用于瑞利分布和指数分布的非负标量，默认值是0.4。</td>
+<td>用于瑞利分布和指数分布的非负标量，默认值是0.4。</td>
 </tr>
 </tbody>
 </table>
