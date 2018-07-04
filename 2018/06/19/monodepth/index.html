@@ -90,16 +90,30 @@ var _hmt = _hmt || [];
 		
 		<p>本文采用无监督学习的方法来估计深度，基本思路是匹配好左右视图的像素，得到disparity map。根据得到的视差disparity，由d = bf/disparity，算出depth map。本文能实现在35ms内恢复一张图512×256的图只需要25ms（GPU）。                                                                                                                                                                                                                                                                                   </p>
 <h1 id="1-摘要"><a href="#1-摘要" class="headerlink" title="1. 摘要"></a>1. 摘要</h1><p>我们提出了一种新的训练目标，使得我们的卷积神经网络能够学习执行单个图像深度估计，尽管缺乏ground truth。Exploiting epipolar geometry constraints，我们通过训练我们的网络以产生图像重构损失来生成视差图像。我们表明，单独解决图像重建会导致质量较差的深度图像。为了克服这个问题，我们提出了一种新的训练损失，它强化了相对于左侧和右侧图像产生的差异之间的一致性，与现有方法相比改进了性能和鲁棒性。</p>
-<h1 id="2-Training-Loss"><a href="#2-Training-Loss" class="headerlink" title="2. Training Loss"></a>2. Training Loss</h1><p>We define a loss C<sub>s</sub> at each output scale s, forming the total loss as the sum C = C<sub>1</sub> + … + C<sub>4</sub>. Our loss module (below) computes C<sub>s</sub> as combination of three main terms.</p>
+<h1 id="2-Key-Sentences"><a href="#2-Key-Sentences" class="headerlink" title="2. Key Sentences"></a>2. Key Sentences</h1><p>In this paper, we innovate beyond existing approaches, replacing the use of explicit depth data during training with easier-to-obtain binocular stereo footage.</p>
+<p>We show that solving for image reconstruction alone re-sults in poor quality depth images. To overcome this problem, we propose a novel training loss that enforces consistency be-tween the disparities produced relative to both the left and right images, leading to improved performance and robustness com-pared to existing approaches. </p>
+<p>Our method is fast and only takes on the order of 35 milliseconds to predict a dense depth map for a 512×256 image on a modern GPU. </p>
+<p>Here we focus on works related to monocular depth estimation, where there is only a single input image, and no assumptions about the scene geometry or types of objects present are made.</p>
+<p>The key insight of our method is that we can simultaneously infer both disparities (left-to-right and right-to-left), using only the left input image, and obtain better depths by enforcing them to be consistent with each other.</p>
+<p>we want the output disparity map to align with the input left image, meaning the network has to sample from the right image. </p>
+<h1 id="3-DispNet"><a href="#3-DispNet" class="headerlink" title="3. DispNet"></a>3. DispNet</h1><p><a href="https://ieeexplore.ieee.org/document/7780807/" target="_blank" rel="noopener">A Large Dataset to Train Convolutional Networks for Disparity, Optical Flow, and Scene Flow Estimation</a></p>
+<h1 id="3-1-Main-contributions"><a href="#3-1-Main-contributions" class="headerlink" title="3.1 Main contributions:"></a>3.1 Main contributions:</h1><p><strong>Our datasets are the first large-scale datasets to enable training and evaluation of scene flow methods.</strong><br><strong>Present a convolutional network for real-time disparity estimation that provides state-of-the-art results.</strong></p>
+<p>By combining a flow and disparity estimation network and training it jointly, we demonstrate the first scene flow estimation with a convolutional network.</p>
+<h1 id="3-2-scene-flow的定义"><a href="#3-2-scene-flow的定义" class="headerlink" title="3.2 scene flow的定义"></a>3.2 scene flow的定义</h1><p>Optimal flow是3D运动在2D平面上的投影。Scene flow被认为是可以从立体视频或者RGBD视频中计算出的潜在3D运动场。假定有t和t+1时间的立体图像对，即有(I<sup>t</sup><sub>L</sub>, I<sup>t</sup><sub>R</sub>, I<sup>t+1</sup><sub>L</sub>, I<sup>t+1</sup><sub>R</sub>)。Scene flow在已知相机内外部参数的情况下，为四张图像中每一个可见点提供其3D位置和3D运动向量。</p>
+<p><img src="/2018/06/19/monodepth/Scene.gif" alt="Scene Flow"></p>
+<p>红色箭头表示就是来估计scene flow的。</p>
+<h1 id="3-3-论文提出了三个数据子集"><a href="#3-3-论文提出了三个数据子集" class="headerlink" title="3.3 论文提出了三个数据子集"></a>3.3 论文提出了三个数据子集</h1><p>The datasets are freely available online：<br><a href="https://lmb.informatik.uni-freiburg.de/resources/datasets/" target="_blank" rel="noopener">传送门</a></p>
+<h1 id="3-4-DispNet"><a href="#3-4-DispNet" class="headerlink" title="3.4 DispNet"></a>3.4 DispNet</h1><p>For disparity estimation we propose the basic architecture DispNet described in below:<br><img src="/2018/06/19/monodepth/DispNet.JPG" alt="DispNet"></p>
+<h1 id="4-Training-Loss"><a href="#4-Training-Loss" class="headerlink" title="4. Training Loss"></a>4. Training Loss</h1><p>We define a loss C<sub>s</sub> at each output scale s, forming the total loss as the sum C = C<sub>1</sub> + … + C<sub>4</sub>. Our loss module (below) computes C<sub>s</sub> as combination of three main terms.</p>
 <p><img src="/2018/06/19/monodepth/lossmodule.gif" alt="lossmodule"><br>Our loss module outputs left and right disparity maps, d<sup>l</sup> and d<sup>r</sup>. The loss combines smoothness, reconstruction, and left-right disparity consistency terms. This same module is repeated at each of the four different output scales. C: Convolution, UC: Up-convolution, S: Bilinear sampling, US: Up-Sampling, SC: Skip connection.</p>
 <p><img src="/2018/06/19/monodepth/lossall.png" alt="lossall"></p>
 <p>分别是：<br><strong>左右视图的灰度匹配部分</strong><br><strong>视差平滑部分（让disparity的分布更加平滑）</strong><br><strong>左右视图的一致性部分(促使左视图中的disparity分布和右视图的disparity图严格相同)</strong></p>
-<h2 id="2-1-左右视图的灰度匹配部分"><a href="#2-1-左右视图的灰度匹配部分" class="headerlink" title="2.1 左右视图的灰度匹配部分"></a>2.1 左右视图的灰度匹配部分</h2><p><img src="/2018/06/19/monodepth/ap.png" alt="ap"></p>
+<h2 id="4-1-左右视图的灰度匹配部分"><a href="#4-1-左右视图的灰度匹配部分" class="headerlink" title="4.1 左右视图的灰度匹配部分"></a>4.1 左右视图的灰度匹配部分</h2><p><img src="/2018/06/19/monodepth/ap.png" alt="ap"></p>
 <p>本文采用和Loss Functions for Neural Networks for Image Processing一文相同的形式，将SSIM和L1结合起来作为代价函数，其中α设置为0.85。<br>此式包含了L1和SSIM项两部分。</p>
-<h2 id="2-2-视差平滑部分"><a href="#2-2-视差平滑部分" class="headerlink" title="2.2 视差平滑部分"></a>2.2 视差平滑部分</h2><p><img src="/2018/06/19/monodepth/ds.png" alt="ds"></p>
+<h2 id="4-2-视差平滑部分"><a href="#4-2-视差平滑部分" class="headerlink" title="4.2 视差平滑部分"></a>4.2 视差平滑部分</h2><p><img src="/2018/06/19/monodepth/ds.png" alt="ds"></p>
 <p>数字图像中，更多的使用差分来近似导数，最简单的梯度近似表达式如下：</p>
 <p><img src="/2018/06/19/monodepth/tidu.png" alt="tidu"></p>
-<h2 id="2-3-左右视图的一致性部分"><a href="#2-3-左右视图的一致性部分" class="headerlink" title="2.3 左右视图的一致性部分"></a>2.3 左右视图的一致性部分</h2><p><img src="/2018/06/19/monodepth/lr.png" alt="lr"></p>
+<h2 id="4-3-左右视图的一致性部分"><a href="#4-3-左右视图的一致性部分" class="headerlink" title="4.3 左右视图的一致性部分"></a>4.3 左右视图的一致性部分</h2><p><img src="/2018/06/19/monodepth/lr.png" alt="lr"></p>
 <p><a href="https://ieeexplore.ieee.org/document/8100182/" target="_blank" rel="noopener">Unsupervised Monocular Depth Estimation with Left-Right Consistency</a></p>
   
 	</div>
