@@ -283,7 +283,58 @@ var _hmt = _hmt || [];
 </tr>
 </tbody>
 </table>
-<h2 id="4-6-图像处理工具箱中标准的空间滤波器"><a href="#4-6-图像处理工具箱中标准的空间滤波器" class="headerlink" title="4.6 图像处理工具箱中标准的空间滤波器"></a>4.6 图像处理工具箱中标准的空间滤波器</h2>  
+<h2 id="4-6-图像处理工具箱中标准的空间滤波器"><a href="#4-6-图像处理工具箱中标准的空间滤波器" class="headerlink" title="4.6 图像处理工具箱中标准的空间滤波器"></a>4.6 图像处理工具箱中标准的空间滤波器</h2><p>在这一节，我们将讨论由工具箱支持的线性和非线性滤波。</p>
+<h3 id="4-6-1-线性空间滤波器"><a href="#4-6-1-线性空间滤波器" class="headerlink" title="4.6.1 线性空间滤波器"></a>4.6.1 线性空间滤波器</h3><p>fspecial函数生成滤波模板w，函数语法为<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w = fspecial(<span class="string">'type'</span>, parameters)</span><br></pre></td></tr></table></figure></p>
+<p>下表是由函数fspecial支持的空间滤波器，其中的一些用于边缘检测。</p>
+<table>
+<thead>
+<tr>
+<th>类 型</th>
+<th>语法及参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>average</td>
+<td>fspecial(‘average’, [r c])是矩形平均滤波器，大小为r×c，默认值为3×3.若用单个数代替[r c]就表示正方形滤波器</td>
+</tr>
+<tr>
+<td>disk</td>
+<td>fspecial(‘disk’, r)为圆形平均滤波器(包含在边长为2r+1大小的正方形内)，半径为r。默认半径为5.</td>
+</tr>
+<tr>
+<td>gaussian</td>
+<td>fspecial(‘gaussian’, [r c], sig)为大小为r×c的高斯低通滤波器，标准偏移为sig(正数)。默认值为3×3和0.5。</td>
+</tr>
+<tr>
+<td>laplacian</td>
+<td>fspecial(‘laplacian’, alpha)为3×3的拉普拉斯滤波器，形状决定于alpha——一个处于[0,1]之间的数，alpha默认0.2。</td>
+</tr>
+<tr>
+<td>log</td>
+<td>fspecial(‘log’, [r c], sig)是大小为r×c的高斯-拉普拉斯(LoG)滤波器，标准偏移为sig(正数)。默认值为5×5和0.5。</td>
+</tr>
+<tr>
+<td>motion</td>
+<td>fspecial(‘motion’, len, theta)用于输出滤波器，当与一副图像卷积是，len像素近似做线性运动，运动的方向为theta。</td>
+</tr>
+<tr>
+<td>prewitt</td>
+<td>fspecial(‘prewitt’)输出大小为3×3的Prewitt滤波器。</td>
+</tr>
+<tr>
+<td>sobel</td>
+<td>fspecial(‘sobel’)输出大小为3×3的Sobel滤波器。</td>
+</tr>
+<tr>
+<td>unsharp</td>
+<td>fspecial(‘unsharp’, alpha)为3×3的非尖锐滤波器，形状决定于alpha——一个处于[0,1]之间的数，alpha默认0.2。</td>
+</tr>
+</tbody>
+</table>
+<p>下面使用imfilter和fspecial实现拉普拉斯滤波器<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">w = fspecial(<span class="string">'laplacian'</span>, <span class="number">0</span>);</span><br><span class="line">g1 = imfilter(f, w, <span class="string">'replicate'</span>);</span><br><span class="line">imshow(g1, [])</span><br></pre></td></tr></table></figure></p>
+<p>因为滤波器的中心参数为负<strong>？</strong>，所以通常我希望得到带有正值和负值的拉普拉斯图像。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
