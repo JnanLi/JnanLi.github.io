@@ -99,7 +99,7 @@ var _hmt = _hmt || [];
 <p><img src="/2018/06/20/STN/affine.JPG" alt="affine"></p>
 <p>当然，A<sub>θ</sub>也可以有其它形式，如3D仿射变换，透射变换等。</p>
 <h2 id="2-3-Differentiable-image-sampling"><a href="#2-3-Differentiable-image-sampling" class="headerlink" title="2.3 Differentiable image sampling"></a>2.3 Differentiable image sampling</h2><p>Finally, the feature map and the sampling grid are taken as inputs to the sampler, producing the output map sampled from the input at the grid points.</p>
-<p>根据输入特征U和变换关系式T(G)，得到输出特征图V：<br><img src="/2018/06/20/STN/3.JPG" alt=""><br>其中U<sub>nm</sub><sup>c</sup>是输入特征在通道c位置(n,m)处的值，V<sub>i</sub><sup>c</sup>是输出图第i个像素点在通道c位置(x<sub>i</sub><sup>t</sup>, y<sub>i</sub><sup>t</sup>)处的值。；后面那两个东西表示采用什么采样核，如双线性插值。<br>上式的双线性插值采样公式如下：<br><img src="/2018/06/20/STN/5.JPG" alt=""><br>为了反向传播，V<sub>i</sub><sup>c</sup>对U和xy的求导如下：<br><img src="/2018/06/20/STN/67.JPG" alt=""><br>对θ的求导形式取决于xy对θ的关系式。</p>
+<p>根据输入特征U和变换关系式T(G)，得到输出特征图V：<br><img src="/2018/06/20/STN/3.JPG" alt=""><br>其中U<sub>nm</sub><sup>c</sup>是输入特征在通道c位置(n,m)处的值，V<sub>i</sub><sup>c</sup>是输出图第i个像素点在通道c位置(x<sub>i</sub><sup>t</sup>, y<sub>i</sub><sup>t</sup>)处的值。；后面那两个东西表示采用什么采样核，如双线性插值。也就是说原图中第i个像素点位置的值对应到输出图第i个像素点位置上去（如果是整数值，那么直接对应过去，如果不是，就进行双线性插值。应用到depth estimation中，因为一般采用backward warp，所以输出图的位置都是整数，而原图中像素点对应的位置就不一定是整数了。因此将STN的双线性插值形式应用到depth estimation中刚刚好。）<br>上式的双线性插值采样公式如下：<br><img src="/2018/06/20/STN/5.JPG" alt=""><br>为了反向传播，V<sub>i</sub><sup>c</sup>对U和xy的求导如下：<br><img src="/2018/06/20/STN/67.JPG" alt=""><br>对θ的求导形式取决于xy对θ的关系式。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
