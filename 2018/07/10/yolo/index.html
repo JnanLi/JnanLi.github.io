@@ -89,7 +89,9 @@ var _hmt = _hmt || [];
 		
 		
 		<p>…                                                                                                                                                                                                                                                                                                                                         </p>
-<h1 id="1-Specify-the-bounding-box"><a href="#1-Specify-the-bounding-box" class="headerlink" title="1. Specify the bounding box"></a>1. Specify the bounding box</h1><p><img src="/2018/07/10/yolo/bb.PNG" alt=""></p>
+<h1 id="1-Specify-the-bounding-box"><a href="#1-Specify-the-bounding-box" class="headerlink" title="1. Specify the bounding box"></a>1. Specify the bounding box</h1><p><img src="/2018/07/10/yolo/bb.PNG" alt=""><br>稍微解释一下：b<sub>x</sub>和b<sub>y</sub>是相对于被分割出来的每个图像块来说的，惯例左上角为(0, 0)，右下角为(1, 1)。b<sub>w</sub>和b<sub>h</sub>的值是bounding box大小相对于图像块的比例。</p>
+<h1 id="2-Non-max-suppression-algorithm"><a href="#2-Non-max-suppression-algorithm" class="headerlink" title="2. Non-max suppression algorithm"></a>2. Non-max suppression algorithm</h1><p><img src="/2018/07/10/yolo/non.PNG" alt=""><br>如果还有预测出来的box没有被处理就不断循环，直到所有被预测出来的box要么被当做输出要么被剔除掉。<br>上图是只预测一个种类(car)的情况，当有好几个种类需要预测的时候，正确的做法可以是对于不同的种类分别执行Non-max suppression。<br>流程示意如下：<br>对每一个网格，输出两个预测的bounding box：<br><img src="/2018/07/10/yolo/1.PNG" alt=""><br>去除掉p<sub>c</sub>小于0.5的predicted bounding box：<br><img src="/2018/07/10/yolo/2.PNG" alt=""><br>对于每一个种类，执行Non-max suppression：<br><img src="/2018/07/10/yolo/3.PNG" alt=""></p>
+<h1 id="3-Anchor-boxes"><a href="#3-Anchor-boxes" class="headerlink" title="3. Anchor boxes"></a>3. Anchor boxes</h1><p><img src="/2018/07/10/yolo/cc.PNG" alt=""><br>Anchor box 1因为形状更加类似行人，因此y的前八个元素用来预测president，类似地后八个元素对应Anchor box 2和car。<br>比如说现在我们有两个Anchor box，那么在确定label的时候，bounding box与各个Anchor box计算IoU，bounding box填在和它IoU最高的那个Anchor box对应的y上。<br>至此，输出向量的维度应该是比如说(19,19,2,8)。19是你分割图像的数量，2是Anchor box的数量，8表示你要检测3(8-1-4)个种类。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
