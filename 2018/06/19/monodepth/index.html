@@ -150,7 +150,12 @@ var _hmt = _hmt || [];
 <p>上面创建一个空的Graph。</p>
 <p>在Tensorflow中，始终存在一个默认的Graph。如果要将Operation添加到默认Graph中，只需要调用定义Operation的函数（例如tf.add()）。如果我们需要定义多个Graph，则需要在with语句中调用Graph.as_default()方法将某个graph设置成默认Graph，于是with语句块中调用的Operation或Tensor将会添加到该Graph中。<br>例如，<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">g1 = tf.Graph()</span><br><span class="line"><span class="keyword">with</span> g1.as_default():</span><br><span class="line">    c1 = tf.constant([<span class="number">1.0</span>])</span><br><span class="line"><span class="keyword">with</span> tf.Graph().as_default() <span class="keyword">as</span> g2:</span><br><span class="line">    c2 = tf.constant([<span class="number">2.0</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session(graph=g1) <span class="keyword">as</span> sess1:</span><br><span class="line">    <span class="keyword">print</span> sess1.run(c1)</span><br><span class="line"><span class="keyword">with</span> tf.Session(graph=g2) <span class="keyword">as</span> sess2:</span><br><span class="line">    <span class="keyword">print</span> sess2.run(c2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># result:</span></span><br><span class="line"><span class="comment"># [ 1.0 ]</span></span><br><span class="line"><span class="comment"># [ 2.0 ]</span></span><br></pre></td></tr></table></figure></p>
 <p>如果将上面例子的sess1.run(c1)和sess2.run(c2)中的c1和c2交换一下位置，运行会报错。因为sess1加载的g1中没有c2这个Tensor，同样地，sess2加载的g2中也没有c1这个Tensor。</p>
-<h2 id="5-5"><a href="#5-5" class="headerlink" title="5.5"></a>5.5</h2>  
+<h2 id="5-5-tf-train-AdamOptimizer"><a href="#5-5-tf-train-AdamOptimizer" class="headerlink" title="5.5 tf.train.AdamOptimizer"></a>5.5 tf.train.AdamOptimizer</h2><p>目前其他我有看到的Optimizer还有</p>
+<ol>
+<li>GradientDescentOptimizer</li>
+<li>MomentumOptimizer</li>
+</ol>
+<h2 id="5-6"><a href="#5-6" class="headerlink" title="5.6"></a>5.6</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 
