@@ -149,7 +149,22 @@ var _hmt = _hmt || [];
 <li>erase()将容器内的单一元素或某个范围内的元素删除。</li>
 </ol>
 <p>insert()和erase()的行为视容器本身为顺序性(sequential)容器或关联(associative)容器而有所不同，它们在顺序性容器上的行为，将于下面一节讨论。</p>
-<h2 id="3-4-使用顺序性容器"><a href="#3-4-使用顺序性容器" class="headerlink" title="3.4 使用顺序性容器"></a>3.4 使用顺序性容器</h2>  
+<h2 id="3-4-使用顺序性容器"><a href="#3-4-使用顺序性容器" class="headerlink" title="3.4 使用顺序性容器"></a>3.4 使用顺序性容器</h2><p>vector和list是两个主要的顺序性容器。</p>
+<p>vector以一块连续内存来存放元素。<strong>对vector进行随机访问</strong>——例如先取第5个元素，再取其第17个元素，然后取第9个元素——<strong>颇有效率</strong>。<br>vector内的每个元素都被储存在距离起始点的固定偏移位置上。如果<strong>将元素插入任意位置而非vector的末端那么效率将很低</strong>，需要将插入位置邮编的每个元素都复制一份，依次向右移动。同样，删除最后一个位置外的任意元素，也缺乏效率。</p>
+<p>list是以双向链接而非联系内存来储存内容，因此可以执行前进或后退操作。list中的每个元素都包含三个字段：value、back指针、front指针。<strong>在list的任意位置插入或删除，都颇有效率。但随即访问操作则效率不高。</strong></p>
+<p>第三种顺序性容器是deque(读作deck)。<strong>deque的行为和vector颇为相似，不同的是deque对于最前端元素的插入和删除操作效率更高。</strong></p>
+<p>要使用上面几个顺序性容器，首先必须包含相关的头文件。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>定义顺序类容器的方式有五种：</p>
+<ol>
+<li><p>产生空的容器：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; slist;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ivec;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>产生特定大小的容器。每个元素都以其默认值作为初值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span> &lt;<span class="keyword">int</span>&gt; ilist(<span class="number">1024</span>);</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; svec(<span class="number">32</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
