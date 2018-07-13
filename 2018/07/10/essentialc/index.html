@@ -113,7 +113,11 @@ var _hmt = _hmt || [];
 <p>上面这样并不正确，我们必须以小括号改变优先级：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;* (*seq_ptr)(<span class="keyword">int</span>);</span><br></pre></td></tr></table></figure></p>
 <h2 id="2-9-设定头文件"><a href="#2-9-设定头文件" class="headerlink" title="2.9 设定头文件"></a>2.9 设定头文件</h2><p><strong>把函数声明放到头文件中，把函数定义放在程序代码文件中。</strong><br>函数的定义只能有一份，不过倒是可以有许多份声明。我们不把函数的定义放入头文件，因为同一个程序的多个代码文件可能都会包含这个头文件。<br>“只定义一份”的规则有个例外：inline函数的定义。为了能够扩展inline函数的内容，在每个调用点上，编译器都得取得其定义。<br>还有一个例外就是const object，const object只要一出文件之外便不可见，这意味着我们可以在多个程序代码文件中加以定义，不会导致任何错误。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include <span class="string">"NumSq.h"</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>如果此文件被认定为标准的或项目专属的头文件，我们便以尖括号将文件名括住编译器搜索此文件是，会先在某些默认的磁盘目录中寻找；如果文件名由成对的双引号括住，此文件便被认为是一个用户提供的头文件，搜索此文件时，会由要包含此文件的文件所在的磁盘目录开始找起。</strong></p>
-<h1 id="3-泛型编程风格"><a href="#3-泛型编程风格" class="headerlink" title="3. 泛型编程风格"></a>3. 泛型编程风格</h1>  
+<h1 id="3-泛型编程风格"><a href="#3-泛型编程风格" class="headerlink" title="3. 泛型编程风格"></a>3. 泛型编程风格</h1><p>Standard Template Library(STL)主要由两种组件构成：一是容器(container)，包括vector、list、set、map等类；另一种组件是用以操作这些容器的所谓泛型算法，包括find()、sort()、replace()、merge()等。</p>
+<p>vector和list这两种容器是所谓的顺序性容器，我们在顺序性容器身上主要进行所谓的迭代操作。</p>
+<p>这些算法之所以叫做<strong>泛型</strong>，是因为它们<strong>和它们想要操作的元素类型无关</strong>。<br>怎么样做到这一点呢？</p>
+<p>泛型算法通过function template技术，达到”与操作对象的类型相互独立”的目的。而实现”与容器无关”的诀窍，就是不要直接在容器身上进行操作。而是<strong>借由一对”iterator”(first和last)，标示我们要进行迭代的元素范围</strong>。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
