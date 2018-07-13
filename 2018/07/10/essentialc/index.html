@@ -137,7 +137,19 @@ var _hmt = _hmt || [];
 <p>以下是对iterator进行赋值(assign)、比较(compare)、递增(increment)、提领(dereference)操作<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (iter = svec.begin(); iter != svec.end(); ++iter)</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; *iter &lt;&lt; <span class="string">' '</span>;</span><br></pre></td></tr></table></figure></p>
 <p>要想定义iterator，（1）迭代对象的类型和(2)iterator所指的元素类型是需要提供的。</p>
 <p>find()函数现在就可以变成下面的样子：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> IteratorType, <span class="keyword">typename</span> elemType&gt;</span><br><span class="line"><span class="function">IteratorType <span class="title">find</span><span class="params">(IteratorType first, IteratorType last, <span class="keyword">const</span> elemType &amp;value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (; first != last; ++first)</span><br><span class="line">		<span class="keyword">if</span>(*first == value)</span><br><span class="line">			<span class="keyword">return</span> first;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-  
+<h2 id="3-3-所有容器的共通操作"><a href="#3-3-所有容器的共通操作" class="headerlink" title="3.3 所有容器的共通操作"></a>3.3 所有容器的共通操作</h2><p>下列为所有容器类(以及string类)的共通操作：</p>
+<ol>
+<li>equality(==)和inequality(!=)运算符，返回false或true。</li>
+<li>assignment(=)运算符，将某个容器复制给另一个容器。</li>
+<li>empty()会在容器无任何元素时返回true，否则返回false。</li>
+<li>size()返回容器内目前持有的元素个数。</li>
+<li>clear()删除所有元素。</li>
+<li>begin()和end()指向容器的第一个元素和最后一个元素的下一位置的iterator。</li>
+<li>insert()将单一或某个范围内的元素插入容器内。</li>
+<li>erase()将容器内的单一元素或某个范围内的元素删除。</li>
+</ol>
+<p>insert()和erase()的行为视容器本身为顺序性(sequential)容器或关联(associative)容器而有所不同，它们在顺序性容器上的行为，将于下面一节讨论。</p>
+<h2 id="3-4-使用顺序性容器"><a href="#3-4-使用顺序性容器" class="headerlink" title="3.4 使用顺序性容器"></a>3.4 使用顺序性容器</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 
