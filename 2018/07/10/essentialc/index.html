@@ -159,10 +159,28 @@ var _hmt = _hmt || [];
 <li><p>产生空的容器：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; slist;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ivec;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>产生特定大小的容器。每个元素都以其默认值作为初值。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span> &lt;<span class="keyword">int</span>&gt; ilist(<span class="number">1024</span>);</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; svec(<span class="number">32</span>);</span><br></pre></td></tr></table></figure>
+<li><p>产生特定大小的容器。每个元素都以其默认值作为初值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; ilist(<span class="number">1024</span>);</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; svec(<span class="number">32</span>);</span><br></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li><p>产生特定大小的容器，并为每个元素指定初始值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ivec(<span class="number">10</span>, <span class="number">-1</span>);</span><br><span class="line"><span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; slist(<span class="number">16</span>, <span class="string">"unsigned"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过一对iterator产生容器。这对iterator用来标示一整组作为初值的元素的范围：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ia[<span class="number">8</span>] = &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">12</span>, <span class="number">21</span>&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; fib(ia, ia+<span class="number">8</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据某个容器产生出新容器。复制原容器内的元素，作为新容器的初值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; slist;</span><br><span class="line"><span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; slist2(slist);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>有两个特别的操作函数，<strong>允许我们在容器末尾进行插入和删除操作：push_back()和pop_back()。</strong>push_back()会在末端插入一个元素，pop_back()会删除最后一个元素。除此之外，list和deque还提供了push_front()和pop_front()。</p>
+<p>如果要读取最前端元素的值：front()。如果要读取末端元素的值，采用back()。</p>
+<p>push_front()和push_back()都属于特殊化的插入操作。每个容器除了拥有通用的插入函数insert()，还支持四种变形。</p>
+<ol>
+<li><p>iterator insert(iterator position, elemType value)可以将<strong>value插入position之前。它会返回一个iterator，指向被插入的元素。</strong>以下代码将ival插入ilist内，并维持其递增次序：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; ilist;</span><br><span class="line"></span><br><span class="line"><span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;::iterator it = ilist.begin()</span><br><span class="line"><span class="keyword">while</span>(it != ilist.end())</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(*it &gt;= ival)</span><br><span class="line">	&#123;</span><br><span class="line">		ilist.insert(it, ival);</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	++it;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(it == ilist.end())</span><br><span class="line">	ilist.push_back(ival);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>void insert(iterator position, int count, elemType value)可在position之前插入count个元素，这些元素的值都和value相同。</p>
+</li>
 </ol>
   
 	</div>
