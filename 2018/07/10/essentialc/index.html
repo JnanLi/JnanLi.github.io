@@ -216,11 +216,17 @@ var _hmt = _hmt || [];
 <h3 id="3-6-1-Function-Object"><a href="#3-6-1-Function-Object" class="headerlink" title="3.6.1 Function Object"></a>3.6.1 Function Object</h3><p>所谓Function Object，是某种class的实例对象，这类class对function call运算符做了重载操作，如此一来可使function object被当成一般函数来使用。</p>
 <p>标准库实现定义了一组function object，分为算术运算、关系运算和逻辑运算三大类。以下列表中的type在实际使用时会被替换为内置类型或class类型：</p>
 <ol>
-<li>六个算术运算：plus<type>，minus<type>，negate<type>，multiplies<type>，divides<type>，modules<type>。</type></type></type></type></type></type></li>
-<li>六个关系运算：less<type>，less_equal<type>，greater<type>，greater_equal<type>，equal_to<type>，not_equal_to<type>。</type></type></type></type></type></type></li>
-<li>三个逻辑运算：logical_and<type>，logical_or<type>，logical_not<type>。</type></type></type></li>
+<li><p>六个算术运算：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plus&lt;type&gt;，minus&lt;type&gt;，negate&lt;type&gt;，multiplies&lt;type&gt;，divides&lt;type&gt;，modules&lt;type&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>六个关系运算：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less&lt;type&gt;，less_equal&lt;type&gt;，greater&lt;type&gt;，greater_equal&lt;type&gt;，equal_to&lt;type&gt;，not_equal_to&lt;type&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>三个逻辑运算：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logical_and&lt;type&gt;，logical_or&lt;type&gt;，logical_not&lt;type&gt;。</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<p>欲使用实现定义好的function object，首先得包含头文件：<functional>。</functional></p>
+<p>欲使用实现定义好的function object，首先得包含头文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;functional&gt;</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
