@@ -4,7 +4,7 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>Essential C++摘记 | LI jianan&#39;s Blog</title>
+    <title>Essential C++ 从面向过程到面向对象 | LI jianan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
@@ -79,7 +79,7 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/07/10/essentialc/" title="Essential C++摘记" itemprop="url">Essential C++摘记</a>
+      <a href="/2018/07/10/essentialc/" title="Essential C++ 从面向过程到面向对象" itemprop="url">Essential C++ 从面向过程到面向对象</a>
   </h1>
   <p class="article-time">
     <time datetime="2018-07-10T11:54:31.000Z" itemprop="datePublished">2018-07-10</time>
@@ -89,7 +89,7 @@ var _hmt = _hmt || [];
 		
 		
 		<p>一鼓作气，再而衰，三而竭。                                                                                                                                                                                                                                                                                                              </p>
-<h2 id="2-2-调用函数"><a href="#2-2-调用函数" class="headerlink" title="2.2 调用函数"></a>2.2 调用函数</h2><p>两种参数传递方式：传址(by reference)和传值(by value)。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> val1, <span class="keyword">int</span> val2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp = val1;</span><br><span class="line">	val1 = val2;</span><br><span class="line">	val2 = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-面向过程的编程风格"><a href="#2-面向过程的编程风格" class="headerlink" title="2. 面向过程的编程风格"></a>2. 面向过程的编程风格</h1><h2 id="2-2-调用函数"><a href="#2-2-调用函数" class="headerlink" title="2.2 调用函数"></a>2.2 调用函数</h2><p>两种参数传递方式：传址(by reference)和传值(by value)。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> val1, <span class="keyword">int</span> val2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp = val1;</span><br><span class="line">	val1 = val2;</span><br><span class="line">	val2 = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>传给swap()的对象被复制了一份，<strong>原对象和副本之间没有任何关联。</strong><br>当我们调用一个函数时，会在内存中建立起一块特殊区域，称为”程序堆栈(program stack)”。这块特殊区域提供了每个函数参数的储存空间。它也提供了函数所定义的每个对象的内存空间——我们将这些对象称为local object(局部对象)。一旦函数完成，这块内存就会从程序堆栈中被pop出来。<br>当我们将一个对象传入函数，默认情形下其值会被复制一份，成为参数的局部性定义(local definition)。这种方式称为pass by value。<br>要想pass byreference，最简单的做法便是将参数声明为一个reference：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp; val1, <span class="keyword">int</span> &amp; val2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp = val1;</span><br><span class="line">	val1 = val2;</span><br><span class="line">	val2 = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="2-2-1-Pass-by-reference"><a href="#2-2-1-Pass-by-reference" class="headerlink" title="2.2.1 Pass by reference"></a>2.2.1 Pass by reference</h3><p>reference扮演着外界与对象之间一个间接手柄的角色。只要在类型名称(eg int)和reference名称(eg rval)之间插入&amp;符号，便是声明了一个reference。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ival = <span class="number">1024</span>;</span><br><span class="line"><span class="keyword">int</span> *pi = &amp;ival;  <span class="comment">//pointer,指向一个int对象</span></span><br><span class="line"><span class="keyword">int</span> &amp;rval = ival;  <span class="comment">//reference，代表一个int对象</span></span><br><span class="line">rval = jval;</span><br></pre></td></tr></table></figure></p>
 <p>将jval赋值给rval所代表的对象(也就是ival)，我们无法令rval转而代表jval，因为C++不允许我们改变reference所代表的对象，它们必须从一而终。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi = &amp;rval</span><br></pre></td></tr></table></figure></p>
@@ -312,7 +312,7 @@ var _hmt = _hmt || [];
 <p><strong>如果以这种形式来声明class间的友谊，就不需要在friend声明之前先显现class的定义。</strong></p>
 <p><strong>友谊的建立通常是为了效率考虑，如果我们只是希望进行某个data member的读取和写入，那么，为它提供具有public访问权限的inline函数，就是建立友谊之外的一个替代方案。</strong></p>
 <h2 id="4-8-实现一个copy-assignment-operator——与4-2相连"><a href="#4-8-实现一个copy-assignment-operator——与4-2相连" class="headerlink" title="4.8 实现一个copy assignment operator——与4.2相连"></a>4.8 实现一个copy assignment operator——与4.2相连</h2><p>如果我们设计了一个copy constructor，那我们也需要一个copy assignment operator。形如<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Matrix&amp; Matrix::<span class="keyword">operator</span>=(<span class="keyword">const</span> Matrix &amp;rhs)</span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure></p>
-  
+<h1 id="5-面向对象编程风格"><a href="#5-面向对象编程风格" class="headerlink" title="5. 面向对象编程风格"></a>5. 面向对象编程风格</h1>  
 	</div>
 		<footer class="article-footer clearfix">
 
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/07/10/essentialc/" data-title="Essential C++摘记 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/07/10/essentialc/" data-title="Essential C++ 从面向过程到面向对象 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
