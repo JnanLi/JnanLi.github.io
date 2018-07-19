@@ -99,7 +99,30 @@ var _hmt = _hmt || [];
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br></pre></td></tr></table></figure>
 <p><strong>using和namespace都是C++里的关键字。std是标准库所驻之命名空间(namespace)的名称。标准库所提供的任何事物(诸如string class以及cout、cin这两个iostream类对象)都被封装在命名空间std内。using namespace是让命名空间曝光的最简单办法。</strong></p>
 <p><strong>命名空间是一种将库名称(诸如iostream、string)封装起来的方法。通过这种方法，可以避免和应用程序发生命名冲突的问题。</strong></p>
-<h1 id="2-对象的定义与初始化"><a href="#2-对象的定义与初始化" class="headerlink" title="2. 对象的定义与初始化"></a>2. 对象的定义与初始化</h1>  
+<h1 id="3-撰写表达式"><a href="#3-撰写表达式" class="headerlink" title="3. 撰写表达式"></a>3. 撰写表达式</h1><p><strong>运算符的优先级：</strong></p>
+<ol>
+<li><strong>逻辑运算符 !</strong></li>
+<li><strong>算术运算符 * / %</strong></li>
+<li><strong>算术运算符 + -</strong></li>
+<li><strong>关系运算符 &lt; &gt; &lt;= &gt;=</strong></li>
+<li><strong>关系运算符 == !=</strong></li>
+<li><strong>逻辑运算符 &amp;&amp;</strong></li>
+<li><strong>逻辑运算符 ||</strong></li>
+<li><strong>赋值运算符 =</strong></li>
+</ol>
+<h1 id="6-指针带来弹性"><a href="#6-指针带来弹性" class="headerlink" title="6.指针带来弹性"></a>6.指针带来弹性</h1><p><strong>指针内含某特定类型对象的内存地址。当我们要定义某个特定类型的指针时，必须在类型名称之后加上星号：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pi;</span><br></pre></td></tr></table></figure></p>
+<p><strong>如果希望取得对象所在的内存地址而非对象的值，应该用取地址运算符(&amp;)：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ival = <span class="number">1024</span>;</span><br><span class="line"><span class="keyword">int</span> *pi = &amp;ival;</span><br></pre></td></tr></table></figure></p>
+<p><strong>如果要访问一个由指针所指的对象，我们必须对该指针进行提领操作：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(*pi != <span class="number">1024</span>)</span><br><span class="line">	*pi = <span class="number">1024</span>;</span><br></pre></td></tr></table></figure></p>
+<p><strong>随机抽取数列可以由C语言标准库中的rand()和srand()两个函数实现，头文件是cstdlib</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line">srand(seq_cnt);</span><br><span class="line">seq_index = rand() % seq_cnt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>srand()的参数是所谓随机数生成器种子(seed)，每次调用rand()都会返回一个介于0和”int所能表示的最大整数”间的一个整数。</strong></p>
+<p><strong>现在我们有一个pv指向一个class object，比如指向一个vector对象fibonacci。fibonacci用dot成员选择运算符来选择我们想要进行的操作，pv则需要用arrow成员选择运算符来选择操作。</strong></p>
+<h1 id="7-文件的读写"><a href="#7-文件的读写" class="headerlink" title="7. 文件的读写"></a>7. 文件的读写</h1><p><strong>要对文件进行读写操作，首先得包含fstream头文件。</strong></p>
+<p><strong>为了打开一个可供输出的文件，我们顶一个ofstream对象，并将文件名传入：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ofstream <span class="title">outfile</span><span class="params">(<span class="string">"seq_data.txt"</span>)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p><strong>如果指定的文件不存在，会有一个文件被产生出来并打开供输出使用。</strong></p>
+<p><strong>如果文件已经存在，但我们不想丢弃原来的内容，我们必须以追加模式(append mode)打开这个文件。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ofstream <span class="title">outfile</span><span class="params">(<span class="string">"seq_data.txt"</span>, ios_base::app)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p><strong>文件有可能打开失败，在进行写入操作之前，我们必须确定文件的确打开成功。如果文件打开失败，则该ofstream对象的求值结果为false。本例我们将信息写入cerr，告知用户这个状况。cerr代表标准错误设备，和cout一样，cerr将其输出结果定向到用户的终端。！两者的唯一差别是，cerr的输出结果并无缓冲情形————它会立即显示于用户终端中！</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!outfile)</span><br></pre></td></tr></table></figure></p>
+<hr>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
