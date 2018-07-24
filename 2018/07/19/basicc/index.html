@@ -136,7 +136,7 @@ var _hmt = _hmt || [];
 <p><strong>内置类型的对象，如果定义在file scope之内，必定被初始化为0,。但如果它们被定义于local scope之内，那么除非程序员指定其初值，否则不会被初始化。</strong></p>
 <h4 id="动态内存管理"><a href="#动态内存管理" class="headerlink" title="动态内存管理"></a>动态内存管理</h4><p><strong>不论是local scope或file scope，都是由系统自动管理。第三种储存期形式称为dynamic extent，其内存由程序的空间空间分配而来，有时也称heap memory。这种内存必须由程序员自行管理，分配系通过new表达式来完成，而其释放则通过delete表达式完成。</strong></p>
 <p><strong>从heap分配而来的对象，被称为具有dynamic extent，因为它们是在运行时通过new表达式分配来的，因此可以持续存活，直到以delete表达式加以释放位置。删除是delete会自动检查指针是否为空。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pia = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">24</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> [] pia; <span class="comment">// 如果要删除数组中的所有对象，在数组指针和delete表达式之间，加上一个[]</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="2-3-提供默认参数值"><a href="#2-3-提供默认参数值" class="headerlink" title="2.3 提供默认参数值"></a>2.3 提供默认参数值</h2>  
+<h2 id="2-4-使用局部静态对象"><a href="#2-4-使用局部静态对象" class="headerlink" title="2.4 使用局部静态对象"></a>2.4 使用局部静态对象</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 
