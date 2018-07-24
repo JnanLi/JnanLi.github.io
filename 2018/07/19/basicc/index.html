@@ -136,7 +136,29 @@ var _hmt = _hmt || [];
 <p><strong>内置类型的对象，如果定义在file scope之内，必定被初始化为0,。但如果它们被定义于local scope之内，那么除非程序员指定其初值，否则不会被初始化。</strong></p>
 <h4 id="动态内存管理"><a href="#动态内存管理" class="headerlink" title="动态内存管理"></a>动态内存管理</h4><p><strong>不论是local scope或file scope，都是由系统自动管理。第三种储存期形式称为dynamic extent，其内存由程序的空间空间分配而来，有时也称heap memory。这种内存必须由程序员自行管理，分配系通过new表达式来完成，而其释放则通过delete表达式完成。</strong></p>
 <p><strong>从heap分配而来的对象，被称为具有dynamic extent，因为它们是在运行时通过new表达式分配来的，因此可以持续存活，直到以delete表达式加以释放位置。删除是delete会自动检查指针是否为空。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pia = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">24</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> [] pia; <span class="comment">// 如果要删除数组中的所有对象，在数组指针和delete表达式之间，加上一个[]</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="2-4-使用局部静态对象"><a href="#2-4-使用局部静态对象" class="headerlink" title="2.4 使用局部静态对象"></a>2.4 使用局部静态对象</h2>  
+<h2 id="2-4-使用局部静态对象"><a href="#2-4-使用局部静态对象" class="headerlink" title="2.4 使用局部静态对象"></a>2.4 使用局部静态对象</h2><p><strong>和局部非静态对象不同的是，局部静态对象所处的内存空间，即使在不同的函数调用过程中，依然持续存在。</strong></p>
+<h2 id="2-5-声明inline函数"><a href="#2-5-声明inline函数" class="headerlink" title="2.5 声明inline函数"></a>2.5 声明inline函数</h2><p>当一个函数里面调用了其他函数时，如果我们希望它在运行的时候能够直接展开而不是调用。那么我们可以将函数声明为<strong>inline函数，表示要求编译器在每个函数调用点上，将函数的内容展开。编译器可将该函数的调用操作改为以一份函数代码的副本代替。</strong></p>
+<p><strong>将函数指定为inline，只是对编译器提出的一种要求。编译器是否执行这项请求，需视编译器而定。</strong></p>
+<h2 id="2-6-提供重载函数"><a href="#2-6-提供重载函数" class="headerlink" title="2.6 提供重载函数"></a>2.6 提供重载函数</h2><p><strong>编译器会将调用者提供的实际参数拿来和每个重载函数的参数对比，找出其中最合适的。这也就是每个重载函数的参数列表必须和其他重载函数不同的原因。</strong></p>
+<h2 id="2-7-定义并使用模板函数"><a href="#2-7-定义并使用模板函数" class="headerlink" title="2.7 定义并使用模板函数"></a>2.7 定义并使用模板函数</h2><p><strong>function template以关键字template开场，其后紧接着以尖括号包围起来的一个或多个标识符，以逗号隔开。这些标识符事实上扮演着占位符的角色，用来放置函数参数列表及函数体中某些实际数据类型。</strong></p>
+<h2 id="2-8-指针带来更大的弹性"><a href="#2-8-指针带来更大的弹性" class="headerlink" title="2.8 指针带来更大的弹性"></a>2.8 指针带来更大的弹性</h2><p><strong>所谓函数指针，其形式相当复杂。它必须指明其所指函数的返回类型及参数列表。此外，函数指针的定义必须将星号放在某个位置，表示这份定义所表现的是一个指针。当然，最后还必须给予一个名称。类似于</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;* (*seq_ptr)(<span class="keyword">int</span>)</span><br></pre></td></tr></table></figure></p>
+<p><strong>如果不加括号，就变成了返回指针的指针，必须加上括号让seq_ptr被视为一个指针。</strong></p>
+<p><strong>由函数指针指向的函数，其调用方式与一般函数相同，</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; *pseq = seq_ptr(pos);</span><br></pre></td></tr></table></figure></p>
+<p><strong>会间接调用seq_ptr指向的函数。</strong></p>
+<p><strong>我们可以给函数指针初值。如果初值为0，表示并未指向任何函数：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;* (*seq_ptr)(<span class="keyword">int</span>) = <span class="number">0</span>；</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-9-设定头文件"><a href="#2-9-设定头文件" class="headerlink" title="2.9 设定头文件"></a>2.9 设定头文件</h2><p>这一节实际跑没有那么严格，当做代码规范去遵守。</p>
+<p><strong>头文件的扩展名，习惯上是.h。标准库例外，它们没有扩展名。</strong></p>
+<p><strong>我们把函数声明放在头文件中，并在每个程序代码文件内包含(include)这些函数声明。</strong></p>
+<p><strong>使用这种编程习惯，我们只需为函数维护一份声明即可。如果其参数列表或返回类型需要改变，也只需更改这份声明即可。</strong></p>
+<p><strong>当我们在头文件中添加string、vector这些的时候，不要忘了写上using namespace std，否则会不能识别string。</strong></p>
+<p><strong>函数的定义只能有一份，把函数声明放在头文件中，把函数定义放在程序代码文件中。</strong></p>
+<p><strong>“只定义一份”的规则有个例外：inline函数的定义。为了能够扩展inline函数的内容，在每个调用点上，编译器都得取得其定义。这意味着我们必须将inline函数的定义放在头文件中，而不是把它放在不同的程序代码文件中。</strong></p>
+<p><strong>在file scope内定义的对象，如果可能被多个文件访问，就应该被声明于头文件中。举个例子，如果seq_array(一个函数指针)被定义于file scope，我们可能会想在NumSeq.h内提供它的声明：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> seq_cnt = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;* (*seq_array[seq_cnt])(<span class="keyword">int</span>);</span><br></pre></td></tr></table></figure></p>
+<p>上面这样并不正确，因为这会被解读为定义而不是声明。<strong>就像函数一样，一个对象只能在程序中被定义一次。对象的定义，就像函数的定义一样，必须放在程序代码文件中。</strong></p>
+<p><strong>只要在上述seq_array定义前加上关键字extern，它便成为一个声明：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> seq_cnt = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;* (*seq_array)(<span class="keyword">int</span>);</span><br></pre></td></tr></table></figure></p>
+<p><strong>为什么seq_cnt不需要加上extern呢？</strong><br><strong>理由：</strong>const object就和inline函数一样是”一次定义”规则下的例外。<strong>const object定义只要一出文件之外便不可见，这意味着我们可以在多个程序代码文件中加以定义，不会导致任何错误。seq_array不是一个const object，它是一个指向const object的指针。</strong></p>
+<p>为什么我们希望这么做？因为我们希望编译器在我们的数组声明中使用这一const object，并且在其他需要用到常量表达式的场合中也能够使用。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
