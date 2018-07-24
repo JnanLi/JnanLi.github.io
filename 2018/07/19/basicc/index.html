@@ -89,34 +89,23 @@ var _hmt = _hmt || [];
 		
 		
 		<p>Basic C++ Programming                                                                                                                                                                                                                                                                                                                                                                              </p>
-<h1 id="1-如何撰写C-程序"><a href="#1-如何撰写C-程序" class="headerlink" title="1.如何撰写C++程序"></a>1.如何撰写C++程序</h1><p><strong>函数是一块独立的程序代码序列，包括返回值类型、函数名称、参数列表以及函数体。</strong></p>
+<h1 id="1-C-编程基础"><a href="#1-C-编程基础" class="headerlink" title="1. C++编程基础"></a>1. C++编程基础</h1><h2 id="1-1-如何撰写C-程序"><a href="#1-1-如何撰写C-程序" class="headerlink" title="1.1 如何撰写C++程序"></a>1.1 如何撰写C++程序</h2><p><strong>函数是一块独立的程序代码序列，包括返回值类型、函数名称、参数列表以及函数体。</strong></p>
 <p><strong>main()函数返回整数类型，习惯上，程序执行无误时我们令main()返回0，若返回一个非0值，表示程序在执行过程中发生了错误。</strong></p>
 <p><strong>C++的基础数据类型包括：布尔值(Boolean)、字符(character)、整数(integer)、浮点数(floating point)。</strong></p>
-<p><strong>数据的输入与输出，并非C++程序语言本身定义的一部分(此精神tongC语言)，而是由C++的一套面向对象的类层次体系提供支持。欲使用class，我们必须先在程序中包含其头文件。头文件可以让程序知道class的定义。C++标准的”输入/输出库”名为iostream，用以支持对 终端 和 文件的输入与输出。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>数据的输入与输出，并非C++程序语言本身定义的一部分(此精神同C语言)，而是由C++的一套面向对象的类层次体系提供支持。欲使用class，我们必须先在程序中包含其头文件。头文件可以让程序知道class的定义。C++标准的”输入/输出库”名为iostream，用以支持对 终端 和 文件的输入与输出。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br></pre></td></tr></table></figure></p>
 <p><strong>我将已定义好的cout(读作see out)对象，将信息写到用户的终端中。output运算符(&lt;&lt;)可以将数据定向到cout：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"Please enter your name: "</span>;</span><br></pre></td></tr></table></figure></p>
 <p><strong>用于储存人名我们可以用标准库中的string class，并且程序必须包含string class的头文件：string</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> usr_name;</span><br></pre></td></tr></table></figure></p>
 <p><strong>接下来便可用cin(读作 see in)来读取用户在终端上的输入内容。通过input运算符(&gt;&gt;)可以将输入内容定向到具有适当类型的对象身上：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cin</span> &gt;&gt; usr_name;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br></pre></td></tr></table></figure>
 <p><strong>using和namespace都是C++里的关键字。std是标准库所驻之命名空间(namespace)的名称。标准库所提供的任何事物(诸如string class以及cout、cin这两个iostream类对象)都被封装在命名空间std内。using namespace是让命名空间曝光的最简单办法。</strong></p>
 <p><strong>命名空间是一种将库名称(诸如iostream、string)封装起来的方法。通过这种方法，可以避免和应用程序发生命名冲突的问题。</strong></p>
-<h1 id="3-撰写表达式"><a href="#3-撰写表达式" class="headerlink" title="3. 撰写表达式"></a>3. 撰写表达式</h1><p><strong>运算符的优先级：</strong></p>
-<ol>
-<li><strong>逻辑运算符 !</strong></li>
-<li><strong>算术运算符 * / %</strong></li>
-<li><strong>算术运算符 + -</strong></li>
-<li><strong>关系运算符 &lt; &gt; &lt;= &gt;=</strong></li>
-<li><strong>关系运算符 == !=</strong></li>
-<li><strong>逻辑运算符 &amp;&amp;</strong></li>
-<li><strong>逻辑运算符 ||</strong></li>
-<li><strong>赋值运算符 =</strong></li>
-</ol>
-<h1 id="6-指针带来弹性"><a href="#6-指针带来弹性" class="headerlink" title="6.指针带来弹性"></a>6.指针带来弹性</h1><p><strong>指针内含某特定类型对象的内存地址。当我们要定义某个特定类型的指针时，必须在类型名称之后加上星号：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pi;</span><br></pre></td></tr></table></figure></p>
+<h2 id="1-6-指针带来弹性"><a href="#1-6-指针带来弹性" class="headerlink" title="1.6 指针带来弹性"></a>1.6 指针带来弹性</h2><p><strong>指针内含某特定类型对象的内存地址。当我们要定义某个特定类型的指针时，必须在类型名称之后加上星号：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pi;</span><br></pre></td></tr></table></figure></p>
 <p><strong>如果希望取得对象所在的内存地址而非对象的值，应该用取地址运算符(&amp;)：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ival = <span class="number">1024</span>;</span><br><span class="line"><span class="keyword">int</span> *pi = &amp;ival;</span><br></pre></td></tr></table></figure></p>
 <p><strong>如果要访问一个由指针所指的对象，我们必须对该指针进行提领操作：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(*pi != <span class="number">1024</span>)</span><br><span class="line">	*pi = <span class="number">1024</span>;</span><br></pre></td></tr></table></figure></p>
 <p><strong>随机抽取数列可以由C语言标准库中的rand()和srand()两个函数实现，头文件是cstdlib</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line">srand(seq_cnt);</span><br><span class="line">seq_index = rand() % seq_cnt;</span><br></pre></td></tr></table></figure></p>
 <p><strong>srand()的参数是所谓随机数生成器种子(seed)，每次调用rand()都会返回一个介于0和”int所能表示的最大整数”间的一个整数。</strong></p>
 <p><strong>现在我们有一个pv指向一个class object，比如指向一个vector对象fibonacci。fibonacci用dot成员选择运算符来选择我们想要进行的操作，pv则需要用arrow成员选择运算符来选择操作。</strong></p>
-<h1 id="7-文件的读写"><a href="#7-文件的读写" class="headerlink" title="7. 文件的读写"></a>7. 文件的读写</h1><p><strong>要对文件进行读写操作，首先得包含fstream头文件。</strong></p>
+<h2 id="1-7-文件的读写"><a href="#1-7-文件的读写" class="headerlink" title="1.7 文件的读写"></a>1.7 文件的读写</h2><p><strong>要对文件进行读写操作，首先得包含fstream头文件。</strong></p>
 <p><strong>为了打开一个可供输出的文件，我们顶一个ofstream对象，并将文件名传入：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ofstream <span class="title">outfile</span><span class="params">(<span class="string">"seq_data.txt"</span>)</span></span>;</span><br></pre></td></tr></table></figure></p>
 <p><strong>如果指定的文件不存在，会有一个文件被产生出来并打开供输出使用。</strong></p>
 <p><strong>如果文件已经存在，但我们不想丢弃原来的内容，我们必须以追加模式(append mode)打开这个文件。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ofstream <span class="title">outfile</span><span class="params">(<span class="string">"seq_data.txt"</span>, ios_base::app)</span></span>;</span><br></pre></td></tr></table></figure></p>
@@ -126,7 +115,28 @@ var _hmt = _hmt || [];
 <p><strong>while循环每次迭代都会读取文件的下一行内容。这样的操作会持续到文件末才结束。</strong></p>
 <p><strong>如果想要同时读写同一个文件，我们得定义一个fstream对象。为了以追加模式打开，我们传入第二参数值ios_base::in|ios_base::app</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">fstream <span class="title">iofile</span><span class="params">(<span class="string">"seq_data.txt"</span>, ios_base::in|ios_base::app)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!iofile)</span><br><span class="line">&#123;&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//开始读取之前，将文件重新定位至起始处</span></span><br><span class="line">	iofile.seekg(<span class="number">0</span>)</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>当我们以追加模式打开档案，文件位置会位于末尾。seekg()可将iofile重新定位至文件的起始处。</strong></p>
-  
+<h1 id="2-面向过程的编程风格"><a href="#2-面向过程的编程风格" class="headerlink" title="2. 面向过程的编程风格"></a>2. 面向过程的编程风格</h1><p>主要介绍独立函数，独立函数的好处在于1.取代重复编写相同的程序代码，可使程序更易懂；2.可以在不同的程序中使用；3.更容易分工协作。</p>
+<h2 id="2-1-如何编写函数"><a href="#2-1-如何编写函数" class="headerlink" title="2.1 如何编写函数"></a>2.1 如何编写函数</h2><p>当函数返回值类型是void的时候，return语句用来<strong>提前结束函数的执行。</strong></p>
+<p><strong>如果函数的返回类型不为void，那么它必须在每个可能的退出点上将值返回。函数中的每条return语句都被用来明确表示该处就是函数的退出点。如果函数体的最后一条语句不是return，那么最后一条语句之后便是该函数的隐式退出点。</strong></p>
+<p><strong>另外如果没有在main()的末尾写下return语句，这一语句会被自动加上。</strong></p>
+<h2 id="2-2-调用函数"><a href="#2-2-调用函数" class="headerlink" title="2.2 调用函数"></a>2.2 调用函数</h2><p>本节将实现一个可对vector内的整数值加以排序的函数，通过这个例子，我们可以审视两种参数传递方式：传址及传值。</p>
+<p><strong>当我们调用一个函数时，会在内存中建立起一块特殊区域，称为”程序堆栈”，这块特殊区域提供了每个函数参数的储存空间。它也提供了函数所定义的每个对象的内存空间——我们将这些对象称为local object。一旦函数完成，这块内存就会被释放掉，或者说是从程序堆栈中被pop出来。</strong></p>
+<p><strong>当我们将参数列表中的对象传入函数，默认情形下其值会被复制一份，成为参数的局部性定义。这种方式称为传值。</strong></p>
+<p><strong>只要在类型名称和reference之间插入&amp;符号，就是声明了一个reference。C++不允许我们改变reference所代表的对象，它们必须从一而终。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;vec)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> ix = <span class="number">0</span>; ix &lt; vec.size(); ++ix)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; vec[ix] &lt;&lt; <span class="string">' '</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>如果以传值方式传入display()之中，这意味着每当我想进行显示操作时，vector内的所有元素都会被复制。这并不会造成错误，但是如果直接传入vector的地址，速度会更快。</strong></p>
+<p><strong>pointer参数和reference参数之间更重要的差异是，pointer可能不指向某个实际对象，当我们提领pointer时，一定要先确定其值并非0。</strong></p>
+<p><strong>当函数返回一个对象的时候，不论以pointer或reference形式将对象返回，都不正确。因为在函数执行完毕时已经不存在了。如果以传值方式返回，便不会产生问题：因为返回的是对象的副本，在函数之外依然存在。</strong></p>
+<h3 id="2-2-1-作用域及范围"><a href="#2-2-1-作用域及范围" class="headerlink" title="2.2.1 作用域及范围"></a>2.2.1 作用域及范围</h3><p><strong>为对象分配的内存，其存活时间称为范围(extent)。</strong></p>
+<p><strong>对象在程序内的存活区域称为该对象的作用域(scope)。</strong></p>
+<p><strong>局部性范围（local extent）：每次函数执行，都会为对象分配内存，每当函数结束便会加以释放，我们称此对象具有局部性范围。</strong>函数参数便具有局部性范围。</p>
+<p>函数参数也是具有局部作用域。</p>
+<p><strong>对象如果在函数以外声明，具有所谓的file scope，从声明点至文件末尾都是可见的。</strong></p>
+<p><strong>file scope内的对象也具备所谓的static extent，意即该对象的内存在main()开始执行之前便已经分配好了，可以一直存在至程序结束。</strong></p>
+<p><strong>内置类型的对象，如果定义在file scope之内，必定被初始化为0,。但如果它们被定义于local scope之内，那么除非程序员指定其初值，否则不会被初始化。</strong></p>
+<h4 id="动态内存管理"><a href="#动态内存管理" class="headerlink" title="动态内存管理"></a>动态内存管理</h4><p><strong>不论是local scope或file scope，都是由系统自动管理。第三种储存期形式称为dynamic extent，其内存由程序的空间空间分配而来，有时也称heap memory。这种内存必须由程序员自行管理，分配系通过new表达式来完成，而其释放则通过delete表达式完成。</strong></p>
+<p><strong>从heap分配而来的对象，被称为具有dynamic extent，因为它们是在运行时通过new表达式分配来的，因此可以持续存活，直到以delete表达式加以释放位置。删除是delete会自动检查指针是否为空。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pia = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">24</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> [] pia; <span class="comment">// 如果要删除数组中的所有对象，在数组指针和delete表达式之间，加上一个[]</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="2-3-提供默认参数值"><a href="#2-3-提供默认参数值" class="headerlink" title="2.3 提供默认参数值"></a>2.3 提供默认参数值</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 
