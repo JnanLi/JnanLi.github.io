@@ -174,6 +174,10 @@ var _hmt = _hmt || [];
 <h2 id="3-2-了解Iterator泛型指针"><a href="#3-2-了解Iterator泛型指针" class="headerlink" title="3.2 了解Iterator泛型指针"></a>3.2 了解Iterator泛型指针</h2><p>现在让我们扩展find()的功能，令它也能支持标准库所提供的list类别。</p>
 <p>list也是个容器，不同的是，list的元素以一组指针相互链接：前向指针指向下一个元素，后向指针指向上一个元素。因此，指针的操作并不适用于list，因为指针的算术运算必须首先假设所有元素都储存在连续空间里，然后才能根据当前的指针，加上元素大小后，指向下一个元素。</p>
 <p>解决这个问题的办法是，<strong>在底层指针的行为之上提供一层抽象，取代程序原本的”指针直接操作”方式。我们把底层指针的处理统统放在次抽象层中，让用户无须直接面对指针操作。</strong></p>
+<p>我们需要一组对象，可提供有如内置运算符(++，星号，==，！=)一般的运算符，并允许我们只为这些运算符提供一份实现代码即可。<strong>我们可以利用C++的类机制来达到目的——设计一个iterator class。</strong></p>
+<p>在开始说明如何定义iterator之前，让我们思考一下，哪些信息是这份定义应该提供的：<strong>(1)迭代对象(某个容器)的类型，这可用来决定如何访问下一元素；(2)iterator所指的元素类型，这可决定iterator提领操作的返回值。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;::iterator iter = svec.begin();</span><br></pre></td></tr></table></figure></p>
+<p>双冒号表示此iterator乃是谓语string vector定义内的嵌套类型。</p>
+<p>至于面对const vector：</p>
   
 	</div>
 		<footer class="article-footer clearfix">
