@@ -158,7 +158,13 @@ var _hmt = _hmt || [];
 <p><strong>只要在上述seq_array定义前加上关键字extern，它便成为一个声明：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> seq_cnt = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;* (*seq_array)(<span class="keyword">int</span>);</span><br></pre></td></tr></table></figure></p>
 <p><strong>为什么seq_cnt不需要加上extern呢？</strong><br><strong>理由：</strong>const object就和inline函数一样是”一次定义”规则下的例外。<strong>const object定义只要一出文件之外便不可见，这意味着我们可以在多个程序代码文件中加以定义，不会导致任何错误。seq_array不是一个const object，它是一个指向const object的指针。</strong></p>
 <p>为什么我们希望这么做？因为我们希望编译器在我们的数组声明中使用这一const object，并且在其他需要用到常量表达式的场合中也能够使用。</p>
-  
+<h1 id="3-泛型编程风格"><a href="#3-泛型编程风格" class="headerlink" title="3. 泛型编程风格"></a>3. 泛型编程风格</h1><p>Standard Template Library(STL)主要有两种组件构成：一是容器(container)，包括vector、list、set、map等类；另一种组件是用以操作这些容器的所谓泛型算法(generic algorithm)，包括find()、sort()、replace()、merge()等。</p>
+<p>vector和list是顺序性容器，我们主要进行迭代操作；map和set是关联容器，让我们快速查找容器中的元素值。</p>
+<p><strong>map是一对对的key/value组合。key用于查找，value用来表示我们要储存或取出的数据。举例map是电话号码，value是电话用户名。</strong></p>
+<p><strong>set仅含有key。我们对它进行查询操作，为的是判断某值是否存在于其中。</strong></p>
+<p><strong>泛型算法提供了许多可作用与容器类及数组类型上的操作。这些算法之所以被称为泛型，是因为它们和它们想要操作的元素类型无关。</strong></p>
+<p><strong>泛型算法系通过function template技术实现泛型，诀窍就是不要直接在容器上进行操作，而是借由一对iterator(first和last)，标示我们要进行迭代的范围。那么iterator是？</strong></p>
+<h1 id="3-1"><a href="#3-1" class="headerlink" title="3.1"></a>3.1</h1>  
 	</div>
 		<footer class="article-footer clearfix">
 
