@@ -164,7 +164,17 @@ var _hmt = _hmt || [];
 <p><strong>set仅含有key。我们对它进行查询操作，为的是判断某值是否存在于其中。</strong></p>
 <p><strong>泛型算法提供了许多可作用与容器类及数组类型上的操作。这些算法之所以被称为泛型，是因为它们和它们想要操作的元素类型无关。</strong></p>
 <p><strong>泛型算法系通过function template技术实现泛型，诀窍就是不要直接在容器上进行操作，而是借由一对iterator(first和last)，标示我们要进行迭代的范围。那么iterator是？</strong></p>
-<h1 id="3-1"><a href="#3-1" class="headerlink" title="3.1"></a>3.1</h1>  
+<h2 id="3-1-指针的算术运算"><a href="#3-1-指针的算术运算" class="headerlink" title="3.1 指针的算术运算"></a>3.1 指针的算术运算</h2><p>当数组被传给函数，或是由函数中返回，仅有第一个元素的地址会被传递。</p>
+<p>虽然array是以第一个元素的指针传入函数中，但仍然可以通过subscribe运算符访问array的每个元素。<strong>因为事实上所谓下标操作就是将array的起始地址加上索引值，产生出某个元素的地址，然后该地址再被提领以返回元素值。</strong></p>
+<p>如果array的第一个元素的地址为1000，那么array+2会产生什么地址呢？<strong>在指针运算中，会把”指针所指的类型”的大小考虑进去。假设array所储存的元素类型是int，那么array+2便是array的地址加上两个整数元素的大小。有些机器中int是4 byte，那么这个指针算术运算的答案便是1008。</strong></p>
+<p>在进行搜索时，数组的最后一个元素的下一个地址可以起到标兵的角色，用以指示我们的迭代操作何时完成，如果我们仅仅是<strong>将该地址拿来和其他元素的地址进行比较，而不对该地址进行读取或写入操作</strong>，那就没有问题。</p>
+<p><strong>切记，vector和array的区别——在于vector可以是空的，array则不然。</strong></p>
+<p>因此，我们要完成任务：<strong>给定一个储存任意元素类型的vector或array，以及一个任意类型的元素值，如果此值存在于vector或array内，我们必须返回一个指针指向该值；反之返回0。</strong>我们就可以这么写：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> elemType&gt;</span><br><span class="line"><span class="function">elemType* <span class="title">find</span><span class="params">(<span class="keyword">const</span> elemType *first, <span class="keyword">const</span> elemType *last, <span class="keyword">const</span> elemType &amp;value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!first &amp;&amp; !last)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(; first != last; ++first)</span><br><span class="line">		<span class="keyword">if</span>(*first == value)</span><br><span class="line">			<span class="keyword">return</span> first;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当我们传入的是vector的时候，可以<strong>find(begin(svec), end(svec), search_value)。</strong>begin()和end()分别返回第一个元素的地址和最后一个元素的下一个地址或者是0。 了解Iterator</p>
+<h2 id="3-2-了解Iterator泛型指针"><a href="#3-2-了解Iterator泛型指针" class="headerlink" title="3.2 了解Iterator泛型指针"></a>3.2 了解Iterator泛型指针</h2><p>现在让我们扩展find()的功能，令它也能支持标准库所提供的list类别。</p>
+<p>list也是个容器，不同的是，list的元素以一组指针相互链接：前向指针指向下一个元素，后向指针指向上一个元素。因此，指针的操作并不适用于list，因为指针的算术运算必须首先假设所有元素都储存在连续空间里，然后才能根据当前的指针，加上元素大小后，指向下一个元素。</p>
+<p>解决这个问题的办法是，<strong>在底层指针的行为之上提供一层抽象，取代程序原本的”指针直接操作”方式。我们把底层指针的处理统统放在次抽象层中，让用户无须直接面对指针操作。</strong></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
