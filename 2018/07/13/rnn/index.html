@@ -4,12 +4,12 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>一些计算机视觉该有的常识 | LI jianan&#39;s Blog</title>
+    <title>Recurrent Neural Networks | LI jianan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
     
-    <meta name="description" content="看论文时碰到很多专业名词还没能很好地理解，不断积累一下。                                                                                                                          ">
+    <meta name="description" content="…                                                                                                                                                     ">
     
     
     
@@ -79,42 +79,30 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/07/09/一些计算机视觉该有的常识/" title="一些计算机视觉该有的常识" itemprop="url">一些计算机视觉该有的常识</a>
+      <a href="/2018/07/13/rnn/" title="Recurrent Neural Networks" itemprop="url">Recurrent Neural Networks</a>
   </h1>
   <p class="article-time">
-    <time datetime="2018-07-09T13:36:45.000Z" itemprop="datePublished">2018-07-09</time>
+    <time datetime="2018-07-13T03:13:27.000Z" itemprop="datePublished">2018-07-13</time>
   </p>
 </header>
 	<div class="article-content">
 		
 		
-		<p>看论文时碰到很多专业名词还没能很好地理解，不断积累一下。                                                                                                                                                                                                                                                                                           </p>
-<h1 id="1-Intrinsic-Matrix"><a href="#1-Intrinsic-Matrix" class="headerlink" title="1. Intrinsic Matrix"></a>1. Intrinsic Matrix</h1><p>首先是camera的Intrinsic, Extrinsic矩阵以及calibration的基础知识。<br>内在矩阵用来表示camera的内在属性，通过它可以将三维camera坐标转换为二维的图像坐标。这个投影变化可以用针孔相机(Pinhole Camera)模型来演示，如下图：<br><img src="/2018/07/09/一些计算机视觉该有的常识/intrinsic-pinhole-camera.png" alt=""><br><strong>The intrinsic matrix is parameterized by Hartley and Zisserman as</strong><br><img src="/2018/07/09/一些计算机视觉该有的常识/K.PNG" alt=""></p>
-<h2 id="1-1-Focal-Length-fx-fy"><a href="#1-1-Focal-Length-fx-fy" class="headerlink" title="1.1 Focal Length, fx, fy"></a>1.1 Focal Length, fx, fy</h2><p>焦距是指针孔到胶片(film, 也可以称之为image plane)，这里焦距的单位是像素(pixels). 在一个实际的针孔相机中，fx和fy的值是相等的，我们用f来表示，如下图所示：<br><img src="/2018/07/09/一些计算机视觉该有的常识/intrinsic-focal-length.png" alt=""><br><strong>Having two different focal lengths isn’t terribly intuitive, so some texts (e.g. Forsyth and Ponce) use a single focal length and an “aspect ratio” that describes the amount of deviation from a perfectly square pixel. Such a parameterization nicely separates the camera geometry (i.e. focal length) from distortion (aspect ratio).</strong></p>
-<h2 id="1-2-Principal-Point-Offset-x0-y0"><a href="#1-2-Principal-Point-Offset-x0-y0" class="headerlink" title="1.2 Principal Point Offset, x0, y0"></a>1.2 Principal Point Offset, x0, y0</h2><p>camera的‘principal axis’表示和胶片(image plane)相垂直并且通过针孔的那条线。它和胶片相交的点就是‘principal point’，如下图所示：<br><img src="/2018/07/09/一些计算机视觉该有的常识/intrinsic-pp.png" alt=""><br>“principal point’偏移量是指‘principal point’相对于胶片原点的位置。具体的定义取决于胶片的原点位置为何定的，下图我们假设胶片的原点在其左下角：<br><img src="/2018/07/09/一些计算机视觉该有的常识/intrinsic-pp-offset.png" alt=""></p>
-<h2 id="1-3-Axis-Skew-s"><a href="#1-3-Axis-Skew-s" class="headerlink" title="1.3 Axis Skew, s"></a>1.3 Axis Skew, s</h2><p>‘Axis Skew’用来减少在照片在投影时的变形，但是这个在‘针孔相机’中没有办法类比出来，所以不再展开介绍。</p>
-<h2 id="1-4-Focal-Length-From-Pixels-to-World-Units"><a href="#1-4-Focal-Length-From-Pixels-to-World-Units" class="headerlink" title="1.4 Focal Length - From Pixels to World Units"></a>1.4 Focal Length - From Pixels to World Units</h2><p><strong>For example, if you know the camera’s film (or digital sensor) has a width W in millimiters, and the image width in pixels is w, you can convert the focal length fx to world units using:</strong><br><img src="/2018/07/09/一些计算机视觉该有的常识/fx.PNG" alt=""><br><strong>Other parameters fy, x0, and y0 can be converted to their world-unit counterparts Fy, X0, and Y0 using similar equations:</strong><br><img src="/2018/07/09/一些计算机视觉该有的常识/fyd.PNG" alt=""></p>
-<h2 id="1-5-Intrinsic-parameters-as-2D-transformations"><a href="#1-5-Intrinsic-parameters-as-2D-transformations" class="headerlink" title="1.5 Intrinsic parameters as 2D transformations"></a>1.5 Intrinsic parameters as 2D transformations</h2><p><img src="/2018/07/09/一些计算机视觉该有的常识/kkk.PNG" alt=""><br><strong>An equivalent decomposition places shear after scaling:</strong><br><img src="/2018/07/09/一些计算机视觉该有的常识/kk.PNG" alt=""></p>
-<h2 id="1-6-Extrinsic-Matrix"><a href="#1-6-Extrinsic-Matrix" class="headerlink" title="1.6 Extrinsic Matrix"></a>1.6 Extrinsic Matrix</h2><p>Extrinsic Matrix可以用于camera坐标与世界坐标之间的转换。<br>extrinsic矩阵的左边是个3x3的rotation矩阵，右边是个3x1 translation列向量：<br><img src="/2018/07/09/一些计算机视觉该有的常识/camera-extrinsic-matrix.png" alt=""></p>
-<h1 id="2-Camera-Models-Overview"><a href="#2-Camera-Models-Overview" class="headerlink" title="2. Camera Models Overview"></a>2. Camera Models Overview</h1><p><strong>Extrinsic Parameters: define the location and orientation of the camera with respect to the world frame.</strong><br><strong>Intrinsic Parameters: allow a mapping between camera coordinates and pixel coordinates in the image frame.</strong><br><strong>Camera model in general is a mapping from world to image coordinates.</strong><br><strong>This is 3D to 2D transform and is dependent upon a number of independent parameters.</strong></p>
-<h2 id="2-1-Projective-space"><a href="#2-1-Projective-space" class="headerlink" title="2.1 Projective space"></a>2.1 Projective space</h2><p><strong>In this space, any point</strong><br><img src="/2018/07/09/一些计算机视觉该有的常识/eq1.PNG" alt=""><br><strong>is equivalent to</strong><br><img src="/2018/07/09/一些计算机视觉该有的常识/eq2.PNG" alt=""></p>
-<h2 id="2-2-The-sensor-is-not-the-ideal-image-plane"><a href="#2-2-The-sensor-is-not-the-ideal-image-plane" class="headerlink" title="2.2 The sensor is not the ideal image plane"></a>2.2 The sensor is not the ideal image plane</h2><p><img src="/2018/07/09/一些计算机视觉该有的常识/ni1.PNG" alt=""><br><img src="/2018/07/09/一些计算机视觉该有的常识/ni2.PNG" alt=""></p>
-<h2 id="2-3-camera-coodinate-and-pixel-coodinate"><a href="#2-3-camera-coodinate-and-pixel-coodinate" class="headerlink" title="2.3 camera coodinate and pixel coodinate"></a>2.3 camera coodinate and pixel coodinate</h2><p><img src="/2018/07/09/一些计算机视觉该有的常识/a.PNG" alt=""></p>
+		<p>…                                                                                                                                                                                                                                                                                                                      </p>
+<h1 id="1-RNN-Model"><a href="#1-RNN-Model" class="headerlink" title="1. RNN Model"></a>1. RNN Model</h1><p><img src="/2018/07/13/rnn/model.PNG" alt=""><br><img src="/2018/07/13/rnn/eq1.PNG" alt=""><br><img src="/2018/07/13/rnn/eq2.PNG" alt=""></p>
+<h1 id="2-GRU"><a href="#2-GRU" class="headerlink" title="2. GRU"></a>2. GRU</h1><p><img src="/2018/07/13/rnn/GRU1.png" alt=""><br><img src="/2018/07/13/rnn/GRU2.PNG" alt=""></p>
+<h1 id="3-LSTM"><a href="#3-LSTM" class="headerlink" title="3. LSTM"></a>3. LSTM</h1><h1 id="3-1-LSTM与GRU的对比"><a href="#3-1-LSTM与GRU的对比" class="headerlink" title="3.1 LSTM与GRU的对比"></a>3.1 LSTM与GRU的对比</h1><p><img src="/2018/07/13/rnn/GRULSTM.PNG" alt=""></p>
+<h1 id="3-2-LSTM-in-picture"><a href="#3-2-LSTM-in-picture" class="headerlink" title="3.2 LSTM in picture"></a>3.2 LSTM in picture</h1><p><img src="/2018/07/13/rnn/lstm.PNG" alt=""></p>
   
 	</div>
 		<footer class="article-footer clearfix">
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Intrinsic-Matrix/">Intrinsic Matrix</a><a href="/tags/Perspective-Projection/">Perspective Projection</a>
-  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/07/09/一些计算机视觉该有的常识/" data-title="一些计算机视觉该有的常识 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/07/13/rnn/" data-title="Recurrent Neural Networks | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -124,18 +112,18 @@ var _hmt = _hmt || [];
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2018/07/13/rnn/" title="Recurrent Neural Networks">
+ <a href="/2018/07/18/tensorflow/" title="TensorFlow个人使用教程">
   <strong>Previous:</strong><br/>
   <span>
-  Recurrent Neural Networks</span>
+  TensorFlow个人使用教程</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2018/07/03/imageprocess/"  title="数字图像处理">
+<a href="/2018/07/09/一些计算机视觉该有的常识/"  title="一些计算机视觉该有的常识">
  <strong>Next:</strong><br/> 
- <span>数字图像处理
+ <span>一些计算机视觉该有的常识
 </span>
 </a>
 </div>
