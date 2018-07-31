@@ -106,7 +106,7 @@ var _hmt = _hmt || [];
 <li>然后释放这个对象的空间</li>
 </ul>
 <p>这题的关键在于<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ListNode* dummyNode = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
-<p>创建一个指向ListNode的指针，并让它指向一个val为0的ListNode的时候，你要为它new一个空间出来不然会报错：<br><em>Line 20: member access within null pointer of type ‘struct ListNode’</em></p>
+<p>创建一个<em>指向ListNode的指针</em>，并让它指向一个val为0的ListNode的时候，<em>你要为它new一个空间出来</em>不然会报错：<br><em>Line 20: member access within null pointer of type ‘struct ListNode’</em></p>
 <p># </p>
   
 	</div>
