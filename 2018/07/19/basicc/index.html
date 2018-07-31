@@ -330,17 +330,6 @@ var _hmt = _hmt || [];
 <p>这一节内容能够让你明白C++如何支持面向对象编程风格，作者说如有任何遗漏，皆属于细枝末节，后续部分会详加说明。</p>
 <h2 id="5-3-不带继承的多态"><a href="#5-3-不带继承的多态" class="headerlink" title="5.3 不带继承的多态"></a>5.3 不带继承的多态</h2><p>本节用以说明不带继承的多态极费工夫，尤其时候的维护工程浩大。</p>
 <p><em>这里介绍一个static_cast特殊转换记号，可将整数转换为对应的ne_type枚举型。</em><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> ns_type</span><br><span class="line">&#123;</span><br><span class="line">	ns_unset, ns_fibonacci, ns_pell, ns_lucas,</span><br><span class="line">	ns_triangular, ns_square, ns_pentagonal</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> ns_type <span class="title">nstype</span><span class="params">(num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> num &lt;= <span class="number">0</span> || num &gt;= num_seq</span><br><span class="line">	? ns_unset : <span class="keyword">static_cast</span>&lt;ns_type&gt;(num);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="LeetCode-2"><a href="#LeetCode-2" class="headerlink" title="LeetCode 2"></a>LeetCode 2</h2><p>C++ new：</p>
-<ul>
-<li>在堆上分配空间 </li>
-<li>在分配的空间上调用对象的构造函数<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span>...&#125;   <span class="comment">//声明一个类 A</span></span><br><span class="line">A *obj = <span class="keyword">new</span> A();  <span class="comment">//使用 new 创建对象</span></span><br><span class="line"><span class="keyword">delete</span> []a;</span><br><span class="line"><span class="keyword">delete</span> obj;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>deleta:</p>
-<ol>
-<li>首先调用 这个对象 的析构函数 </li>
-<li>然后释放这个对象的空间</li>
-</ol>
 <h2 id="5-4-定义一个抽象基类"><a href="#5-4-定义一个抽象基类" class="headerlink" title="5.4 定义一个抽象基类"></a>5.4 定义一个抽象基类</h2>  
 	</div>
 		<footer class="article-footer clearfix">
