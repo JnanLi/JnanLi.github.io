@@ -4,12 +4,12 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>面经 | LI jianan&#39;s Blog</title>
+    <title>目标检测篇 | LI jianan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
     
-    <meta name="description" content="2018年实习面试总结一波                                                                                                                                         ">
+    <meta name="description" content="(这是一个开头)                                                                                                                                              ">
     
     
     
@@ -79,63 +79,34 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/07/30/interview/" title="面经" itemprop="url">面经</a>
+      <a href="/2018/08/01/detect/" title="目标检测篇" itemprop="url">目标检测篇</a>
   </h1>
   <p class="article-time">
-    <time datetime="2018-07-30T04:34:10.000Z" itemprop="datePublished">2018-07-30</time>
+    <time datetime="2018-08-01T01:12:46.000Z" itemprop="datePublished">2018-08-01</time>
   </p>
 </header>
 	<div class="article-content">
 		
 		
-		<p>2018年实习面试总结一波                                                                                                                                                                                                                                                                                                                                                                                                                                        </p>
-<h1 id="Rokid算法"><a href="#Rokid算法" class="headerlink" title="Rokid算法"></a>Rokid算法</h1><ol>
-<li>zwjs</li>
-<li>有了左视图和右视图，如何得到视差？<br>首先前提是左右两张图片是经过矫正的，光轴互相平行，接着用基于能量优化的图像匹配，得到左右视图的视差。</li>
-</ol>
-<h1 id="海康人脸识别算法实习生"><a href="#海康人脸识别算法实习生" class="headerlink" title="海康人脸识别算法实习生"></a>海康人脸识别算法实习生</h1><ol>
-<li>自我介绍</li>
-<li>Yolo和Faster RCNN的主要区别：</li>
-</ol>
-<h1 id="阿里神马搜索算法实习生"><a href="#阿里神马搜索算法实习生" class="headerlink" title="阿里神马搜索算法实习生"></a>阿里神马搜索算法实习生</h1><h2 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h2><ol>
-<li>自我介绍</li>
-<li>介绍一下深度估计(本来是让我介绍目标检测或者目标跟踪，大概就是讲讲你做了神马)</li>
-<li>LR和GBDT的主要区别<br>LR得到的分类结果，GBDT是得到回归树。</li>
-</ol>
-<p><em>LR：</em>逻辑回归是在线性回归的基础上套用了一个逻辑函数，因为线性回归的鲁棒性很差，在整个实数域内敏感度一致，逻辑函数在z=0时十分敏感，在z&gt;&gt;0z或&lt;&lt;0，梯度变为0。</p>
-<p><img src="/2018/07/30/interview/logical.gif" alt=""></p>
-<p><img src="/2018/07/30/interview/htheta.PNG" alt=""></p>
-<p><img src="/2018/07/30/interview/p.PNG" alt=""></p>
-<p><img src="/2018/07/30/interview/l.PNG" alt=""></p>
-<p>接下来梯度更新</p>
-<p><img src="/2018/07/30/interview/theta.PNG" alt=""></p>
-<p>评估方法： AUC</p>
-<p><em>GBDT：</em><br>决策树分为两类，分类树和回归树。<br>两者的区别：<br>分类树的结果不能进行加减运算，晴天-晴天没有实际意义；<br>回归树的结果可以进行加减运算，20岁+3岁=23岁；<br>GBDT中的决策树是回归树，预测结果是一个数值，在点击率预测方面常用GBDT。</p>
-<p>GBDT中的B(Boosting)是一种将弱学习器提升为强学习器的算法，属于集成学习（ensemble learning）的范畴。Boosting 方法基于这样一种思想：对于一个复杂任务来说，将多个专家的判断进行适当的综合所得出的判断，要比其中任何一个专家单独的判断要好。通俗地说，就是”三个臭皮匠顶个诸葛亮”的道理。</p>
-<ol start="4">
-<li>天池竞赛介绍一下，如何处理商品种类这一信息？<br>支支吾吾对之前做法想不太起来了，最后面试官想要听到的答案应该是one-hot。<br>我的做法是统计了各项特征，用户相关特征，商家相关特征，用户和商家对应特征三类，将这些特征就作为x输入到模型，试了GB和LR，GB的效果更好一些。<br>特征统计了用户年龄、性别、用户在各种种类商品的点击数、各种品牌的购买数；商家的各种商品的加入购物车行为数等等。</li>
-</ol>
-<h2 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h2><ol>
-<li>自我介绍</li>
-<li>本科有没有接触过机器学习？</li>
-<li>介绍一下线性模型，具体的流程，损失函数由哪两部分组成？</li>
-<li><p>有没有用python写过多进程，如果我有一个变量在多个进程里面要用到该怎么写？</p>
-</li>
-<li><p>有没有去验证过代码的性能，以及该怎么去改进论文，改改方法(就是模型直接拿来没有那么好的效果，该怎么改进)</p>
-</li>
-<li><p>给你一个整形数组，判断里面有没有元素重复。<br>我觉得这个我答得挺好的..另外定义一个set容器，看set容器的大小是否和整形数组一样大。(看一下计算复杂度的内容)</p>
-</li>
-<li>C++的虚函数有没有了解</li>
-<li>KNP</li>
-</ol>
-<p>整场面试有些听不清，下次如果有这种情况，可以试着直接跟面试官提出来。</p>
-<h1 id="网易人工智能部算法实习生"><a href="#网易人工智能部算法实习生" class="headerlink" title="网易人工智能部算法实习生"></a>网易人工智能部算法实习生</h1>  
+		<p>(这是一个开头)                                                                                                                                                                                                                                                                                                                                                                              </p>
+<h1 id="Faster-R-CNN"><a href="#Faster-R-CNN" class="headerlink" title="Faster R-CNN"></a>Faster R-CNN</h1><h2 id="Anchor-boxes"><a href="#Anchor-boxes" class="headerlink" title="Anchor boxes"></a>Anchor boxes</h2><p>Anchor boxes的尺寸-&gt;三个面积尺寸：128^2，256^2，512^2，然后在每个尺寸下，取三种不同的长宽比例：1:1、1:2、2:1，这样一来，我们得到9种面积尺寸的anchor。示意图如下：<br><img src="/2018/08/01/detect/anchor.png" alt=""></p>
+<p>下面是整个Faster R-CNN结构的示意图<br><img src="/2018/08/01/detect/frcnn.png" alt=""></p>
+<p>利用anchor是从第二列这个位置开始进行处理，这时候图片已经经过一系列卷积层和池化层以及ReLU，得到了这里的feature：51×39×256。</p>
+<p>在这个特征图上，通过一个3×3的滑动窗口，在这个51×39的区域上进行滑动，stride=1，padding=2，这样一来，得到51×39个3×3的窗口。</p>
+<p>对于每个3×3的窗口，作者假定它来自9种不同原图区域的池化，并且这些池化在原始图片中的中心点都一样。这样一来，在每个窗口位置，我们都可以根据9种anchor，逆向推导出它所对应原图中的一片区域，区域的尺寸以及坐标都是已知的。<em>而这些区域，就是我们想要的proposal，所以我们通过滑动窗口和anchors，成功得到了51×39×9(约20K)个原始图片的proposal。</em>接下来，每个proposal输出6个参数。</p>
+<h3 id="感受野"><a href="#感受野" class="headerlink" title="感受野"></a>感受野</h3><p><img src="/2018/08/01/detect/ye.jpg" alt=""><br>可以看到在Conv1中的每一个单元所能看到的原始图像范围是3×3，而由于Conv2的每个单元都是由 2×2 范围的Conv1构成，因此回溯到原始图像，其实是能够看到 5×5 的原始图像范围的。因此我们说Conv1的感受野是3，Conv2的感受野是5. 输入图像的每个单元的感受野被定义为1，这应该很好理解，因为每个像素只能看到自己。</p>
+<p>由于图像是二维的，具有空间信息，因此感受野的实质其实也是一个二维区域。但业界通常将感受野定义为一个正方形区域，因此也就使用边长来描述其大小了。在接下来的讨论中，本文也只考虑宽度一个方向。</p>
+<p>接下来我们使用一种并不常见的方式来展示CNN的层与层之间的关系(如下图，请将脑袋向左倒45°观看)，并且配上我们对原图像的编号。<br><img src="/2018/08/01/detect/ye2.jpg" alt=""></p>
+<p>我们用 r<sub>n</sub> 来表示第 n 个卷积层中，每个单元的感受野（即数字序列的长度）；蓝色的部分表示卷积操作，用 k<sub>n</sub> 和 s<sub>n</sub> 分别表示第 n 个卷积层的kernel_size和stride。</p>
+<p>看如何得到r<sub>2</sub>这个过程，r<sub>2</sub>能获得的最大感受野是r<sub>1</sub>×k<sub>2</sub> = 3×2 = 6，但这里存在重叠，重叠部分一共有k<sub>2</sub> - 1个，重叠里面有多长是r<sub>1</sub> - s<sub>1</sub>。<br>r<sub>2</sub> = r<sub>1</sub>×k<sub>2</sub> - (r<sub>1</sub> - s<sub>1</sub>)×(k<sub>2</sub> - 1)</p>
+<p>推理过程没有完全理解，直接放上最后结论：<br><img src="/2018/08/01/detect/ye3.svg" alt=""><br>整理，<br><img src="/2018/08/01/detect/ye4.svg" alt=""></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/求职面试/">求职面试</a>
+  <span></span> <a href="/tags/Object-Detection/">Object Detection</a>
   </div>
 
 
@@ -143,7 +114,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/07/30/interview/" data-title="面经 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/08/01/detect/" data-title="目标检测篇 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -152,19 +123,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/07/31/leetcode/" title="刷LeetCode">
-  <strong>Previous:</strong><br/>
-  <span>
-  刷LeetCode</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/07/28/depthcamera/"  title="深度相机">
+<a href="/2018/07/31/leetcode/"  title="刷LeetCode">
  <strong>Next:</strong><br/> 
- <span>深度相机
+ <span>刷LeetCode
 </span>
 </a>
 </div>
