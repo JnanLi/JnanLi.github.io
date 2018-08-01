@@ -99,14 +99,15 @@ var _hmt = _hmt || [];
 <p>接下来我们使用一种并不常见的方式来展示CNN的层与层之间的关系(如下图，请将脑袋向左倒45°观看)，并且配上我们对原图像的编号。<br><img src="/2018/08/01/detect/ye2.jpg" alt=""></p>
 <p>我们用 r<sub>n</sub> 来表示第 n 个卷积层中，每个单元的感受野（即数字序列的长度）；蓝色的部分表示卷积操作，用 k<sub>n</sub> 和 s<sub>n</sub> 分别表示第 n 个卷积层的kernel_size和stride。</p>
 <p>看如何得到r<sub>2</sub>这个过程，r<sub>2</sub>能获得的最大感受野是r<sub>1</sub>×k<sub>2</sub> = 3×2 = 6，但这里存在重叠，重叠部分一共有k<sub>2</sub> - 1个，重叠里面有多长是r<sub>1</sub> - s<sub>1</sub>。<br>r<sub>2</sub> = r<sub>1</sub>×k<sub>2</sub> - (r<sub>1</sub> - s<sub>1</sub>)×(k<sub>2</sub> - 1)</p>
-<p>推理过程没有完全理解，直接放上最后结论：<br><img src="/2018/08/01/detect/ye3.svg" alt=""><br>整理，<br><img src="/2018/08/01/detect/ye4.svg" alt=""></p>
+<p>推理过程没有完全理解，直接放上最后结论：<br><img src="/2018/08/01/detect/ye3.svg" alt=""><br>整理，<br><img src="/2018/08/01/detect/ye4.svg" alt=""><br>over.</p>
+<p>proposal做的事情是它已知图像中某一部分的feature，判断anchor(还是bounding box？)是物体的概率。<em>如果anchor比感受野大，就相当于只看到我关心区域(anchor)的一部分，通过部分来判断整体，；如果anchor比感受野小，就相当于得到了比我关心区域更大的区域的信息，判断我关心区域是不是物体。</em></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Object-Detection/">Object Detection</a>
+  <span></span> <a href="/tags/目标检测/">目标检测</a>
   </div>
 
 
