@@ -353,7 +353,9 @@ var _hmt = _hmt || [];
 <p><em>逐步测试自己的实现代码，比整个程序都完成后才测试要好多了。</em></p>
 <h2 id="小总结-2"><a href="#小总结-2" class="headerlink" title="小总结"></a>小总结</h2><p>不允许使用抽象类类型”Fibonacci”的对象<br><em>在派生类的时候不要把函数定义成纯虚函数…</em></p>
 <p>1个无法解析的外部命令：<br><em>考虑是不是静态类成员static vector《int》 _elems没有在程序代码文件中提供清楚的定义</em><br><em>vector《int》 Fibonacci::_elems;</em></p>
-<h2 id="5-6-运用继承体系"><a href="#5-6-运用继承体系" class="headerlink" title="5.6 运用继承体系"></a>5.6 运用继承体系</h2>  
+<h2 id="5-6-运用继承体系"><a href="#5-6-运用继承体系" class="headerlink" title="5.6 运用继承体系"></a>5.6 运用继承体系</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">(ostream &amp;os, <span class="keyword">const</span> num_sequence &amp;ns, <span class="keyword">int</span> pos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	os  &lt;&lt; <span class="string">"The element at position "</span></span><br><span class="line">		&lt;&lt; pos            &lt;&lt; <span class="string">" for the "</span></span><br><span class="line">		&lt;&lt; ns.what_am_i() &lt;&lt; <span class="string">" sequence is "</span></span><br><span class="line">		&lt;&lt; ns.elem(pos)   &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们知道，<em>ns并非指向实际的num_sequence对象，而是指向num_sequence的某个派生类的对象。对于上述两个虚函数的调用解析，会在运行时依据ns所指对象的真实类型进行解析。</em></p>
+<h2 id="5-7-基类应该多么抽象"><a href="#5-7-基类应该多么抽象" class="headerlink" title="5.7 基类应该多么抽象"></a>5.7 基类应该多么抽象</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 

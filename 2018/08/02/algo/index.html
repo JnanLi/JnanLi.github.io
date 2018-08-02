@@ -4,12 +4,12 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>目标检测篇 | LI jianan&#39;s Blog</title>
+    <title>为数学建模准备的算法 | LI jianan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="LI jianan">
     
-    <meta name="description" content="(这是一个开头)                                                                                                                                              ">
+    <meta name="description" content="9.15开始的华为研究生数学建模，不了解一些算法感觉心里不踏实，虽然不知道会不会用到，这些算法也都是该去了解的。                                                                                              ">
     
     
     
@@ -79,43 +79,27 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/08/01/detect/" title="目标检测篇" itemprop="url">目标检测篇</a>
+      <a href="/2018/08/02/algo/" title="为数学建模准备的算法" itemprop="url">为数学建模准备的算法</a>
   </h1>
   <p class="article-time">
-    <time datetime="2018-08-01T01:12:46.000Z" itemprop="datePublished">2018-08-01</time>
+    <time datetime="2018-08-02T12:00:26.000Z" itemprop="datePublished">2018-08-02</time>
   </p>
 </header>
 	<div class="article-content">
 		
 		
-		<p>(这是一个开头)                                                                                                                                                                                                                                                                                                                                                                              </p>
-<h1 id="Faster-R-CNN"><a href="#Faster-R-CNN" class="headerlink" title="Faster R-CNN"></a>Faster R-CNN</h1><h2 id="Anchor-boxes"><a href="#Anchor-boxes" class="headerlink" title="Anchor boxes"></a>Anchor boxes</h2><p>Anchor boxes的尺寸-&gt;三个面积尺寸：128^2，256^2，512^2，然后在每个尺寸下，取三种不同的长宽比例：1:1、1:2、2:1，这样一来，我们得到9种面积尺寸的anchor。示意图如下：<br><img src="/2018/08/01/detect/anchor.png" alt=""></p>
-<p>下面是整个Faster R-CNN结构的示意图<br><img src="/2018/08/01/detect/frcnn.png" alt=""></p>
-<p>利用anchor是从第二列这个位置开始进行处理，这时候图片已经经过一系列卷积层和池化层以及ReLU，得到了这里的feature：51×39×256。</p>
-<p>在这个特征图上，通过一个3×3的滑动窗口，在这个51×39的区域上进行滑动，stride=1，padding=2，这样一来，得到51×39个3×3的窗口。</p>
-<p>对于每个3×3的窗口，作者假定它来自9种不同原图区域的池化，并且这些池化在原始图片中的中心点都一样。这样一来，在每个窗口位置，我们都可以根据9种anchor，逆向推导出它所对应原图中的一片区域，区域的尺寸以及坐标都是已知的。<em>而这些区域，就是我们想要的proposal，所以我们通过滑动窗口和anchors，成功得到了51×39×9(约20K)个原始图片的proposal。</em>接下来，每个proposal输出6个参数。</p>
-<h3 id="感受野"><a href="#感受野" class="headerlink" title="感受野"></a>感受野</h3><p><img src="/2018/08/01/detect/ye.jpg" alt=""><br>可以看到在Conv1中的每一个单元所能看到的原始图像范围是3×3，而由于Conv2的每个单元都是由 2×2 范围的Conv1构成，因此回溯到原始图像，其实是能够看到 5×5 的原始图像范围的。因此我们说Conv1的感受野是3，Conv2的感受野是5. 输入图像的每个单元的感受野被定义为1，这应该很好理解，因为每个像素只能看到自己。</p>
-<p>由于图像是二维的，具有空间信息，因此感受野的实质其实也是一个二维区域。但业界通常将感受野定义为一个正方形区域，因此也就使用边长来描述其大小了。在接下来的讨论中，本文也只考虑宽度一个方向。</p>
-<p>接下来我们使用一种并不常见的方式来展示CNN的层与层之间的关系(如下图，请将脑袋向左倒45°观看)，并且配上我们对原图像的编号。<br><img src="/2018/08/01/detect/ye2.jpg" alt=""></p>
-<p>我们用 r<sub>n</sub> 来表示第 n 个卷积层中，每个单元的感受野（即数字序列的长度）；蓝色的部分表示卷积操作，用 k<sub>n</sub> 和 s<sub>n</sub> 分别表示第 n 个卷积层的kernel_size和stride。</p>
-<p>看如何得到r<sub>2</sub>这个过程，r<sub>2</sub>能获得的最大感受野是r<sub>1</sub>×k<sub>2</sub> = 3×2 = 6，但这里存在重叠，重叠部分一共有k<sub>2</sub> - 1个，重叠里面有多长是r<sub>1</sub> - s<sub>1</sub>。<br>r<sub>2</sub> = r<sub>1</sub>×k<sub>2</sub> - (r<sub>1</sub> - s<sub>1</sub>)×(k<sub>2</sub> - 1)</p>
-<p>推理过程没有完全理解，直接放上最后结论：<br><img src="/2018/08/01/detect/ye3.svg" alt=""><br>整理，<br><img src="/2018/08/01/detect/ye4.svg" alt=""><br>over.</p>
-<p>proposal做的事情是它已知图像中某一部分的feature，判断anchor(还是bounding box？)是物体的概率。<em>如果anchor比感受野大，就相当于只看到我关心区域(anchor)的一部分，通过部分来判断整体；如果anchor比感受野小，就相当于得到了比我关心区域更大的区域的信息，判断我关心区域是不是物体。</em></p>
+		<p>9.15开始的华为研究生数学建模，不了解一些算法感觉心里不踏实，虽然不知道会不会用到，这些算法也都是该去了解的。                                                                                                                                                                                                                                                                                                                                                          </p>
+<h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><p><em>理解一个算法就要理解一个算法的核心。</em>动态规划算法的核心是下面的图片和一个小故事。<br><img src="/2018/08/02/algo/dynpro.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">A * &quot;1+1+1+1+1+1+1+1 =？&quot; *</span><br><span class="line"></span><br><span class="line">A : &quot;上面等式的值是多少&quot;</span><br><span class="line">B : *计算* &quot;8!&quot;</span><br><span class="line"></span><br><span class="line">A *在上面等式的左边写上 &quot;1+&quot; *</span><br><span class="line">A : &quot;此时等式的值为多少&quot;</span><br><span class="line">B : *quickly* &quot;9!&quot;</span><br><span class="line">A : &quot;你怎么这么快就知道答案了&quot;</span><br><span class="line">A : &quot;只要在8的基础上加1就行了&quot;</span><br><span class="line">A : &quot;所以你不用重新计算因为你记住了第一个等式的值为8!动态规划算法也可以说是 &apos;记住求过的解来节省时间&apos;&quot;</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/目标检测/">目标检测</a>
-  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="https://www.lijn.tech/2018/08/01/detect/" data-title="目标检测篇 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
+  <div data-url="https://www.lijn.tech/2018/08/02/algo/" data-title="为数学建模准备的算法 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -124,19 +108,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/08/02/algo/" title="为数学建模准备的算法">
-  <strong>Previous:</strong><br/>
-  <span>
-  为数学建模准备的算法</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/07/31/leetcode/"  title="刷LeetCode">
+<a href="/2018/08/01/detect/"  title="目标检测篇">
  <strong>Next:</strong><br/> 
- <span>刷LeetCode
+ <span>目标检测篇
 </span>
 </a>
 </div>
