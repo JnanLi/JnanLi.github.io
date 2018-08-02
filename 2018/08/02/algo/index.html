@@ -93,16 +93,14 @@ var _hmt = _hmt || [];
 <h2 id="适用情况"><a href="#适用情况" class="headerlink" title="适用情况"></a>适用情况</h2><ul>
 <li>最优子结构性质。<strong>如果问题的最优解所包含的子问题的解也是最优的，我们就称该问题具有最优子结构性质(即满足最优化原理)。</strong></li>
 <li>无后效性。<strong>即子问题的解一旦确定，就不再改变，不受在这之后、包含它的更大的问题的求解决策影响。</strong></li>
-<li>子问题重叠性质。<strong>在用递归算法自顶向下对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次。动态规划算法正是利用了这种子问题的重叠性质，对每个子问题只计算一次，然后将其结果保存在一个表格中，当再次需要计算已经计算过的子问题时，只是在表格中简单地查看一下结果，从而获得较高的效率。</strong></li>
+<li>子问题重叠性质。<strong>在用递归算法自顶向下对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次。动态规划算法正是利用了这种子问题的重叠性质，对每个子问题只计算一次，然后将其结果保存在一个表格中，当再次需要计算已经计算过的子问题时，只是在表格中简单地查看一下结果，从而获得较高的效率。总体上来说，动态规划是一个以空间换时间的算法。</strong></li>
 </ul>
 <p>实例：</p>
 <ol>
 <li>Fibonacci数列<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function fib（n）</span><br><span class="line">    if n = 0 or n = 1</span><br><span class="line">        return n</span><br><span class="line">    return fib(n − 1) + fib（n − 2）</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>当 {\displaystyle n=5} {\displaystyle n=5}时，fib(5)的计算过程如下:</p>
-<p>fib(5)<br>fib(4) + fib(3)<br>(fib(3) + fib(2)) + (fib(2) + fib(1))<br>((fib(2) + fib(1)) + (fib(1) + fib(0))) + ((fib(1) + fib(0)) + fib(1))<br>(((fib(1) + fib(0)) + fib(1)) + (fib(1) + fib(0))) + ((fib(1) + fib(0)) + fib(1))</p>
-<p>由上面可以看出，这种算法对于相似的子问题进行了重复的计算，因此不是一种高效的算法。实际上，该算法的运算时间是指数级增长的。 改进的方法是，我们可以通过保存已经算出的子问题的解来避免重复计算：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">array map [0...n] = &#123; 0 =&gt; 0, 1 =&gt; 1 &#125;</span><br><span class="line">fib（n）</span><br><span class="line">    if（map m does not contain key n）</span><br><span class="line">        map[n] := fib(n − 1) + fib（n − 2）</span><br><span class="line">    return map[n]</span><br></pre></td></tr></table></figure></p>
+<p>↓<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">array map [0...n] = &#123; 0 =&gt; 0, 1 =&gt; 1 &#125;</span><br><span class="line">fib（n）</span><br><span class="line">   	if（map m does not contain key n）</span><br><span class="line">       	map[n] := fib(n − 1) + fib（n − 2）</span><br><span class="line">   	return map[n]</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
