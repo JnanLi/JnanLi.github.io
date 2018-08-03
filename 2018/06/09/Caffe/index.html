@@ -279,6 +279,14 @@ var _hmt = _hmt || [];
 <p>还有一个要修改的地方：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"Creating train lmdb..."</span></span><br><span class="line"></span><br><span class="line">GLOG_logtostderr=1 <span class="variable">$TOOLS</span>/convert_image \</span><br><span class="line">    --resize_height=<span class="variable">$RESIZE_HEIGHT</span> \</span><br><span class="line">    --resize_width=<span class="variable">$RESIZE_WIDTH</span> \</span><br><span class="line">    --shuffle \</span><br><span class="line">    <span class="variable">$TRAIN_DATA_ROOT</span> \</span><br><span class="line">    <span class="variable">$DATA</span>/train.txt \</span><br><span class="line">    <span class="variable">$EXAMPLE</span>/face_train_lmdb</span><br></pre></td></tr></table></figure>
 <p>上面的train.txt可以自己跑个python程序来制作，face_train_lmdb是存放lmdb的文件夹。</p>
+<h1 id="4-使用caffe的流程"><a href="#4-使用caffe的流程" class="headerlink" title="4. 使用caffe的流程"></a>4. 使用caffe的流程</h1><ul>
+<li>准备好数据</li>
+<li>写好模型配置文件</li>
+<li>写好优化配置文件</li>
+<li>命令行执行<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./examples/mnist/train_lenet.sh</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这样就能得到训练的模型.caffemodel文件了。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
