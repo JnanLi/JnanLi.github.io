@@ -105,6 +105,19 @@ var _hmt = _hmt || [];
 <p><strong>3.1.1 Anchors</strong><br>再加入Anchors的概念，就像上文提到的，作者在每一个sliding-window location，同时预测多个区域提案(也就是9个)。</p>
 <p><strong>3.1.2 Loss Function</strong><br><strong>为了训练RPN网络，作者给每个Anchors打上标签(这是一个object或者不是)。</strong>打标签的方法这里不再赘述。<br>loss函数如下图，各变量含义是<strong>i是一个mini-batch中Anchors的索引，pi是Anchors i被预测是一个object的概率，pi星是Anchors i的ground truth。ti是跟Anchors i对应的四个坐标位置预测出来的bounding box，ti星是跟Anchors i对应的ground truth box的坐标位置。</strong><br><img src="/2018/08/01/detect/loss.PNG" alt=""></p>
 <p><strong>Lcls是softmax loss，</strong><br><img src="/2018/08/01/detect/loss1.PNG" alt=""><br><strong>g是smooth L<sub>1</sub> loss，对异常值不敏感：</strong><br><img src="/2018/08/01/detect/loss2.PNG" alt=""></p>
+<p><strong>3.2 Sharing Features for RPN and Fast R-CNN</strong></p>
+<ol>
+<li><strong>按照3.1.3描述的训练RPN网络，这个网络的参数用ImageNet-pre-trained结果初始化，然后根据region proposal任务微调。</strong></li>
+<li><strong>单独训练Fast RCNN网络用第1步得到的proposals，这个检测网络参数也是用ImageNet-pre-trained结果初始化。</strong></li>
+</ol>
+<p>目前为止，还没有共享参数</p>
+<ol start="3">
+<li><strong>用检测网络的参数初始化RPN的训练网络，然后固定共享卷积网络参数，微调RPN独有的部分(那就一个conv+relu了，看起来有点少？)</strong></li>
+</ol>
+<p>现在两个网络共享参数了</p>
+<ol start="4">
+<li><strong>共享卷积网络参数还是固定，微调Fast RCNN独有的网络部分。</strong></li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
