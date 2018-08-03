@@ -113,7 +113,10 @@ var _hmt = _hmt || [];
 <h3 id="1-3-1-数据来自于数据库-LevelDB、LMDB"><a href="#1-3-1-数据来自于数据库-LevelDB、LMDB" class="headerlink" title="1.3.1 数据来自于数据库(LevelDB、LMDB)"></a>1.3.1 数据来自于数据库(LevelDB、LMDB)</h3><p><strong>层类型：Data<br>必须设置的参数</strong></p>
 <ul>
 <li>source：包含数据库的目录名称</li>
-<li>batch_size：<br><strong>可选的参数：</strong></li>
+<li>batch_size：</li>
+</ul>
+<p><strong>可选的参数：</strong></p>
+<ul>
 <li>rand_skip：？</li>
 <li>backend：选择是采用LevelDB还是LMDB，默认是LevelDB<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''使用LMDB源，一般做分类用'''</span></span><br><span class="line">layer &#123;</span><br><span class="line">    name: <span class="string">"mnist"</span></span><br><span class="line">    type: <span class="string">"Data"</span></span><br><span class="line">    top: <span class="string">"data"</span></span><br><span class="line">    top: <span class="string">"label"</span></span><br><span class="line">    include &#123;</span><br><span class="line">        phase: TRAIN</span><br><span class="line">    &#125;</span><br><span class="line">    transform_param &#123;</span><br><span class="line">        scale: <span class="number">0.00390625</span></span><br><span class="line">    &#125;</span><br><span class="line">    data_param &#123;</span><br><span class="line">        source: <span class="string">"examples/mnist/mnist_train_lmdb"</span></span><br><span class="line">        batch_size: <span class="number">64</span></span><br><span class="line">        backend: LMDB</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -135,7 +138,10 @@ var _hmt = _hmt || [];
 <h3 id="1-3-4-数据源直接来源于图片"><a href="#1-3-4-数据源直接来源于图片" class="headerlink" title="1.3.4 数据源直接来源于图片"></a>1.3.4 数据源直接来源于图片</h3><p><strong>层类型：ImageData<br>必须设置的参数：</strong></p>
 <ul>
 <li>source：一个文本文件的名字，每一行给定一个图片文件的名称和标签</li>
-<li>batch_size：<br><strong>可选参数：</strong></li>
+<li>batch_size：</li>
+</ul>
+<p><strong>可选参数：</strong></p>
+<ul>
 <li>rand_skip：</li>
 <li>shuffle：随机打乱顺序，默认为false</li>
 <li>new_height，new_width：如果设置，就对图像resize<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">layer &#123;</span><br><span class="line">    name: <span class="string">"data"</span></span><br><span class="line">    type: <span class="string">"ImageData"</span></span><br><span class="line">    top: <span class="string">"data"</span></span><br><span class="line">    top: <span class="string">"label"</span></span><br><span class="line">    transform_param &#123;</span><br><span class="line">        mirror: false</span><br><span class="line">        crop_size: <span class="number">227</span></span><br><span class="line">        mean_file: <span class="string">"data/ilsvrc12/imagenet_mean.binaryproto"</span></span><br><span class="line">    &#125;</span><br><span class="line">    image_data_param &#123;</span><br><span class="line">        source: <span class="string">"examples/_temp/file_list.txt"</span></span><br><span class="line">        batch_size: <span class="number">64</span></span><br><span class="line">        new_height: <span class="number">256</span></span><br><span class="line">        new_width: <span class="number">256</span> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
