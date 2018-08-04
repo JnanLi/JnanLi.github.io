@@ -118,6 +118,7 @@ var _hmt = _hmt || [];
 <ol start="4">
 <li><strong>共享卷积网络参数还是固定，微调Fast RCNN独有的网络部分。</strong></li>
 </ol>
+<p><strong>Fast R-CNN 2.1. The RoI pooling layer</strong><br><strong>把任意大小的输入得到H×W大小的输出，每一个RoI由(r, c, h, w)定义，(r, c)是ROI左上角坐标，(h, w)是输入的高和宽。RoI Pooling的方法是先把输入划分成H×W个h/H、w/W的子窗口，在每一个子窗口做max-pooling得到一个值，最后输出的大小自然就固定成H×W。</strong></p>
   
 	</div>
 		<footer class="article-footer clearfix">
