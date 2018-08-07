@@ -114,14 +114,14 @@ var _hmt = _hmt || [];
 </ul>
 <p><strong>服务器失去连接了…问号脸，那么只好回到上一台服务器去操作</strong><br><strong>重新连接，继续</strong><br>一开始使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir build &amp;&amp; <span class="built_in">cd</span> build &amp;&amp; cmake .. &amp;&amp; make all</span><br></pre></td></tr></table></figure></p>
 <p><strong>make all的时候报错</strong>什么错误没记下来..服务器又自己关机了，不过好像是关于protobuf版本，没有机会尝试，可以试试看用下面的方式解决<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda create --name proto261 protobuf==2.6.1</span><br><span class="line">conda search libprotobuf</span><br><span class="line">conda install libprotobuf=2.5.0</span><br></pre></td></tr></table></figure></p>
-<p><strong>make clean</strong>之后尝试直接<strong>make all</strong>，就是这一步服务器又自己关机了，连不上了。<br><strong>重新连接，继续</strong><br><strong>按照上面所说的常识，在proto261虚拟环境下，安装一些必备的包，比如scikit-image、pydot、graphviz；修改Makefile.config之后，make all -j4没有报错。</strong></p>
+<p><strong>make clean</strong>之后尝试直接<strong>make all</strong>，就是这一步服务器又自己关机了，连不上了。<br><strong>重新连接，继续</strong><br><strong>按照上面所说的去尝试，在proto261虚拟环境下，安装一些必备的包，比如scikit-image、pydot、graphviz；修改Makefile.config之后，make all -j4没有报错。</strong><br>修改Makefile.config：</p>
 <ul>
 <li>USE_CUDNN := 1</li>
-<li><h1 id="PYTHON-INCLUDE-usr-include-python2-7"><a href="#PYTHON-INCLUDE-usr-include-python2-7" class="headerlink" title="PYTHON_INCLUDE := /usr/include/python2.7 \"></a>PYTHON_INCLUDE := /usr/include/python2.7 \</h1><h1 id="usr-lib-python2-7-dist-packages-numpy-core-include"><a href="#usr-lib-python2-7-dist-packages-numpy-core-include" class="headerlink" title="/usr/lib/python2.7/dist-packages/numpy/core/include"></a>/usr/lib/python2.7/dist-packages/numpy/core/include</h1></li>
+<li>(注释) PYTHON_INCLUDE := /usr/include/python2.7 \<br>(注释)        /usr/lib/python2.7/dist-packages/numpy/core/include</li>
 <li>ANACONDA_HOME  := /media/data2/lijiana/anaconda2/envs/proto261<br>PYTHON_INCLUDE := $(ANACONDA_HOME)/include \<pre><code>$(ANACONDA_HOME)/include/python2.7 \
 $(ANACONDA_HOME)/lib/python2.7/site-packages/numpy/core/include
 </code></pre></li>
-<li><h1 id="PYTHON-LIB-usr-lib"><a href="#PYTHON-LIB-usr-lib" class="headerlink" title="PYTHON_LIB := /usr/lib"></a>PYTHON_LIB := /usr/lib</h1>PYTHON_LIB := $(ANACONDA_HOME)/lib</li>
+<li>(注释) PYTHON_LIB := /usr/lib<br>PYTHON_LIB := $(ANACONDA_HOME)/lib</li>
 <li>WITH_PYTHON_LAYER := 1</li>
 </ul>
 <h1 id="在Ubuntu系统下利用Anaconda2装Caffe-2"><a href="#在Ubuntu系统下利用Anaconda2装Caffe-2" class="headerlink" title="在Ubuntu系统下利用Anaconda2装Caffe-2"></a>在Ubuntu系统下利用Anaconda2装Caffe-2</h1><h2 id="distributed-1-21-8-requires-msgpack-which-is-not-installed"><a href="#distributed-1-21-8-requires-msgpack-which-is-not-installed" class="headerlink" title="distributed 1.21.8 requires msgpack, which is not installed"></a>distributed 1.21.8 requires msgpack, which is not installed</h2><h2 id="grin-1-2-1-requires-argparse-gt-1-1-which-is-not-installed"><a href="#grin-1-2-1-requires-argparse-gt-1-1-which-is-not-installed" class="headerlink" title="grin 1.2.1 requires argparse&gt;=1.1, which is not installed"></a>grin 1.2.1 requires argparse&gt;=1.1, which is not installed</h2><ul>
@@ -144,8 +144,9 @@ $(ANACONDA_HOME)/lib/python2.7/site-packages/numpy/core/include
 <li>查看你的linux发行版本（主要是看是64位还是32位的）：<br>$ uname -m &amp;&amp; cat /etc/*release</li>
 <li>查看NVIDIA显卡的驱动版本<br>$ cat /proc/driver/nvidia/version</li>
 <li>查看显卡名称以及驱动版本<br>$ nvidia-smi<br>$ nvidia-smi -a</li>
-<li>通过运行下边这句话，检查系统中含Nvidia相关文件的文件夹<br>$ dpkg -l | grep -i nvidia<br><strong>前面没有必要先装驱动的，在装cuda的过程中会安装匹配的驱动。单独安装NVIDIA驱动的方式是十分愚蠢的，因为CUDA安装包会自带NVIDIA驱动，而且不会产生版本不兼容的问题——这是肯定的。所以这一步可以跳过直接去安装CUDA程序就行了。</strong></li>
+<li>通过运行下边这句话，检查系统中含Nvidia相关文件的文件夹<br>$ dpkg -l | grep -i nvidia</li>
 </ol>
+<p><strong>前面没有必要先装驱动的，在装cuda的过程中会安装匹配的驱动。单独安装NVIDIA驱动的方式是十分愚蠢的，因为CUDA安装包会自带NVIDIA驱动，而且不会产生版本不兼容的问题——这是肯定的。所以这一步可以跳过直接去安装CUDA程序就行了。</strong></p>
 <h1 id="Hexo缺陷"><a href="#Hexo缺陷" class="headerlink" title="Hexo缺陷"></a>Hexo缺陷</h1><ul>
 <li>不要把警号或者单独的星号放在文本中，hexo g会报错。</li>
 </ul>
