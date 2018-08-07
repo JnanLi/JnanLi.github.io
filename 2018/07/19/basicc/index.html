@@ -1,0 +1,314 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  
+    <title>C++编程基础 | LI jianan&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="LI jianan">
+    
+    <meta name="description" content="Basic C++ Programming                                                                                                                                 ">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/myLogo.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/myLogo.jpg">
+    
+
+  
+  
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?d182ed77fc48758bf45a33835ee35745";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
+
+  _st('install','.............Add your swiftype userID...............');
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="LI jianan&#39;s Blog">LI jianan&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					</li>
+                <!--<li><div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div></li>-->
+
+				</ul>
+			</nav>	
+</div>
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/07/19/basicc/" title="C++编程基础" itemprop="url">C++编程基础</a>
+  </h1>
+  <p class="article-time">
+    <time datetime="2018-07-19T11:16:42.000Z" itemprop="datePublished">2018-07-19</time>
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<p>Basic C++ Programming                                                                                                                                                                                                                                                                                                                                                                              </p>
+<h1 id="using-namespace-std不要放在头文件"><a href="#using-namespace-std不要放在头文件" class="headerlink" title="using namespace std不要放在头文件"></a>using namespace std不要放在头文件</h1><ol>
+<li><strong>.cpp实现和.h声明联系起来是靠在.cpp文件中包含.h头文件。</strong></li>
+<li><strong>默认命名空间声明using namespace std不要放在头文件，应该放在.cpp文件中，在头文件中用比如std::cout。</strong></li>
+</ol>
+<h1 id="class重定义"><a href="#class重定义" class="headerlink" title="class重定义"></a>class重定义</h1><p><strong>如果出现提示使用不完整类型的时候，记得查看是不是引用了对应的头文件。</strong></p>
+<p><strong>“class”类型重定义<br>原因：一个类被定义了多次，例如在类A的头文件中#include “B.h”，同时又在类A的cpp文件中再次#include “B.h”<br>解决方法：在文件头加上了“#pragma once”，防止某个头文件被多次include，保证头文件被编译一次。用#ifndef，#define，#endif也可以用来防止重定义。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once            <span class="comment">// Triangular.h</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"Triangular_iterator.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Triangular</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">//friend int Triangular_iterator::operator*() const;</span></span><br><span class="line">	<span class="comment">//friend void Triangular_iterator::check_integrity() const;</span></span><br><span class="line">	<span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Triangular_iterator</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:	</span><br><span class="line">	<span class="keyword">typedef</span> Triangular_iterator iterator;</span><br><span class="line">	<span class="function">Triangular_iterator <span class="title">begin</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> Triangular_iterator(_beg_pos);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">Triangular_iterator <span class="title">end</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> Triangular_iterator(_beg_pos + _length);</span><br><span class="line">	&#125;</span><br><span class="line">	Triangular(<span class="keyword">int</span> len = <span class="number">1</span>, <span class="keyword">int</span> beg_pos = <span class="number">1</span>);</span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> _length;</span><br><span class="line">	<span class="keyword">int</span> _beg_pos; <span class="comment">// begin position</span></span><br><span class="line">	<span class="keyword">int</span> _next;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; _elems;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> _max_elems;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"Triangular.h"</span> <span class="comment">// Triangular.cpp</span></span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once           <span class="comment">// Triangular_iterator.h</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Triangular_iterator</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	...</span><br><span class="line">	Triangular_iterator&amp; <span class="keyword">operator</span>++();</span><br><span class="line">	Triangular_iterator <span class="keyword">operator</span>++(<span class="keyword">int</span>); <span class="comment">// 后置版</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">check_integrity</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="keyword">int</span> _index;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"Triangular_iterator.h"</span> <span class="comment">//Triangular_iterator.cpp</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"Triangular.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">int</span> Triangular_iterator::<span class="keyword">operator</span>*() <span class="keyword">const</span></span><br><span class="line">&#123;</span><br><span class="line">	check_integrity();</span><br><span class="line">	<span class="keyword">return</span> Triangular::_elems[_index];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>一直报错说Triangular不是一个类，后来在Triangular_iterator.cpp中#include”Triangular.h”就可以了，这里要注意#progma once，不然会class重定义。</strong></p>
+<h1 id="1个无法解析的外部命令"><a href="#1个无法解析的外部命令" class="headerlink" title="1个无法解析的外部命令"></a>1个无法解析的外部命令</h1><p>不允许使用抽象类类型”Fibonacci”的对象<br><strong>在派生类的时候不要把函数定义成纯虚函数…</strong></p>
+<p>1个无法解析的外部命令：<br><strong>考虑是不是静态类成员static vector《int》 _elems没有在程序代码文件中提供清楚的定义</strong><br><strong>vector《int》 Fibonacci::_elems;</strong><br><strong>静态类成员需要在类外清楚的定义，因为定义可以为它分配内存。</strong></p>
+<h1 id="error-LNK2019-无法解析的外部符号"><a href="#error-LNK2019-无法解析的外部符号" class="headerlink" title="error LNK2019: 无法解析的外部符号"></a>error LNK2019: 无法解析的外部符号</h1><p><strong>“error LNK2019: 无法解析的外部符号”之分析</strong><br><strong>通常编写函数时，会把声明放到头文件（.h）中，而把函数定义放在源文件（.cpp）中，在其他源文件中使用时包含对应的头文件即可。<br>但是内联函数（inline）不要定义在cpp文件中，因为我们通常都是包含头文件，而编译器在编译时会对内联函数进行展开操作，但是编译器只能在包含的头文件里搜索函数的定义体，如果头文件只有声明，显然编译器不知道该如何展开，于是就出错了。</strong></p>
+<h1 id="error-LNK2019-无法解析的外部符号BTnode-preorder，该符号在函数BinaryTree-preorder中被引用"><a href="#error-LNK2019-无法解析的外部符号BTnode-preorder，该符号在函数BinaryTree-preorder中被引用" class="headerlink" title="error LNK2019: 无法解析的外部符号BTnode::preorder，该符号在函数BinaryTree::preorder中被引用"></a>error LNK2019: 无法解析的外部符号BTnode::preorder，该符号在函数BinaryTree::preorder中被引用</h1><p><strong>BinaryTree::preorder是inline函数，定义在BinaryTree.h文件中，调用了BTnode::preorder，定义在BTnode.cpp中，.h在解析的时候需要知道BTnode::preorder的定义。这时候可以</strong></p>
+<ul>
+<li><strong>把Binary::preorder取消inline，放到BinaryTree.cpp文件中。</strong></li>
+<li><strong>把BTnode::preorder变成inline，放到BTnode.h文件中。</strong></li>
+</ul>
+<p>在做二叉树训练的时候搞得有点乱，像是BinaryTree和BTnode这么两个类的话，一般我们调用都是调用BinaryTree，所以直接把这两个类放在一起定义而不要分成2个h文件。</p>
+<h1 id="error-LNK2019-无法解析的外部符号BinaryTree-BinaryTree该符号在函数main-中被引用"><a href="#error-LNK2019-无法解析的外部符号BinaryTree-BinaryTree该符号在函数main-中被引用" class="headerlink" title="error LNK2019: 无法解析的外部符号BinaryTree::BinaryTree该符号在函数main 中被引用"></a>error LNK2019: 无法解析的外部符号BinaryTree::BinaryTree该符号在函数main 中被引用</h1><p><strong>很奇怪的一种error，意思是说BinaryTree的构造函数在main函数中被调用了，所以要把原来放在.cpp中的定义放到.h文件中。</strong><br><strong>BinaryTree和BTnode两个都是模板类，出现这个问题是提示需要把.cpp文件中的定义全放到.h文件中去，也不用声明成inline，只要放到.h文件中，编译就能通过。</strong><br><strong>测试是不是template的问题，就把模板template去掉，改成直接用string，然后把定义放回.cpp文件中，编译就通过了。</strong></p>
+<p><strong>接下来看看到底是什么原因导致template类的定义不能放在.cpp文件中。</strong><br><strong>！！挺重要的这一点</strong><br><strong>类模板和类成员函数模板不是类和成员函数定义，它们是C++编译器指令，说明了如何生成类和成员函数定义。模板的具体实现——如用string对象的BinaryTree类——被称为实例化或具体化。不能将模板成员函数放在独立的实现文件中(以前，C++标准确实提供了关键字export，让您能够将模板成员函数放在独立的实现文件中，但支持该关键字的编译器不多；C++11不再这样使用关键字export，而将其保留用于其他用途)。由于模板不是函数，它们不能单独编译。模板必须与特定的模板实例化请求一起使用。</strong><br><strong>↓<br>为此，最简单的方法是将所有模板信息放在一个头文件中。</strong></p>
+<h2 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h2><p><strong>不利于类的接口与类的实现分离，不利于信息隐蔽。虽然程序的执行效率提高了，但从软件工程质量的角度来看，这样做并不是好的办法。只有在类外定义的成员函数规模很小而调用频率较高时，才将此成员函数指定为内置函数。</strong></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/C/">C++</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="https://www.lijn.tech/2018/07/19/basicc/" data-title="C++编程基础 | LI jianan&#39;s Blog" data-tsina="" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2018/07/30/interview/" title="面经">
+  <strong>Previous:</strong><br/>
+  <span>
+  面经</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2018/07/18/tensorflow/"  title="TensorFlow个人使用教程">
+ <strong>Next:</strong><br/> 
+ <span>TensorFlow个人使用教程
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	<div class="copyright">
+		<span> If you are interested in Computer Vision, you can contact </span>
+			<span> <a href="https://github.com/JnanLi">me.</a> </span>
+	<div>
+</div></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+<script type="text/javascript">
+  function footerPosition() {
+    var contentHeight = document.documentElement.scrollHeight,
+        winHeight = window.innerHeight;
+    if(contentHeight <= winHeight) {
+      $('footer').addClass('fixed-bottom');
+    } else {
+      $('footer').removeClass('fixed-bottom');
+    }
+  }
+  footerPosition();
+  $(window).resize(footerPosition);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  </body>
+</html>
