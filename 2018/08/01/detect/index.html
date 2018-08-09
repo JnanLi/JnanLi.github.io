@@ -109,6 +109,16 @@ var _hmt = _hmt || [];
 <li><strong>共享卷积网络参数还是固定，微调Fast RCNN独有的网络部分。</strong></li>
 </ol>
 <p><strong>Fast R-CNN 2.1. The RoI pooling layer</strong><br><strong>把任意大小的输入得到H×W大小的输出，每一个RoI由(r, c, h, w)定义，(r, c)是ROI左上角坐标，(h, w)是输入的高和宽。RoI Pooling的方法是先把输入划分成H×W个h/H、w/W的子窗口，在每一个子窗口做max-pooling得到一个值，最后输出的大小自然就固定成H×W。</strong></p>
+<h1 id="mAP"><a href="#mAP" class="headerlink" title="mAP"></a>mAP</h1><p><strong>mean Average Precision</strong><br>mAP是在目标检测问题中最常用的衡量标准，专门用于预测目标位置并分类的算法，比如定位模型，目标检测模型，和分割模型。<br><img src="/2018/08/01/detect/map-1.png" alt=""></p>
+<h2 id="Why-mAP"><a href="#Why-mAP" class="headerlink" title="Why mAP?"></a>Why mAP?</h2><p>在目标检测问题中，每张图片都可能会有不同classes的不同objects。分类模型和定位模型都需要被评估。因此，在图像分类问题中使用的精度标准不能直接用在检测问题中。</p>
+<h2 id="关于Ground-Truth"><a href="#关于Ground-Truth" class="headerlink" title="关于Ground Truth"></a>关于Ground Truth</h2><p>对于任何算法度量都是根据Ground Truth进行评估，我们只知道Training、Validation和Test的Ground Truth。对于目标检测，Ground Truth包括图像和图像中每一个object的类别和bounding box。<br><img src="/2018/08/01/detect/map-2.png" alt=""><br>给计算机的是实际的图像(jpg, png等)和注释文本(bounding box的坐标x, y, width, height和类别)，上面的图片只是为了我们人可视化。<br>所以，对于这张特定的图片，我们的模型在训练的时候得到的数据如下<br><img src="/2018/08/01/detect/map-3.png" alt=""><br>以及3组定义了Ground Truth的数<br><img src="/2018/08/01/detect/map-3-1.png" alt=""></p>
+<h2 id="计算mAP"><a href="#计算mAP" class="headerlink" title="计算mAP"></a>计算mAP</h2><p>模型会返回很多预测，但是在这些预测中，大多数预测的置信度都很低，我们只考虑在某个数值置信度之上的预测。<br>下面是我们模型预测的结果：<br><img src="/2018/08/01/detect/map-4.png" alt=""><br>我们首先需要判断这些检测的正确性，度量标准是IoU。<br>为了计算Precision和Recall，我们必须定义<strong>True Positives, False Positives, True Negatives和False Negatives</strong>。<br>我们使用IoU来得到True Positives和False Positives，我们现在需要判断预测结果(Positives)到底是TP还是FP，方法就是和Ground Truth计算IoU，如果IoU &gt; 0.5，那就是True Positives；IoU ≤ 0.5，就是False Positives。COCO数据库建议使用多个阈值，PASCAL VOC数据库使用的就是0.5标准。<br>计算True Negatives是没什么用的，所以我们只计算False Negatives，即预测结果是Negatives，但IoU &gt; 0.5。<br>通过改变我们的置信阈值，我们可以改变预测框是正的还是负的。所有达到预测的预测(Bounding box + Class)都被认为是Positives，低于阈值的预测都是Negatives。<br>再一次说明，对于每一张图片，我们已经有Ground Truth告诉我们在这张图片中每一个种类的object的数量。<br>好了，接下来<br><strong>Precision = TP/(TP+FP)</strong>在预测是正例的里面，真的是正例的比例<br><strong>Recall = TP/(TP+FN)</strong>在Ground Truth是True的object里面，被预测成Positives的比例<br>正如前面提到的，我们至少还有另外两个变量决定了Precision和Recall，它们是IoU的阈值和置信度阈值。</p>
+<p>在the PASCAL Visual Objects Classes(VOC) challenge(IoU &gt; 0.5)，定义mAP的计算方法：<br>我们选择11种不同的置信度，使得Recall值计算出来等于0, 0.1, 0.2, …, 0.9和1.0。AP定义成11个Recall值对应的Precision的平均值。<br><strong>Basically we use the maximum precision for a given recall value.？</strong><br>mAP也就是在每一个种类按照上述方法得到的AP的平均。<br>关于mAP注意以下三点：</p>
+<ol>
+<li>mAP总是根据一个数据集得到的。</li>
+<li>虽然很难解释模型输出的绝对量化，但mAP帮助我们通过得到了一个相当好的相对度量。当我们在流行的公共数据集上计算这个度量时，这个度量可以很容易地用于比较对象检测的新旧方法。</li>
+<li>根据训练数据中类的分布情况，AP可能从某些类(具有良好的训练数据)非常高到非常低(具有较少/坏数据的类)。你的mAP可能是稳健的，但你的模型可能对某些类很好，对某些类很坏。因此，在分析模型结果时，最好查看单个类的AP。<strong>这些值也可以作为增加更多训练样本的指标。</strong></li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">

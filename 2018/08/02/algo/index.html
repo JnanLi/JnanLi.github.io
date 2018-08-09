@@ -321,6 +321,9 @@ var _hmt = _hmt || [];
 </tr>
 </tbody>
 </table>
+<h1 id="MATLAB基本绘图函数"><a href="#MATLAB基本绘图函数" class="headerlink" title="MATLAB基本绘图函数"></a>MATLAB基本绘图函数</h1><h2 id="在一副图形中绘制多个数据集"><a href="#在一副图形中绘制多个数据集" class="headerlink" title="在一副图形中绘制多个数据集"></a>在一副图形中绘制多个数据集</h2><p>通过调用一次 plot，多个 x-y 对组参数会创建多幅图形。MATLAB® 对每条线使用不同的颜色。<br>例如，下列语句绘制 x 的三个相关函数：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">0</span>:<span class="built_in">pi</span>/<span class="number">100</span>:<span class="number">2</span>*<span class="built_in">pi</span>;</span><br><span class="line">y = <span class="built_in">sin</span>(x);</span><br><span class="line">y2 = <span class="built_in">sin</span>(x<span class="number">-.25</span>);</span><br><span class="line">y3 = <span class="built_in">sin</span>(x<span class="number">-.5</span>);</span><br><span class="line">plot(x,y,x,y2,x,y3)</span><br></pre></td></tr></table></figure></p>
+<p>legend 函数提供了一种标识各条线的简单方法：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">legend(<span class="string">'sin(x)'</span>,<span class="string">'sin(x-.25)'</span>,<span class="string">'sin(x-.5)'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/08/02/algo/plot.png" alt=""></p>
   
 	</div>
 		<footer class="article-footer clearfix">
