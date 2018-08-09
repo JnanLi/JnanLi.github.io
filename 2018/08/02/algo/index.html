@@ -178,6 +178,12 @@ var _hmt = _hmt || [];
 </tr>
 </tbody>
 </table>
+<h2 id="2-disp函数"><a href="#2-disp函数" class="headerlink" title="2. disp函数"></a>2. disp函数</h2><p>disp需要一个数组参数，它将值显示在命令行窗口。<br>此函数可联合num2str（将一个数转化为字符串）和int2str（讲一个整数转化为字符串）来产生新的信息，显示在命令行窗口中。例如，下面的语句将“the value of pi=3.1416”显示在命令行窗口中。第一句创建了一个字符型数组，第二句用于显示这个数组。<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; str=[<span class="string">'the value of pi='</span> num2str(pi)];</span><br><span class="line">&gt;&gt; <span class="built_in">disp</span>(str);</span><br><span class="line">the value of <span class="built_in">pi</span>=<span class="number">3.1416</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="3-用fprint函数格式化输出数据"><a href="#3-用fprint函数格式化输出数据" class="headerlink" title="3. 用fprint函数格式化输出数据"></a>3. 用fprint函数格式化输出数据</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fprintf(format,data)</span><br></pre></td></tr></table></figure>
+<p>其中format用于<strong>表示一个描述打印数据方式的字符串</strong>，data代表<strong>要打印的一个或多个标量或数组</strong>。<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; fprintf(<span class="string">'the value of pi is%6.2f\n'</span>,<span class="built_in">pi</span>)</span><br><span class="line">the value of <span class="built_in">pi</span> is  <span class="number">3.14</span></span><br></pre></td></tr></table></figure></p>
+<p>转义序列%6.2f代表在本函数中的第一个数据项将占有6个字符宽度(  3.14)，小数点后有2位小数。 </p>
+<p>| format 命令 | 结果 |<br>| %d | 把值作为整数来处理 |<br>| %e | 用科学记数法来显示数据 |<br>| %f | 用于格式化浮点数，并显示这个数 |<br>| %g | 用科学记数格式，或浮点数格式，根据长度最短的显示 |</p>
+<p>总的来说，使用fprintf最为灵活方便，可以输出任何格式，而且可以有多个数据项，fprint就是只能输出复数的实部，所以复数最好用disp去处理。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
