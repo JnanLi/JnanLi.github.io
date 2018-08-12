@@ -130,8 +130,28 @@ var _hmt = _hmt || [];
 <p>YOLO的缺点：</p>
 <ul>
 <li>YOLO对相互靠的很近的物体，还有很小的群体检测效果不好，这是因为一个网格中只预测了两个框，并且只属于一类。</li>
-<li></li>
+<li>出现新的对象框大小时难以适应。</li>
+<li>大框的定位误差一般影响较小，但是小框的定位误差会极大得影响IoU，YOLO的主要问题在于不正确定位。</li>
 </ul>
+<h1 id="YOLO9000"><a href="#YOLO9000" class="headerlink" title="YOLO9000"></a>YOLO9000</h1><p>YOLOv1虽然检测速度很快，但是在检测精度上不如R-CNN系列检测方法，YOLOV1在在物体定位方面（localization）不够准确，并且召回率（recall）较低。YOLOv2在改进中遵循一个原则：保持检测速度，这也是YOLO模型的一大优势。YOLOv2的改进策略如图所示，可以看出，大部分的改进方法都可以比较显著提升模型的mAP。下面详细介绍各个改进策略。<br><img src="/2018/08/01/detect/yolo2-0.png" alt=""></p>
+<h2 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h2><p><a href="https://arxiv.org/abs/1502.03167" target="_blank" rel="noopener">Batch Normalization: Accelerating Deep Network Training by  Reducing Internal Covariate Shift</a><br>具有以下几点特性</p>
+<ul>
+<li>快速收敛，你可以选择更大的初始学习率</li>
+<li>提高网络泛化能力，可以不考虑dropout和L2正则项系数或者使用更小的L2正则项系数</li>
+<li>不需要AlexNet中用到的局部响应归一化，BN本身是一个归一化网络层</li>
+<li>可以把训练数据彻底打乱</li>
+</ul>
+<h3 id="为什么需要BN"><a href="#为什么需要BN" class="headerlink" title="为什么需要BN"></a>为什么需要BN</h3><ol>
+<li><strong>神经网络的本质是为了学习数据分布，一旦训练数据与测试数据的分布不同，网络的泛化能力也就会降低。</strong></li>
+<li><strong>一旦每次批训练的分布不同，那么网络在每次迭代都要去学习适应不同的分布，这样将会大大降低网络的训练速度，这也是我们为什么需要BN的原因。</strong></li>
+</ol>
+<p>网络在前面几层发生的微小变化到后面层都会被累积放大，如果不做BN，那么训练数据的分布一直在发生变化，将会影响网络的学习速度。<br>我们以第二个层为例：网络第二层输入是由第一层参数和输入得到的，而第一层的参数在整个训练过程中一直在发生变化，因此必然会引起后面每一个层输入数据分布的改变。我们把网络中间层在训练过程中分布的改变称之为<strong>Internal Covariate Shift</strong>。BN则是为了解决中间层数据分布一直发生变化的问题。</p>
+<p>在网络的每一层输入之前，插入一个归一化层，然后再进入下一层网络。<br>其实如果是仅仅使用上面的归一化公式，对网络某一层A的输出数据做归一化，然后送入网络下一层B，这样是会影响到本层网络A所学习到的特征的。打个比方，比如我网络中间某一层学习到特征数据本身就分布在S型激活函数的两侧，你强制把它给我归一化处理、标准差也限制在了1，把数据变换成分布于s函数的中间部分，这样就相当于我这一层网络所学习到的特征分布被你搞坏了，这可怎么办？于是文献使出了一招惊天地泣鬼神的招式：<strong>变换重构</strong>，引入了可学习参数γ、β，这就是算法关键之处：<br><img src="/2018/08/01/detect/yolo2-1.png" alt=""><br>每一层神经元都有这样的参数：<br><img src="/2018/08/01/detect/yolo2-2.png" alt=""><br>让我们的网络可以学习恢复出原始网络所要学习的特征分布。<br>最后Batch Normalization网络层的前向传导过程公式就是：<br><img src="/2018/08/01/detect/yolo2-3.png" alt=""><br>在YOLOv2中，每个卷积层后面都添加了Batch Normalization层，并且不再使用droput。</p>
+<h2 id="High-Resolution-Classifier"><a href="#High-Resolution-Classifier" class="headerlink" title="High Resolution Classifier"></a>High Resolution Classifier</h2><p>目前大部分的检测模型都会在先在ImageNet分类数据集上预训练模型的主体部分（CNN特征提取器），由于历史原因，ImageNet分类模型基本采用大小为 224×224 的图片作为输入，分辨率相对较低，不利于检测模型。所以YOLOv1在采用 224×224 分类模型预训练后，将分辨率增加至 448×448 ，并使用这个高分辨率在检测数据集上finetune。但是直接切换分辨率，检测模型可能难以快速适应高分辨率。所以YOLOv2增加了在ImageNet数据集上使用 448×448 输入来finetune分类网络这一中间过程（10 epochs），这可以使得模型在检测数据集上finetune之前已经适用高分辨率输入。使用高分辨率分类器后，YOLOv2的mAP提升了约4%。</p>
+<h2 id="Convolutional-With-Anchor-Boxes"><a href="#Convolutional-With-Anchor-Boxes" class="headerlink" title="Convolutional With Anchor Boxes"></a>Convolutional With Anchor Boxes</h2><p>YOLOv2移除了YOLOv1中的全连接层而采用了卷积和anchor boxes来预测边界框。为了使检测所用的特征图分辨率更高，移除其中的一个pool层。在检测模型中，YOLOv2不是采用 448×448 图片作为输入，而是采用 416×416 大小。因为YOLOv2模型下采样的总步长为 32 ，对于 416×416 大小的图片，最终得到的特征图大小为 13×13 ，维度是奇数，这样特征图恰好只有一个中心位置。<br>对于YOLOv1，每个cell都预测2个boxes，每个boxes包含5个值： (x, y, w, h, c) ，前4个值是边界框位置与大小，最后一个值是置信度（confidence scores，包含两部分：含有物体的概率以及预测框与ground truth的IOU）。但是每个cell只预测一套分类概率值（class predictions，其实是置信度下的条件概率值）,供2个boxes共享。YOLOv2使用了anchor boxes之后，每个位置的各个anchor box都单独预测一套分类概率值。<br>使用anchor boxes之后，YOLOv2的mAP有稍微下降，召回率大大提升，由原来的81%升至88%。</p>
+<h2 id="Dimension-Clusters"><a href="#Dimension-Clusters" class="headerlink" title="Dimension Clusters"></a>Dimension Clusters</h2><p>pass</p>
+<h2 id="New-Network-Darknet-19"><a href="#New-Network-Darknet-19" class="headerlink" title="New Network: Darknet-19"></a>New Network: Darknet-19</h2><p>YOLOv2采用了一个新的基础模型（特征提取器），称为Darknet-19，包括19个卷积层和5个maxpooling层，如图4所示。Darknet-19与VGG16模型设计原则是一致的，主要采用 3×3 卷积，采用 2×2 的maxpooling层之后，特征图维度降低2倍，而同时将特征图的channles增加两倍。与NIN(Network in Network)类似，Darknet-19最终采用global avgpooling做预测，并且在 3×3 卷积之间使用 1×1 卷积来压缩特征图channles以降低模型计算量和参数。Darknet-19每个卷积层后面同样使用了batch norm层以加快收敛速度，降低模型过拟合。在ImageNet分类数据集上，Darknet-19的top-1准确度为72.9%，top-5准确度为91.2%，但是模型参数相对小一些。使用Darknet-19之后，YOLOv2的mAP值没有显著提升，但是计算量却可以减少约33%。</p>
+<p>## </p>
   
 	</div>
 		<footer class="article-footer clearfix">
