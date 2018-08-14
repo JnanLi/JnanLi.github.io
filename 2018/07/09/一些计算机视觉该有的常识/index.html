@@ -101,6 +101,12 @@ var _hmt = _hmt || [];
 <li>根据训练数据中类的分布情况，AP可能从某些类(具有良好的训练数据)非常高到非常低(具有较少/坏数据的类)。你的mAP可能是稳健的，但你的模型可能对某些类很好，对某些类很坏。因此，在分析模型结果时，最好查看单个类的AP。<strong>这些值也可以作为增加更多训练样本的指标。</strong></li>
 </ol>
 <h1 id="3-top5"><a href="#3-top5" class="headerlink" title="3. top5"></a>3. top5</h1><p>top1就是你预测的label取最后概率向量里面最大的那一个作为预测结果，你的预测结果中概率最大的那个类必须是正确类别才算预测正确。而top5就是最后概率向量最大的前五名中出现了正确概率即为预测正确。</p>
+<h1 id="4-K-means"><a href="#4-K-means" class="headerlink" title="4. K-means"></a>4. K-means</h1><p>已知观测集 (x<sub>1</sub>,x<sub>2</sub>,…,x<sub>n</sub>) ，其中每个观测都是一个 d-维实向量，k-means要把这  n个观测划分到k个集合中(k≤n),使得组内平方和（WCSS within-cluster sum of squares）最小。<br><img src="/2018/07/09/一些计算机视觉该有的常识/kmeans.svg" alt=""></p>
+<h2 id="4-1-标准算法"><a href="#4-1-标准算法" class="headerlink" title="4.1 标准算法"></a>4.1 标准算法</h2><p>最常用的算法使用了迭代优化的技术。它被称为k-means而广为使用，有时也被称为Lloyd算法（尤其在计算机科学领域）。已知初始的k个均值点 m<sub>1</sub><sup>(1)</sup>,…,m<sub>k</sub><sup>(1)</sup>,算法的按照下面两个步骤交替进行:</p>
+<ol>
+<li>分配(Assignment)：将每个观测分配到聚类中，使得组内平方和（WCSS）达到最小。<br><img src="/2018/07/09/一些计算机视觉该有的常识/kmeans2.svg" alt=""></li>
+<li>更新(Update)：对于上一步得到的每一个聚类，以聚类中观测值的图心，作为新的均值点。<br><img src="/2018/07/09/一些计算机视觉该有的常识/kmeans3.svg" alt=""></li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
